@@ -80,7 +80,25 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="D:/programming/cpp projects/books_library/adaptors.cpp">
+			<Option target="books_library"/>
+		</Unit>
+		<Unit filename="D:/programming/cpp projects/books_library/adaptors.h">
+			<Option target="books_library"/>
+		</Unit>
+		<Unit filename="D:/programming/cpp projects/books_library/entities.cpp">
+			<Option target="books_library"/>
+		</Unit>
+		<Unit filename="D:/programming/cpp projects/books_library/entities.h">
+			<Option target="books_library"/>
+		</Unit>
 		<Unit filename="D:/programming/cpp projects/books_library/main.cpp">
+			<Option target="books_library"/>
+		</Unit>
+		<Unit filename="D:/programming/cpp projects/books_library/ui.cpp">
+			<Option target="books_library"/>
+		</Unit>
+		<Unit filename="D:/programming/cpp projects/books_library/ui.h">
 			<Option target="books_library"/>
 		</Unit>
 		<Unit filename="D:/programming/cpp projects/books_library/CMakeLists.txt">

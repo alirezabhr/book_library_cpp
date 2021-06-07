@@ -73,12 +73,12 @@ preinstall:
 CMakeFiles/books_library.dir/all:
 	$(MAKE) -f CMakeFiles\books_library.dir\build.make CMakeFiles/books_library.dir/depend
 	$(MAKE) -f CMakeFiles\books_library.dir\build.make CMakeFiles/books_library.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="D:\programming\cpp projects\books_library\cmake-build-debug\CMakeFiles" --progress-num=1,2 "Built target books_library"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="D:\programming\cpp projects\books_library\cmake-build-debug\CMakeFiles" --progress-num=1,2,3,4,5 "Built target books_library"
 .PHONY : CMakeFiles/books_library.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/books_library.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "D:\programming\cpp projects\books_library\cmake-build-debug\CMakeFiles" 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "D:\programming\cpp projects\books_library\cmake-build-debug\CMakeFiles" 5
 	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/books_library.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "D:\programming\cpp projects\books_library\cmake-build-debug\CMakeFiles" 0
 .PHONY : CMakeFiles/books_library.dir/rule

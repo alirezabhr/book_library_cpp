@@ -122,6 +122,60 @@ books_library/fast:
 	$(MAKE) -f CMakeFiles\books_library.dir\build.make CMakeFiles/books_library.dir/build
 .PHONY : books_library/fast
 
+adaptors.obj: adaptors.cpp.obj
+
+.PHONY : adaptors.obj
+
+# target to build an object file
+adaptors.cpp.obj:
+	$(MAKE) -f CMakeFiles\books_library.dir\build.make CMakeFiles/books_library.dir/adaptors.cpp.obj
+.PHONY : adaptors.cpp.obj
+
+adaptors.i: adaptors.cpp.i
+
+.PHONY : adaptors.i
+
+# target to preprocess a source file
+adaptors.cpp.i:
+	$(MAKE) -f CMakeFiles\books_library.dir\build.make CMakeFiles/books_library.dir/adaptors.cpp.i
+.PHONY : adaptors.cpp.i
+
+adaptors.s: adaptors.cpp.s
+
+.PHONY : adaptors.s
+
+# target to generate assembly for a file
+adaptors.cpp.s:
+	$(MAKE) -f CMakeFiles\books_library.dir\build.make CMakeFiles/books_library.dir/adaptors.cpp.s
+.PHONY : adaptors.cpp.s
+
+entities.obj: entities.cpp.obj
+
+.PHONY : entities.obj
+
+# target to build an object file
+entities.cpp.obj:
+	$(MAKE) -f CMakeFiles\books_library.dir\build.make CMakeFiles/books_library.dir/entities.cpp.obj
+.PHONY : entities.cpp.obj
+
+entities.i: entities.cpp.i
+
+.PHONY : entities.i
+
+# target to preprocess a source file
+entities.cpp.i:
+	$(MAKE) -f CMakeFiles\books_library.dir\build.make CMakeFiles/books_library.dir/entities.cpp.i
+.PHONY : entities.cpp.i
+
+entities.s: entities.cpp.s
+
+.PHONY : entities.s
+
+# target to generate assembly for a file
+entities.cpp.s:
+	$(MAKE) -f CMakeFiles\books_library.dir\build.make CMakeFiles/books_library.dir/entities.cpp.s
+.PHONY : entities.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -149,6 +203,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles\books_library.dir\build.make CMakeFiles/books_library.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+ui.obj: ui.cpp.obj
+
+.PHONY : ui.obj
+
+# target to build an object file
+ui.cpp.obj:
+	$(MAKE) -f CMakeFiles\books_library.dir\build.make CMakeFiles/books_library.dir/ui.cpp.obj
+.PHONY : ui.cpp.obj
+
+ui.i: ui.cpp.i
+
+.PHONY : ui.i
+
+# target to preprocess a source file
+ui.cpp.i:
+	$(MAKE) -f CMakeFiles\books_library.dir\build.make CMakeFiles/books_library.dir/ui.cpp.i
+.PHONY : ui.cpp.i
+
+ui.s: ui.cpp.s
+
+.PHONY : ui.s
+
+# target to generate assembly for a file
+ui.cpp.s:
+	$(MAKE) -f CMakeFiles\books_library.dir\build.make CMakeFiles/books_library.dir/ui.cpp.s
+.PHONY : ui.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -158,9 +239,18 @@ help:
 	@echo ... rebuild_cache
 	@echo ... books_library
 	@echo ... edit_cache
+	@echo ... adaptors.obj
+	@echo ... adaptors.i
+	@echo ... adaptors.s
+	@echo ... entities.obj
+	@echo ... entities.i
+	@echo ... entities.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... ui.obj
+	@echo ... ui.i
+	@echo ... ui.s
 .PHONY : help
 
 

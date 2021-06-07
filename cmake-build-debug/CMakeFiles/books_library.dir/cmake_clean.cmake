@@ -1,5 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/books_library.dir/adaptors.cpp.obj"
+  "CMakeFiles/books_library.dir/entities.cpp.obj"
   "CMakeFiles/books_library.dir/main.cpp.obj"
+  "CMakeFiles/books_library.dir/ui.cpp.obj"
   "books_library.exe"
   "books_library.exe.manifest"
   "books_library.pdb"

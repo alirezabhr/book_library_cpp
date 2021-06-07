@@ -69,19 +69,64 @@ CMakeFiles/books_library.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/books_library.dir/main.cpp.s"
 	D:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "D:\programming\cpp projects\books_library\main.cpp" -o CMakeFiles\books_library.dir\main.cpp.s
 
+CMakeFiles/books_library.dir/adaptors.cpp.obj: CMakeFiles/books_library.dir/flags.make
+CMakeFiles/books_library.dir/adaptors.cpp.obj: ../adaptors.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:\programming\cpp projects\books_library\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/books_library.dir/adaptors.cpp.obj"
+	D:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\books_library.dir\adaptors.cpp.obj -c "D:\programming\cpp projects\books_library\adaptors.cpp"
+
+CMakeFiles/books_library.dir/adaptors.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/books_library.dir/adaptors.cpp.i"
+	D:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "D:\programming\cpp projects\books_library\adaptors.cpp" > CMakeFiles\books_library.dir\adaptors.cpp.i
+
+CMakeFiles/books_library.dir/adaptors.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/books_library.dir/adaptors.cpp.s"
+	D:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "D:\programming\cpp projects\books_library\adaptors.cpp" -o CMakeFiles\books_library.dir\adaptors.cpp.s
+
+CMakeFiles/books_library.dir/entities.cpp.obj: CMakeFiles/books_library.dir/flags.make
+CMakeFiles/books_library.dir/entities.cpp.obj: ../entities.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:\programming\cpp projects\books_library\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/books_library.dir/entities.cpp.obj"
+	D:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\books_library.dir\entities.cpp.obj -c "D:\programming\cpp projects\books_library\entities.cpp"
+
+CMakeFiles/books_library.dir/entities.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/books_library.dir/entities.cpp.i"
+	D:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "D:\programming\cpp projects\books_library\entities.cpp" > CMakeFiles\books_library.dir\entities.cpp.i
+
+CMakeFiles/books_library.dir/entities.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/books_library.dir/entities.cpp.s"
+	D:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "D:\programming\cpp projects\books_library\entities.cpp" -o CMakeFiles\books_library.dir\entities.cpp.s
+
+CMakeFiles/books_library.dir/ui.cpp.obj: CMakeFiles/books_library.dir/flags.make
+CMakeFiles/books_library.dir/ui.cpp.obj: ../ui.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:\programming\cpp projects\books_library\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/books_library.dir/ui.cpp.obj"
+	D:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\books_library.dir\ui.cpp.obj -c "D:\programming\cpp projects\books_library\ui.cpp"
+
+CMakeFiles/books_library.dir/ui.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/books_library.dir/ui.cpp.i"
+	D:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "D:\programming\cpp projects\books_library\ui.cpp" > CMakeFiles\books_library.dir\ui.cpp.i
+
+CMakeFiles/books_library.dir/ui.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/books_library.dir/ui.cpp.s"
+	D:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "D:\programming\cpp projects\books_library\ui.cpp" -o CMakeFiles\books_library.dir\ui.cpp.s
+
 # Object files for target books_library
 books_library_OBJECTS = \
-"CMakeFiles/books_library.dir/main.cpp.obj"
+"CMakeFiles/books_library.dir/main.cpp.obj" \
+"CMakeFiles/books_library.dir/adaptors.cpp.obj" \
+"CMakeFiles/books_library.dir/entities.cpp.obj" \
+"CMakeFiles/books_library.dir/ui.cpp.obj"
 
 # External object files for target books_library
 books_library_EXTERNAL_OBJECTS =
 
 books_library.exe: CMakeFiles/books_library.dir/main.cpp.obj
+books_library.exe: CMakeFiles/books_library.dir/adaptors.cpp.obj
+books_library.exe: CMakeFiles/books_library.dir/entities.cpp.obj
+books_library.exe: CMakeFiles/books_library.dir/ui.cpp.obj
 books_library.exe: CMakeFiles/books_library.dir/build.make
 books_library.exe: CMakeFiles/books_library.dir/linklibs.rsp
 books_library.exe: CMakeFiles/books_library.dir/objects1.rsp
 books_library.exe: CMakeFiles/books_library.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="D:\programming\cpp projects\books_library\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable books_library.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="D:\programming\cpp projects\books_library\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable books_library.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\books_library.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
