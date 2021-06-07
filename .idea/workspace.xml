@@ -1,14 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="books_library" targetName="books_library" />
+    </generated>
+  </component>
   <component name="CMakeSettings">
     <configurations>
       <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
     </configurations>
   </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d910d12c-0034-4e33-9e4f-ec14269d2e83" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeCCompiler.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeCXXCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeCXXCompiler.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeRCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeRCCompiler.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdC/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdC/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdCXX/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdCXX/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/flags.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/link.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.cxx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/books_library.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/books_library.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entities.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/entities.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entities.h" beforeDir="false" afterPath="$PROJECT_DIR$/entities.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1tcVso2dlwhF9rkEQeWBVbKFkeQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
   <component name="RunManager">
     <configuration name="books_library" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="books_library" TARGET_NAME="books_library" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="books_library" RUN_TARGET_NAME="books_library">
@@ -16,5 +72,53 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d910d12c-0034-4e33-9e4f-ec14269d2e83" name="Default Changelist" comment="" />
+      <created>1623068573559</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1623068573559</updated>
+      <workItem from="1623068574979" duration="2304000" />
+      <workItem from="1623070907264" duration="8532000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="97" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1623072032654">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="97" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1623072032654" />
+    <state x="423" y="57" key="#com.intellij.ide.util.MemberChooser" timestamp="1623079853495">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="423" y="57" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1623079853495" />
+    <state width="1237" height="207" key="GridCell.Tab.0.bottom" timestamp="1623078750176">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="207" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1623078750176" />
+    <state width="1237" height="207" key="GridCell.Tab.0.center" timestamp="1623078750176">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="207" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1623078750176" />
+    <state width="1237" height="207" key="GridCell.Tab.0.left" timestamp="1623078750176">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="207" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1623078750176" />
+    <state width="1237" height="207" key="GridCell.Tab.0.right" timestamp="1623078750176">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="207" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1623078750176" />
+    <state x="367" y="0" key="refactoring.ChangeSignatureDialog" timestamp="1623070059150">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="367" y="0" key="refactoring.ChangeSignatureDialog/0.0.1280.680@0.0.1280.680" timestamp="1623070059150" />
   </component>
 </project>

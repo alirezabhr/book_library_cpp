@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/programming/cpp projects/books_library/ui.cpp
+ui.h
+D:/programming/cpp projects/books_library/ui.h
+iostream
+-
+string
+-
+
+D:/programming/cpp projects/books_library/ui.h
+string
+-
+

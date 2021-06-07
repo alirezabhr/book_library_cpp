@@ -1,6 +1,7 @@
 #include <iostream>
+#include "ui.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    showMainMenu();
     return 0;
 }
