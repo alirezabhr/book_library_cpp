@@ -12,29 +12,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d910d12c-0034-4e33-9e4f-ec14269d2e83" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeCCompiler.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeCXXCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeCXXCompiler.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeRCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeRCCompiler.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdC/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdC/a.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdCXX/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdCXX/a.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/depend.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/flags.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/link.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.cxx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/books_library.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/books_library.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adaptors.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/adaptors.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adaptors.h" beforeDir="false" afterPath="$PROJECT_DIR$/adaptors.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/entities.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/entities.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/objects.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/ui.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/ui.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/books_library.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/books_library.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entities.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/entities.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entities.h" beforeDir="false" afterPath="$PROJECT_DIR$/entities.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui.h" beforeDir="false" afterPath="$PROJECT_DIR$/ui.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +73,8 @@
       <option name="presentableId" value="Default" />
       <updated>1623068573559</updated>
       <workItem from="1623068574979" duration="2304000" />
-      <workItem from="1623070907264" duration="8532000" />
+      <workItem from="1623070907264" duration="10762000" />
+      <workItem from="1623142750458" duration="12619000" />
     </task>
     <servers />
   </component>
@@ -96,29 +86,37 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="97" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1623072032654" />
-    <state x="423" y="57" key="#com.intellij.ide.util.MemberChooser" timestamp="1623079853495">
+    <state x="423" y="57" key="#com.intellij.ide.util.MemberChooser" timestamp="1623154711752">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="423" y="57" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1623079853495" />
-    <state width="1237" height="207" key="GridCell.Tab.0.bottom" timestamp="1623078750176">
+    <state x="423" y="57" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1623154711752" />
+    <state width="1237" height="207" key="GridCell.Tab.0.bottom" timestamp="1623149587778">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="207" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1623078750176" />
-    <state width="1237" height="207" key="GridCell.Tab.0.center" timestamp="1623078750176">
+    <state width="1237" height="207" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1623149587778" />
+    <state width="1237" height="207" key="GridCell.Tab.0.center" timestamp="1623149587778">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="207" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1623078750176" />
-    <state width="1237" height="207" key="GridCell.Tab.0.left" timestamp="1623078750176">
+    <state width="1237" height="207" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1623149587778" />
+    <state width="1237" height="207" key="GridCell.Tab.0.left" timestamp="1623149587777">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="207" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1623078750176" />
-    <state width="1237" height="207" key="GridCell.Tab.0.right" timestamp="1623078750176">
+    <state width="1237" height="207" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1623149587777" />
+    <state width="1237" height="207" key="GridCell.Tab.0.right" timestamp="1623149587778">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="207" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1623078750176" />
+    <state width="1237" height="207" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1623149587778" />
     <state x="367" y="0" key="refactoring.ChangeSignatureDialog" timestamp="1623070059150">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="367" y="0" key="refactoring.ChangeSignatureDialog/0.0.1280.680@0.0.1280.680" timestamp="1623070059150" />
+    <state x="298" y="151" key="run.anything.popup" timestamp="1623157119404">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="298" y="151" key="run.anything.popup/0.0.1280.680@0.0.1280.680" timestamp="1623157119404" />
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1623154852984">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1623154852984" />
   </component>
 </project>
