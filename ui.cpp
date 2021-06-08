@@ -1,7 +1,4 @@
 #include "ui.h"
-#include <iostream>
-#include <string>
-//#include <cstdlib>
 
 using namespace std;
 
@@ -15,11 +12,13 @@ bool check_number(const string &str) {
     return true;
 }
 
-void showMainMenu() {
+vector<int> showMainMenu() {
     string inputNum;
     int inputNumInt;
     bool isValidNum;
+    vector<int> size_vector;
 
+    system("cls");
     while (true) {
         cout << "1. Add Student\n2. Add Book" << endl;
         cout << "Enter A Number:";
@@ -43,7 +42,8 @@ void showMainMenu() {
 
     if (inputNumInt == 1) {
         system("cls");
-        showAdaptorOptions();
+        size_vector = showAdaptorOptions();
+        return size_vector;
     } else if (inputNumInt == 2) {
         cout << "here 2" << endl;
     } else {
@@ -52,15 +52,17 @@ void showMainMenu() {
 }
 
 
-void showAdaptorOptions() {
+vector<int> showAdaptorOptions() {
     string inputNum;
     int inputNumInt;
     bool isValid;
     int recordSize = 0;
     int nameSize = 0;
     int lastNameSize = 0;
+    int optionType;
 
     while (true) {
+        system("cls");
         cout << "Do you want to set a record size?(0 for no/1 for yes)" << endl;
         cout << "Enter A Number (0/1):";
         cin >> inputNum;
@@ -85,6 +87,7 @@ void showAdaptorOptions() {
     }
 
     while (true) {
+        system("cls");
         cout << "Do you want to set a name and last name size?(0 for no/1 for yes)" << endl;
         cout << "Enter A Number (0/1):";
         cin >> inputNum;
@@ -109,21 +112,32 @@ void showAdaptorOptions() {
         lastNameSize = getLastNameStrSize();
     }
 
-
+    system("cls");
     cout << "record size: " << recordSize << "\nname size: " << nameSize << "\nlast name size: " << lastNameSize << endl;
     if (recordSize == 0) {
         if (nameSize == 0 || lastNameSize == 0) {
             cout << "dyn rec dyn str" << endl;
+            optionType = 1;
         } else {
             cout << "dyn rec fix str" << endl;
+            optionType = 2;
         }
     } else {
         if (nameSize == 0 || lastNameSize == 0) {
             cout << "fix rec dyn str" << endl;
+            optionType = 3;
         } else {
             cout << "fix rec fix str" << endl;
+            optionType = 4;
         }
     }
+    vector<int> v1;
+    v1.push_back(optionType);
+    v1.push_back(recordSize);
+    v1.push_back(nameSize);
+    v1.push_back(lastNameSize);
+
+    return v1;
 }
 
 int getRecordSize() {
@@ -132,6 +146,7 @@ int getRecordSize() {
     bool isValid;
 
     while (true) {
+        system("cls");
         cout << "please enter a size for record? (from 10 to 100)" << endl;
         cout << "Enter A Size:";
         cin >> inputNum;
@@ -160,6 +175,7 @@ int getNameStrSize() {
     bool isValid;
 
     while (true) {
+        system("cls");
         cout << "please enter a size for name? (from 1 to 20)" << endl;
         cout << "Enter A Size:";
         cin >> inputNum;
@@ -188,6 +204,7 @@ int getLastNameStrSize() {
     bool isValid;
 
     while (true) {
+        system("cls");
         cout << "please enter a size for record? (from 1 to 30)" << endl;
         cout << "Enter A Size:";
         cin >> inputNum;
