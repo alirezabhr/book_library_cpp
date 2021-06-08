@@ -1,3 +1,6 @@
+#ifndef BOOKS_LIBRARY_ADAPTORS_H
+#define BOOKS_LIBRARY_ADAPTORS_H
+
 #include <string>
 #include "entities.h"
 
@@ -6,7 +9,7 @@ public:
     int recSize = 0;
     int nSize = 0;
     int lnSize = 0;
-    virtual string writeStudent(Student &s) = 0;
+    virtual std::string writeStudent(Student &s) = 0;
 };
 
 class FixedRecordAdap: public Adaptor {
@@ -49,3 +52,5 @@ class DynRecFixStrAdap: public DynamicRecordAdap, public FixedStringAdap {
 class DynRecDynStrAdap: public DynamicRecordAdap, public DynamicStringAdap {
 
 };
+
+#endif //BOOKS_LIBRARY_ADAPTORS_H

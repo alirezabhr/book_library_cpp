@@ -1,11 +1,6 @@
-////
-//// Created by Alireza on 6/7/2021.
-////
-//
-//#ifndef BOOKS_LIBRARY_UI_H
-//#define BOOKS_LIBRARY_UI_H
-//
-//#endif //BOOKS_LIBRARY_UI_H
+#ifndef BOOKS_LIBRARY_UI_H
+#define BOOKS_LIBRARY_UI_H
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -16,3 +11,5 @@ std::vector<int> showAdaptorOptions();
 int getRecordSize();
 int getNameStrSize();
 int getLastNameStrSize();
+
+#endif //BOOKS_LIBRARY_UI_H
