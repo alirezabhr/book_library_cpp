@@ -4,6 +4,16 @@
 #include <iostream>
 #include "adaptors.h"
 
+class File {
+    Adaptor *fAdapt;
+    char *charFile;
+public:
+    File(Adaptor *fAdapt);
+
+    void write(Student s);
+    void read(int index, Student &s);
+    void append(char *data);
+};
 
 class Student{
     int studentID;
@@ -29,7 +39,7 @@ class Book{
     string name;
     string author;
 public:
-    Book(int id, const string &name, const string &author) : id(id), name(name), author(author) {}
+    Book(int id, const string &name, const string &author);
 };
 
 #endif //BOOKS_LIBRARY_ENTITIES_H
