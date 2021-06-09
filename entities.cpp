@@ -1,15 +1,21 @@
 #include <iostream>
+#include <fstream>
 #include "entities.h"
 
 using namespace std;
 
 File::File(Adaptor *fAdapt) : fAdapt(fAdapt) {
     this->charFile = new char[fAdapt->recSize];
-    cout << "in myFIle Constructor" << endl;
 }
 
 void File::write(const Student& s) {
+    const string fileName = "student.txt";
 
+    std::ofstream ofs;
+    ofs.open (fileName, std::ofstream::out | std::ofstream::app);
+    ofs << s;
+
+    ofs.close();
 }
 
 Student::Student(int studentID, const string &name, const string &lastName) : studentID(studentID), name(name),
@@ -21,7 +27,7 @@ Book::Book(int id, const string &name, const string &author) : id(id), name(name
 
 }
 
-Student get_student(int nameSz, int lastNameSz) {
+Student getStudent(int nameSz, int lastNameSz) {
     string name;
     string lastName;
     int stdNo;

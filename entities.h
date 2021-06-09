@@ -44,6 +44,6 @@ public:
     Book(int id, const std::string &name, const std::string &author);
 };
 
-Student get_student(int nameSize, int lastNameSize);
+Student getStudent(int nameSize, int lastNameSize);
 
 #endif //BOOKS_LIBRARY_ENTITIES_H
