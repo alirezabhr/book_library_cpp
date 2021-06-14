@@ -4,9 +4,12 @@
 CMakeFiles/books_library.dir/adaptors.cpp.obj: ../adaptors.cpp
 CMakeFiles/books_library.dir/adaptors.cpp.obj: ../adaptors.h
 
+CMakeFiles/books_library.dir/entities.cpp.obj: ../adaptors.h
 CMakeFiles/books_library.dir/entities.cpp.obj: ../entities.cpp
 CMakeFiles/books_library.dir/entities.cpp.obj: ../entities.h
 
+CMakeFiles/books_library.dir/main.cpp.obj: ../adaptors.h
+CMakeFiles/books_library.dir/main.cpp.obj: ../entities.h
 CMakeFiles/books_library.dir/main.cpp.obj: ../main.cpp
 CMakeFiles/books_library.dir/main.cpp.obj: ../ui.h
 
