@@ -12,17 +12,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d910d12c-0034-4e33-9e4f-ec14269d2e83" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adaptors.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/adaptors.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adaptors.h" beforeDir="false" afterPath="$PROJECT_DIR$/adaptors.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/CXX.includecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/adaptors.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/adaptors.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/depend.internal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/depend.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/entities.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/entities.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/main.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/objects.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/ui.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/ui.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/books_library.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/books_library.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entities.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/entities.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +76,7 @@
       <workItem from="1623142750458" duration="13971000" />
       <workItem from="1623234659357" duration="16816000" />
       <workItem from="1623434132454" duration="30000" />
-      <workItem from="1623673849871" duration="704000" />
+      <workItem from="1623673849871" duration="9886000" />
     </task>
     <servers />
   </component>
@@ -97,22 +96,38 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="423" y="57" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1623252107789" />
-    <state width="1237" height="238" key="GridCell.Tab.0.bottom" timestamp="1623241113832">
+    <state width="1237" height="225" key="GridCell.Tab.0.bottom" timestamp="1623768065511">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="238" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1623241113832" />
-    <state width="1237" height="238" key="GridCell.Tab.0.center" timestamp="1623241113832">
+    <state width="1237" height="225" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1623768065511" />
+    <state width="1237" height="225" key="GridCell.Tab.0.center" timestamp="1623768065511">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="238" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1623241113832" />
-    <state width="1237" height="238" key="GridCell.Tab.0.left" timestamp="1623241113831">
+    <state width="1237" height="225" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1623768065511" />
+    <state width="1237" height="225" key="GridCell.Tab.0.left" timestamp="1623768065511">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="238" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1623241113831" />
-    <state width="1237" height="238" key="GridCell.Tab.0.right" timestamp="1623241113832">
+    <state width="1237" height="225" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1623768065511" />
+    <state width="1237" height="225" key="GridCell.Tab.0.right" timestamp="1623768065511">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="238" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1623241113832" />
+    <state width="1237" height="225" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1623768065511" />
+    <state width="1237" height="212" key="GridCell.Tab.1.bottom" timestamp="1623765928185">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="212" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1623765928185" />
+    <state width="1237" height="212" key="GridCell.Tab.1.center" timestamp="1623765928185">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="212" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1623765928185" />
+    <state width="1237" height="212" key="GridCell.Tab.1.left" timestamp="1623765928185">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="212" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1623765928185" />
+    <state width="1237" height="212" key="GridCell.Tab.1.right" timestamp="1623765928185">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="212" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1623765928185" />
     <state x="0" y="0" width="611" height="680" key="find.popup" timestamp="1623252472451">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -121,10 +136,10 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="367" y="0" key="refactoring.ChangeSignatureDialog/0.0.1280.680@0.0.1280.680" timestamp="1623237015014" />
-    <state x="298" y="151" key="run.anything.popup" timestamp="1623157119404">
+    <state x="298" y="151" key="run.anything.popup" timestamp="1623763592366">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="298" y="151" key="run.anything.popup/0.0.1280.680@0.0.1280.680" timestamp="1623157119404" />
+    <state x="298" y="151" key="run.anything.popup/0.0.1280.680@0.0.1280.680" timestamp="1623763592366" />
     <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1623154852984">
       <screen x="0" y="0" width="1280" height="680" />
     </state>

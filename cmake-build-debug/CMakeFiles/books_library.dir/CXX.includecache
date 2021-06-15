@@ -13,6 +13,8 @@ string
 D:/programming/cpp projects/books_library/entities.cpp
 iostream
 -
+fstream
+-
 entities.h
 D:/programming/cpp projects/books_library/entities.h
 
@@ -21,26 +23,4 @@ iostream
 -
 adaptors.h
 D:/programming/cpp projects/books_library/adaptors.h
-
-D:/programming/cpp projects/books_library/main.cpp
-iostream
--
-vector
--
-ui.h
-D:/programming/cpp projects/books_library/ui.h
-entities.h
-D:/programming/cpp projects/books_library/entities.h
-
-D:/programming/cpp projects/books_library/ui.cpp
-ui.h
-D:/programming/cpp projects/books_library/ui.h
-
-D:/programming/cpp projects/books_library/ui.h
-iostream
--
-string
--
-vector
--
 
