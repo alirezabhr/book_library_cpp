@@ -6,20 +6,30 @@
 
 #IncludeRegexTransform: 
 
+D:/programming/cpp projects/books_library/adaptors.cpp
+adaptors.h
 D:/programming/cpp projects/books_library/adaptors.h
-string
+
+D:/programming/cpp projects/books_library/adaptors.h
+iostream
 -
+entities.h
+D:/programming/cpp projects/books_library/entities.h
 
 D:/programming/cpp projects/books_library/entities.cpp
 iostream
--
-fstream
 -
 entities.h
 D:/programming/cpp projects/books_library/entities.h
 
 D:/programming/cpp projects/books_library/entities.h
 iostream
+-
+
+D:/programming/cpp projects/books_library/main.cpp
+iostream
+-
+vector
 -
 adaptors.h
 D:/programming/cpp projects/books_library/adaptors.h

@@ -15,13 +15,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/adaptors.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/adaptors.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/adaptors.h" beforeDir="false" afterPath="$PROJECT_DIR$/adaptors.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/CXX.includecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/adaptors.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/adaptors.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/entities.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/entities.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/main.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/objects.a" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/books_library.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/books_library.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entities.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/entities.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entities.h" beforeDir="false" afterPath="$PROJECT_DIR$/entities.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,7 +72,9 @@
       <workItem from="1623142750458" duration="13971000" />
       <workItem from="1623234659357" duration="16816000" />
       <workItem from="1623434132454" duration="30000" />
-      <workItem from="1623673849871" duration="9886000" />
+      <workItem from="1623673849871" duration="10211000" />
+      <workItem from="1623769512780" duration="4000" />
+      <workItem from="1623826506450" duration="2343000" />
     </task>
     <servers />
   </component>
@@ -96,38 +94,42 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="423" y="57" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1623252107789" />
-    <state width="1237" height="225" key="GridCell.Tab.0.bottom" timestamp="1623768065511">
+    <state width="1237" height="225" key="GridCell.Tab.0.bottom" timestamp="1623828568218">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="225" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1623768065511" />
-    <state width="1237" height="225" key="GridCell.Tab.0.center" timestamp="1623768065511">
+    <state width="1237" height="225" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1623828568218" />
+    <state width="1237" height="225" key="GridCell.Tab.0.center" timestamp="1623828568218">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="225" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1623768065511" />
-    <state width="1237" height="225" key="GridCell.Tab.0.left" timestamp="1623768065511">
+    <state width="1237" height="225" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1623828568218" />
+    <state width="1237" height="225" key="GridCell.Tab.0.left" timestamp="1623828568217">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="225" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1623768065511" />
-    <state width="1237" height="225" key="GridCell.Tab.0.right" timestamp="1623768065511">
+    <state width="1237" height="225" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1623828568217" />
+    <state width="1237" height="225" key="GridCell.Tab.0.right" timestamp="1623828568218">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="225" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1623768065511" />
-    <state width="1237" height="212" key="GridCell.Tab.1.bottom" timestamp="1623765928185">
+    <state width="1237" height="225" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1623828568218" />
+    <state width="1237" height="212" key="GridCell.Tab.1.bottom" timestamp="1623769493820">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="212" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1623765928185" />
-    <state width="1237" height="212" key="GridCell.Tab.1.center" timestamp="1623765928185">
+    <state width="1237" height="212" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1623769493820" />
+    <state width="1237" height="212" key="GridCell.Tab.1.center" timestamp="1623769493820">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="212" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1623765928185" />
-    <state width="1237" height="212" key="GridCell.Tab.1.left" timestamp="1623765928185">
+    <state width="1237" height="212" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1623769493820" />
+    <state width="1237" height="212" key="GridCell.Tab.1.left" timestamp="1623769493820">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="212" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1623765928185" />
-    <state width="1237" height="212" key="GridCell.Tab.1.right" timestamp="1623765928185">
+    <state width="1237" height="212" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1623769493820" />
+    <state width="1237" height="212" key="GridCell.Tab.1.right" timestamp="1623769493820">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="212" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1623765928185" />
+    <state width="1237" height="212" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1623769493820" />
+    <state x="338" y="165" key="com.intellij.ide.util.TipDialog" timestamp="1623826506617">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="338" y="165" key="com.intellij.ide.util.TipDialog/0.0.1280.680@0.0.1280.680" timestamp="1623826506617" />
     <state x="0" y="0" width="611" height="680" key="find.popup" timestamp="1623252472451">
       <screen x="0" y="0" width="1280" height="680" />
     </state>

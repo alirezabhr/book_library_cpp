@@ -1,35 +1,7 @@
 #include <iostream>
-#include <fstream>
 #include "entities.h"
 
 using namespace std;
-
-File::File(Adaptor *fAdapt) : fAdapt(fAdapt) {
-    this->charFile = new char[fAdapt->getRecSize()];
-}
-
-void File::write(const Student& s) {
-
-    int x = 123;
-    double fx = 34.54;
-    string name = "hello mother fuxker";
-    ofstream outfile;
-    outfile.open("binFile.txt", ios::binary | ios::out);
-    outfile.write(reinterpret_cast<const char *>(&x), sizeof(int));
-    outfile.write(reinterpret_cast<const char *>(&fx), sizeof(fx));
-    outfile.write(reinterpret_cast<const char *>(&name), sizeof(name));
-    outfile.close();
-
-//    int num;
-//    double d;
-//    string new_str;
-//    ifstream infile;
-//    infile.open("binFile.txt", ios::binary | ios::in);
-//    infile.read(reinterpret_cast<char *>(&num), sizeof(int));
-//    infile.read(reinterpret_cast<char *>(&d), sizeof(double));
-//    infile.read(reinterpret_cast<char *>(&new_str), name.size());
-//    cout << "num: " << num << "new str: " << new_str << endl;
-}
 
 Student::Student(int studentID, const string &name, const string &lastName) : studentID(studentID), name(name),
                                                                               lastName(lastName) {

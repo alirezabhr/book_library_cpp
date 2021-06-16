@@ -1,20 +1,14 @@
+#pragma once
 #ifndef BOOKS_LIBRARY_ENTITIES_H
 #define BOOKS_LIBRARY_ENTITIES_H
 
 #include <iostream>
-#include "adaptors.h"
 
 class Student;
 
-class File {
-    Adaptor *fAdapt;
-    char *charFile;
-public:
-    File(Adaptor *fAdapt);
-
-    void write(const Student& s);
-    void read(int index, Student &s);
-    void append(char *data);
+class Object {
+    virtual void write() = 0;
+    virtual void read() = 0;
 };
 
 class Student{
