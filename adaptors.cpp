@@ -42,7 +42,6 @@ void FixRecFixStrAdap::writeRec(Student& student) {
 
     int id = student.getStudentId();
     string name = student.getName();
-    cout << "name is: =" << name << "=" << endl;
 
     ofstream outfile;
     outfile.open("students.txt", ios::binary | ios::out | ios::app);
@@ -58,7 +57,7 @@ void FixRecFixStrAdap::readRec(int index, Student &student) {
     string name;
 
     ifstream infile;
-    infile.open("students.txt", ios::binary | ios::out | ios::app);
+    infile.open("students.txt", ios::binary | ios::in);
     infile.read(reinterpret_cast<char *>(&id), sizeof(id));
     infile.read(reinterpret_cast<char *>(&name), 23);
     infile.close();

@@ -11,6 +11,7 @@ CMakeFiles/books_library.dir/entities.cpp.obj: ../entities.h
 CMakeFiles/books_library.dir/main.cpp.obj: ../adaptors.h
 CMakeFiles/books_library.dir/main.cpp.obj: ../entities.h
 CMakeFiles/books_library.dir/main.cpp.obj: ../main.cpp
+CMakeFiles/books_library.dir/main.cpp.obj: ../ui.h
 
 CMakeFiles/books_library.dir/ui.cpp.obj: ../ui.cpp
 CMakeFiles/books_library.dir/ui.cpp.obj: ../ui.h

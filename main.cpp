@@ -1,38 +1,37 @@
 #include <iostream>
 #include <vector>
+#include "ui.h"
 #include "adaptors.h"
 
 using namespace std;
 
 int main() {
-//    vector<int> v1 = showMainMenu();
-    vector<int> v1 = {4, 52, 16, 23};
+    Config config = getAdaptorOptions();
+//    showMainMenu();
 
-    int adpOption = v1.at(0);
-    switch (adpOption) {
-        case 1:
-            cout << "dyn rec dyn str" << endl;
-            break;
-        case 2:
-            cout << "dyn rec fix str" << endl;
-            break;
-        case 3:
-            cout << "fix rec dyn str" << endl;
-            break;
-        case 4: {
+    if (config.getRecordMode() == "Fix") {
+        if (config.getStringMode() == "Fix") {
             cout << "fix rec fix str" << endl;
-            int recSize = v1.at(1);
-            int strSize = v1.at(2) + v1.at(3) + 2;
-            Student student = getStudent(v1.at(2), v1.at(3));
+            int recSize = config.getRecordSize();
+            int strSize = config.getStudentNameSize() + config.getStudentLastNameSize() + 2;
+            Student student = getStudent(config.getStudentNameSize(), config.getStudentLastNameSize());
             FixRecFixStrAdap adaptor(recSize, strSize);
             File file(&adaptor);
             file.write(student);
             Student testStd;
             file.read(2, testStd);
         }
-            break;
-        default:
-            cout << "wrong response from Main Menu" << endl;
+        if (config.getStringMode() == "Dyn") {
+            cout << "fix rec dyn str" << endl;
+        }
+    }
+    if (config.getRecordMode() == "Dyn") {
+        if (config.getStringMode() == "Fix") {
+            cout << "dyn rec fix str" << endl;
+        }
+        if (config.getStringMode() == "Dyn") {
+            cout << "dyn rec dyn str" << endl;
+        }
     }
 
     return 0;

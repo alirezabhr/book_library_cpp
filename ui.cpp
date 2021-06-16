@@ -12,7 +12,7 @@ bool check_number(const string &str) {
     return true;
 }
 
-vector<int> showMainMenu() {
+void showMainMenu() {
     string inputNum;
     int inputNumInt;
     bool isValidNum;
@@ -42,8 +42,6 @@ vector<int> showMainMenu() {
 
     if (inputNumInt == 1) {
         system("cls");
-        size_vector = showAdaptorOptions();
-        return size_vector;
     } else if (inputNumInt == 2) {
         cout << "here 2" << endl;
     } else {
@@ -51,93 +49,39 @@ vector<int> showMainMenu() {
     }
 }
 
+Config getAdaptorOptions() {
+    vector<string> lines;
+    vector<string> tmp;
+    vector<string> commands;
+    string line;
+    Config config;
 
-vector<int> showAdaptorOptions() {
-    string inputNum;
-    int inputNumInt;
-    bool isValid;
-    int recordSize = 0;
-    int nameSize = 0;
-    int lastNameSize = 0;
-    int optionType;
+    ifstream infile;
+    infile.open("config.txt");
 
-    while (true) {
-        system("cls");
-        cout << "Do you want to set a record size?(0 for no/1 for yes)" << endl;
-        cout << "Enter A Number (0/1):";
-        cin >> inputNum;
-        isValid = check_number(inputNum);
-        if (!isValid) {
-            system("cls");
-            cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
+    while (getline(infile, line)) {
+        if (line.empty()) {
             continue;
-        } else {
-            inputNumInt = stoi(inputNum);
-            if (inputNumInt == 0 || inputNumInt == 1) {
-                break;
-            } else {
-                system("cls");
-                cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
-                continue;
-            }
         }
-    }
-    if (inputNumInt == 1) {
-        recordSize = getRecordSize();
-    }
-
-    while (true) {
-        system("cls");
-        cout << "Do you want to set a name and last name size?(0 for no/1 for yes)" << endl;
-        cout << "Enter A Number (0/1):";
-        cin >> inputNum;
-        isValid = check_number(inputNum);
-        if (!isValid) {
-            system("cls");
-            cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
+        if (line.at(0) == '#') {
             continue;
-        } else {
-            inputNumInt = stoi(inputNum);
-            if (inputNumInt == 0 || inputNumInt == 1) {
-                break;
-            } else {
-                system("cls");
-                cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
-                continue;
-            }
         }
-    }
-    if (inputNumInt == 1) {
-        nameSize = getNameStrSize();
-        lastNameSize = getLastNameStrSize();
+        lines.push_back(line);
     }
 
-    system("cls");
-    cout << "record size: " << recordSize << "\nname size: " << nameSize << "\nlast name size: " << lastNameSize << endl;
-    if (recordSize == 0) {
-        if (nameSize == 0 || lastNameSize == 0) {
-            cout << "dyn rec dyn str" << endl;
-            optionType = 1;
-        } else {
-            cout << "dyn rec fix str" << endl;
-            optionType = 2;
-        }
-    } else {
-        if (nameSize == 0 || lastNameSize == 0) {
-            cout << "fix rec dyn str" << endl;
-            optionType = 3;
-        } else {
-            cout << "fix rec fix str" << endl;
-            optionType = 4;
-        }
+    for (auto &it : lines) {
+        tmp = myTokenize(it);
+        commands.push_back(tmp.at(0));
+        commands.push_back(tmp.at(1));
     }
-    vector<int> v1;
-    v1.push_back(optionType);
-    v1.push_back(recordSize);
-    v1.push_back(nameSize);
-    v1.push_back(lastNameSize);
 
-    return v1;
+    for (int i=0; i<commands.size(); i+=2) {
+        string cmd1 = commands.at(i);
+        string cmd2 = commands.at(i+1);
+        config.setFields(cmd1, cmd2);
+    }
+
+    return config;
 }
 
 int getRecordSize() {
@@ -225,4 +169,74 @@ int getLastNameStrSize() {
         }
     }
     return inputNumInt;
+}
+
+vector<string> myTokenize(string line) {
+    string delimiter = " = ";
+    vector<string> v1;
+
+    int pos = 0;
+    string token;
+    while ((pos = line.find(delimiter)) != string::npos) {
+        token = line.substr(0, pos);
+        v1.push_back(token);
+        line.erase(0, pos + delimiter.length());
+    }
+    v1.push_back(line);
+
+    return v1;
+}
+
+Config::Config() {
+    recordSize = 0;
+    studentNameSize = 0;
+    studentLastNameSize = 0;
+}
+
+const string &Config::getRecordMode() const {
+    return recordMode;
+}
+
+const string &Config::getStringMode() const {
+    return stringMode;
+}
+
+int Config::getRecordSize() const {
+    return recordSize;
+}
+
+int Config::getStudentNameSize() const {
+    return studentNameSize;
+}
+
+int Config::getStudentLastNameSize() const {
+    return studentLastNameSize;
+}
+
+void Config::setFields(const std::string& field, const std::string& value) {
+    if (field == "RECORD_MODE") {
+        if (value == "Fix") {
+            this->recordMode = value;
+        } else if (value == "Dyn") {
+            this->recordMode = value;
+        } else {
+            cout << "wrong record mode in configurations!!!" << endl;
+        }
+    } else if (field == "STRING_MODE") {
+        if (value == "Fix") {
+            this->stringMode = value;
+        } else if (value == "Dyn") {
+            this->stringMode = value;
+        } else {
+            cout << "wrong string mode in configurations!!!" << endl;
+        }
+    } else if (field == "RECORD_SIZE") {
+        this->recordSize = stoi(value);
+    } else if (field == "STD_NAME_SIZE") {
+        this->studentNameSize = stoi(value);
+    } else if (field == "STD_LAST_NAME_SIZE") {
+        this->studentLastNameSize = stoi(value);
+    } else {
+        cout << "WRONG CONFIGURATION KEY!" << endl;
+    }
 }
