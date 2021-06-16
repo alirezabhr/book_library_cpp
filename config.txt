@@ -1,0 +1,12 @@
+#record mode (Dyn/Fix)
+RECORD_MODE = Fix
+
+#string mode (Dyn/Fix)
+STRING_MODE = Fix
+
+RECORD_SIZE = 55
+
+#student fields size
+STD_NAME_SIZE = 15
+STD_LAST_NAME_SIZE = 20
+
