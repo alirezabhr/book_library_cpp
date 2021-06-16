@@ -13,11 +13,7 @@ D:/programming/cpp projects/books_library/adaptors.h
 D:/programming/cpp projects/books_library/adaptors.h
 iostream
 -
-entities.h
-D:/programming/cpp projects/books_library/entities.h
-
-D:/programming/cpp projects/books_library/entities.cpp
-iostream
+fstream
 -
 entities.h
 D:/programming/cpp projects/books_library/entities.h

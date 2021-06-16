@@ -23,10 +23,12 @@ int main() {
             cout << "fix rec fix str" << endl;
             int recSize = v1.at(1);
             int strSize = v1.at(2) + v1.at(3) + 2;
-            FixRecFixStrAdap adaptor(recSize, strSize);
-            File f(&adaptor);
             Student student = getStudent(v1.at(2), v1.at(3));
-            f.write(student);
+            FixRecFixStrAdap adaptor(recSize, strSize);
+            File file(&adaptor);
+            file.write(student);
+            Student testStd;
+            file.read(2, testStd);
         }
             break;
         default:

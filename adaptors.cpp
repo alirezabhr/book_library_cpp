@@ -7,34 +7,11 @@ File::File(Adaptor *fAdapt) : fAdapt(fAdapt) {
 
 void File::write(Student& s) {
     fAdapt->writeRec(s);
-
-    /*
-    ofstream outfile;
-    outfile.open("binFile.txt", ios::binary | ios::out);
-    outfile.write(reinterpret_cast<const char *>(&x), sizeof(int));
-    outfile.write(reinterpret_cast<const char *>(&fx), sizeof(fx));
-    outfile.close();
-     */
-
-//    int num;
-//    double d;
-//    string new_str;
-//    ifstream infile;
-//    infile.open("binFile.txt", ios::binary | ios::in);
-//    infile.read(reinterpret_cast<char *>(&num), sizeof(int));
-//    infile.read(reinterpret_cast<char *>(&d), sizeof(double));
-//    infile.read(reinterpret_cast<char *>(&new_str), name.size());
-//    cout << "num: " << num << "new str: " << new_str << endl;
 }
 
-//FixedRecordAdap::FixedRecordAdap(int fixRecSize) : fixRecSize(fixRecSize) {
-//
-//}
-//
-//FixedStringAdap::FixedStringAdap(int fixNameSize, int fixLastNameSize) : fixNameSize(fixNameSize),
-//                                                                         fixLastNameSize(fixLastNameSize) {
-//
-//}
+void File::read(int index, Student &s) {
+    fAdapt->readRec(index, s);
+}
 
 FixRecFixStrAdap::FixRecFixStrAdap(int fixRecSize, int fixStrSize)  {
     this->recSize = fixRecSize;
@@ -45,19 +22,6 @@ FixRecDynStrAdap::FixRecDynStrAdap(int fixRecSize) {
 
 }
 
-//DynRecFixStrAdap::DynRecFixStrAdap(int fixNameSize, int fixLastNameSize) : FixedStringAdap(fixNameSize,
-//                                                                                           fixLastNameSize) {
-//    data = new char[1];
-//    name = new char[fixNameSize];
-//    lastName = new char[fixLastNameSize];
-//}
-//
-//DynRecDynStrAdap::DynRecDynStrAdap() {
-//    data = new char[1];
-//    name = new char[1];
-//    lastName = new char[1];
-//}
-
 int Adaptor::getRecSize() {
     return recSize;
 }
@@ -66,9 +30,39 @@ int Adaptor::getStrSize() {
 }
 
 void FixedRecordAdap::writeRec(Student& student) {
-    std::cout << "write rec in FixedRecordAdap" << std::endl;
+    cout << "write rec in FixedRecordAdap" << endl;
+}
+
+void FixedRecordAdap::readRec(int index, Student &student) {
+    cout << "read rec in FixedRecordAdap" << endl;
 }
 
 void FixRecFixStrAdap::writeRec(Student& student) {
-    std::cout << "writeRec in FixRecFixStrAdap" << std::endl;
+    cout << "writeRec in FixRecFixStrAdap" << endl;
+
+    int id = student.getStudentId();
+    string name = student.getName();
+    cout << "name is: =" << name << "=" << endl;
+
+    ofstream outfile;
+    outfile.open("students.txt", ios::binary | ios::out | ios::app);
+    outfile.write(reinterpret_cast<const char *>(&id), sizeof(id));
+    outfile.write(reinterpret_cast<const char *>(&name), name.size());
+    outfile.close();
 }
+
+void FixRecFixStrAdap::readRec(int index, Student &student) {
+    cout << "readRec in FixRecFixStrAdap" << endl;
+    cout << "index: " << index << endl;
+    int id;
+    string name;
+
+    ifstream infile;
+    infile.open("students.txt", ios::binary | ios::out | ios::app);
+    infile.read(reinterpret_cast<char *>(&id), sizeof(id));
+    infile.read(reinterpret_cast<char *>(&name), 23);
+    infile.close();
+
+    cout << "id: " << id << " | name: " << name << endl;
+}
+

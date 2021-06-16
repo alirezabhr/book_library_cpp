@@ -1,9 +1,11 @@
-#pragma once
 #ifndef BOOKS_LIBRARY_ADAPTORS_H
 #define BOOKS_LIBRARY_ADAPTORS_H
 
 #include <iostream>
+#include <fstream>
 #include "entities.h"
+
+using namespace std;
 
 class Adaptor;
 
@@ -22,17 +24,17 @@ class Adaptor {
 protected:
     int recSize = 0;
     int strSize = 0;
-//    virtual std::string writeStudent(Student &s) = 0;
 public:
     int getRecSize();
     int getStrSize();
     virtual void writeRec(Student& student) = 0;
-//    virtual void readRec() = 0;
+    virtual void readRec(int index, Student& student) = 0;
 };
 
 class FixedRecordAdap : public Adaptor {
 public:
-    void writeRec(Student& student) override ;
+    void writeRec(Student& student) override;
+    void readRec(int index, Student& student) override;
 };
 
 class DynamicRecordAdap {
@@ -51,6 +53,7 @@ class FixRecFixStrAdap: public FixedRecordAdap, public FixedStringAdap {
 public:
     FixRecFixStrAdap(int fixRecSize, int fixStrSize);
     void writeRec(Student& student) override;
+    void readRec(int index, Student& student) override;
 };
 
 class FixRecDynStrAdap: public FixedRecordAdap, public DynamicStringAdap {

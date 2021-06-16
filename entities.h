@@ -1,4 +1,3 @@
-#pragma once
 #ifndef BOOKS_LIBRARY_ENTITIES_H
 #define BOOKS_LIBRARY_ENTITIES_H
 
@@ -17,12 +16,13 @@ class Student{
     std::string lastName;
 public:
     Student(int studentID, const std::string &name, const std::string &lastName);
+    Student();
 
-//    Student(const Student &s) {
-//        studentID = s.studentID;
-//        name = s.name;
-//        lastName = s.lastName;
-//    }
+    int getStudentId();
+
+    std::string getName();
+
+    std::string getLastName();
 
     friend std::ostream &operator<<(std::ostream &os, const Student &student) {
         os << "studentID: " << student.studentID << " name: " << student.name << " lastName: " << student.lastName << std::endl;

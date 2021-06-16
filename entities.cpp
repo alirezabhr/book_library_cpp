@@ -8,6 +8,24 @@ Student::Student(int studentID, const string &name, const string &lastName) : st
 
 }
 
+Student::Student() {
+    studentID = 0;
+    name = "";
+    lastName = "";
+}
+
+int Student::getStudentId() {
+    return studentID;
+}
+
+std::string Student::getName() {
+    return name;
+}
+
+std::string Student::getLastName() {
+    return lastName;
+}
+
 Book::Book(int id, const string &name, const string &author) : id(id), name(name), author(author) {
 
 }
