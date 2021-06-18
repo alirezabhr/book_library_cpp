@@ -13,13 +13,15 @@ void File::read(int index, Student &s) {
     fAdapt->readRec(index, s);
 }
 
-FixRecFixStrAdap::FixRecFixStrAdap(int fixRecSize, int fixStrSize)  {
+FixRecFixStrAdap::FixRecFixStrAdap(Config& conf, int fixRecSize, int fixStrSize)  {
+    this->adpConf = conf;
     this->recSize = fixRecSize;
     this->strSize = fixStrSize;
 }
 
-FixRecDynStrAdap::FixRecDynStrAdap(int fixRecSize) {
-
+FixRecDynStrAdap::FixRecDynStrAdap(Config& conf, int fixRecSize) {
+    this->adpConf = conf;
+    this->recSize = fixRecSize;
 }
 
 int Adaptor::getRecSize() {
@@ -27,6 +29,31 @@ int Adaptor::getRecSize() {
 }
 int Adaptor::getStrSize() {
     return strSize;
+}
+
+void Adaptor::setIntField(int num) {
+    const int intSize = sizeof(int);
+
+    ofstream outfile;
+    outfile.open("students.txt", ios::binary | ios::out | ios::app);
+    outfile.write(reinterpret_cast<const char *>(&intSize), sizeof(int));
+    outfile.write(reinterpret_cast<const char *>(&num), sizeof(int));
+    outfile.close();
+}
+
+int Adaptor::getIntField(int &startIndex) {
+    int fieldValue = -3;
+
+    ifstream infile;
+    infile.open("students.txt", ios::binary | ios::in);
+    startIndex += sizeof(int);
+    infile.seekg(startIndex);
+    infile.read(reinterpret_cast<char *>(&fieldValue), sizeof(int));
+    startIndex += sizeof(int);
+
+    infile.close();
+
+    return fieldValue;
 }
 
 void FixedRecordAdap::writeRec(Student& student) {
@@ -37,31 +64,86 @@ void FixedRecordAdap::readRec(int index, Student &student) {
     cout << "read rec in FixedRecordAdap" << endl;
 }
 
+void FixedRecordAdap::setRecord() {
+    cout << "Fixed Record Adap:: set record function" << endl;
+    int recordSize = adpConf.getRecordSize();
+
+    ofstream outfile;
+    outfile.open("students.txt", ios::binary | ios::out | ios::app);
+    outfile.write(reinterpret_cast<const char *>(&recordSize), sizeof(int));
+    outfile.close();
+}
+
+int FixedRecordAdap::getRecord(int index) {
+    int recordSize = -2;
+    int totalSize = 0;
+
+    ifstream infile;
+    infile.open("students.txt", ios::binary | ios::in);
+
+    for (int i = 0; i < index-1; ++i) {
+        infile.read(reinterpret_cast<char *>(&recordSize), sizeof(int));
+        totalSize += recordSize;
+        infile.seekg(recordSize);
+    }
+
+    infile.close();
+
+    return totalSize+4;
+}
+
+void FixedStringAdap::setField(int fieldSize, string fieldValue) {
+    cout << "Fixed String Adap:: set field function" << endl;
+
+    ofstream outfile;
+    outfile.open("students.txt", ios::binary | ios::out | ios::app);
+    outfile.write(reinterpret_cast<const char *>(&fieldSize), sizeof(int));
+    outfile.write(reinterpret_cast<const char *>(&fieldValue), fieldSize);
+    outfile.close();
+}
+
+string FixedStringAdap::getField(int &startIndex) {
+    int fieldSize = -2;
+    string fieldValue;
+
+    ifstream infile;
+    infile.open("students.txt", ios::binary | ios::in);
+    infile.seekg(startIndex);
+    infile.read(reinterpret_cast<char *>(&fieldSize), sizeof(int));
+    startIndex += sizeof(int);
+    infile.read(reinterpret_cast<char *>(&fieldValue), fieldSize);
+    startIndex += fieldSize;
+
+    infile.close();
+
+    return fieldValue;
+}
+
 void FixRecFixStrAdap::writeRec(Student& student) {
     cout << "writeRec in FixRecFixStrAdap" << endl;
 
     int id = student.getStudentId();
-    string name = student.getName();
+    int nameSize = adpConf.getStudentNameSize();
+    int lastNameSize = adpConf.getStudentLastNameSize();
 
-    ofstream outfile;
-    outfile.open("students.txt", ios::binary | ios::out | ios::app);
-    outfile.write(reinterpret_cast<const char *>(&id), sizeof(id));
-    outfile.write(reinterpret_cast<const char *>(&name), name.size());
-    outfile.close();
+    setRecord();
+    setIntField(id);
+    setField(nameSize, student.getName());
+    setField(lastNameSize, student.getLastName());
 }
 
 void FixRecFixStrAdap::readRec(int index, Student &student) {
     cout << "readRec in FixRecFixStrAdap" << endl;
-    cout << "index: " << index << endl;
-    int id;
-    string name;
+    int startIndex = 0;
+    int stdId;
+    string stdName;
+    string stdLastName;
 
-    ifstream infile;
-    infile.open("students.txt", ios::binary | ios::in);
-    infile.read(reinterpret_cast<char *>(&id), sizeof(id));
-    infile.read(reinterpret_cast<char *>(&name), 23);
-    infile.close();
+    startIndex = getRecord(index);
+    stdId = getIntField(startIndex);
+    stdName = getField(startIndex);
+    stdLastName = getField(startIndex);
 
-    cout << "id: " << id << " | name: " << name << endl;
+    cout << "std id: =" << stdId << "=" << endl;
+    cout << "std name is: =" << stdName << "=" << endl;
 }
-
