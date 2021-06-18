@@ -98,7 +98,20 @@ void FixedStringAdap::setField(int fieldSize, string fieldValue) {
     ofstream outfile;
     outfile.open("students.txt", ios::binary | ios::out | ios::app);
     outfile.write(reinterpret_cast<const char *>(&fieldSize), sizeof(int));
-    outfile.write(reinterpret_cast<const char *>(&fieldValue), fieldSize);
+    outfile.close();
+//    outfile.write(reinterpret_cast<const char *>(&fieldValue), fieldSize);
+//    outfile.write(reinterpret_cast<const char *>(&fieldValue), fieldValue.size());
+    outfile.open("students.txt", ios::out | ios::app);
+    outfile << fieldValue;
+    int tmpSize = fieldSize - fieldValue.size();
+    char *tmp = new char[tmpSize];
+    outfile.close();
+    outfile.open("students.txt", ios::binary | ios::out | ios::app);
+    for (int i = 0; i < tmpSize; ++i) {
+        tmp[i] = 0;
+    }
+    outfile.write(tmp, fieldSize - fieldValue.size());
+//    outfile << tmp;
     outfile.close();
 }
 
@@ -108,13 +121,18 @@ string FixedStringAdap::getField(int &startIndex) {
 
     ifstream infile;
     infile.open("students.txt", ios::binary | ios::in);
+
     infile.seekg(startIndex);
     infile.read(reinterpret_cast<char *>(&fieldSize), sizeof(int));
     startIndex += sizeof(int);
-    infile.read(reinterpret_cast<char *>(&fieldValue), fieldSize);
+
+    char *tmp = new char[fieldSize];
+    infile.read(tmp, fieldSize);
     startIndex += fieldSize;
 
     infile.close();
+
+    fieldValue = tmp;
 
     return fieldValue;
 }
@@ -146,4 +164,5 @@ void FixRecFixStrAdap::readRec(int index, Student &student) {
 
     cout << "std id: =" << stdId << "=" << endl;
     cout << "std name is: =" << stdName << "=" << endl;
+    cout << "std last name is: =" << stdLastName << "=" << endl;
 }
