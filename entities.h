@@ -6,11 +6,13 @@
 class Student;
 
 class Object {
-    virtual void write() = 0;
-    virtual void read() = 0;
+protected:
+    std::string objectFileName;
+public:
+   std::string getObjectFileName();
 };
 
-class Student{
+class Student: public Object{
     int studentID;
     std::string name;
     std::string lastName;
@@ -30,7 +32,7 @@ public:
     }
 };
 
-class Book{
+class Book: public Object{
     int id;
     std::string name;
     std::string author;
