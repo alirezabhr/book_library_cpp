@@ -6,6 +6,7 @@
 #include <vector>
 #include <fstream>
 
+class CONFIG_EXCEPTION;
 class Config;
 
 bool check_number(const std::string &str);
@@ -15,6 +16,14 @@ int getRecordSize();
 int getNameStrSize();
 int getLastNameStrSize();
 std::vector<std::string> myTokenize(std::string line);
+
+class CONFIG_EXCEPTION {
+    std::string msg;
+public:
+    CONFIG_EXCEPTION(const std::string &msg);
+
+    const std::string &getMsg() const;
+};
 
 class Config {
     std::string recordMode;

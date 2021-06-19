@@ -187,6 +187,12 @@ vector<string> myTokenize(string line) {
     return v1;
 }
 
+CONFIG_EXCEPTION::CONFIG_EXCEPTION(const string &msg) : msg(msg) {}
+
+const string &CONFIG_EXCEPTION::getMsg() const {
+    return msg;
+}
+
 Config::Config() {
     recordSize = 0;
     studentNameSize = 0;
@@ -220,7 +226,7 @@ void Config::setFields(const std::string& field, const std::string& value) {
         } else if (value == "Dyn") {
             this->recordMode = value;
         } else {
-            cout << "wrong record mode in configurations!!!" << endl;
+            throw CONFIG_EXCEPTION("Wrong Record Mode!");
         }
     } else if (field == "STRING_MODE") {
         if (value == "Fix") {
@@ -228,25 +234,46 @@ void Config::setFields(const std::string& field, const std::string& value) {
         } else if (value == "Dyn") {
             this->stringMode = value;
         } else {
-            cout << "wrong string mode in configurations!!!" << endl;
+            throw CONFIG_EXCEPTION("Wrong String Mode!");
         }
     } else if (field == "RECORD_SIZE") {
         if (this->recordMode == "Dyn") {
             this->recordSize = -1;
         } else {
-            this->recordSize = stoi(value);
+            try {
+                this->recordSize = stoi(value);
+                if (this->recordSize < 0) {
+                    throw CONFIG_EXCEPTION("Record Size Is Not Valid!\nTry A Positive Number");
+                }
+            } catch (exception &err) {
+                throw CONFIG_EXCEPTION("Record Size Is Not Valid!");
+            }
         }
     } else if (field == "STD_NAME_SIZE") {
         if (this->stringMode == "Dyn") {
             this->studentNameSize = -1;
         } else {
-            this->studentNameSize = stoi(value);
+            try {
+                this->studentNameSize = stoi(value);
+                if (this->studentNameSize < 0) {
+                    throw CONFIG_EXCEPTION("Student Name Size Is Not Valid!\nTry A Positive Number");
+                }
+            } catch (exception &err) {
+                throw CONFIG_EXCEPTION("Student Name Size Is Not Valid!");
+            }
         }
     } else if (field == "STD_LAST_NAME_SIZE") {
         if (this->stringMode == "Dyn") {
             this->studentLastNameSize = -1;
         } else {
-            this->studentLastNameSize = stoi(value);
+            try {
+                this->studentLastNameSize = stoi(value);
+                if (this->studentLastNameSize < 0) {
+                    throw CONFIG_EXCEPTION("Student Last Name Size Is Not Valid!\nTry A Positive Number");
+                }
+            } catch (exception &err) {
+                throw CONFIG_EXCEPTION("Student Last Name Size Is Not Valid!");
+            }
         }
     } else {
         cout << "WRONG CONFIGURATION KEY!" << endl;
