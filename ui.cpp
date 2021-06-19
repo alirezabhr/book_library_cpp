@@ -231,11 +231,23 @@ void Config::setFields(const std::string& field, const std::string& value) {
             cout << "wrong string mode in configurations!!!" << endl;
         }
     } else if (field == "RECORD_SIZE") {
-        this->recordSize = stoi(value);
+        if (this->recordMode == "Dyn") {
+            this->recordSize = -1;
+        } else {
+            this->recordSize = stoi(value);
+        }
     } else if (field == "STD_NAME_SIZE") {
-        this->studentNameSize = stoi(value);
+        if (this->stringMode == "Dyn") {
+            this->studentNameSize = -1;
+        } else {
+            this->studentNameSize = stoi(value);
+        }
     } else if (field == "STD_LAST_NAME_SIZE") {
-        this->studentLastNameSize = stoi(value);
+        if (this->stringMode == "Dyn") {
+            this->studentLastNameSize = -1;
+        } else {
+            this->studentLastNameSize = stoi(value);
+        }
     } else {
         cout << "WRONG CONFIGURATION KEY!" << endl;
     }
