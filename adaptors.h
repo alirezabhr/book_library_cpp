@@ -48,14 +48,16 @@ class DynamicRecordAdap {
 public:
 };
 
-class FixedStringAdap{
+class FixedStringAdap{  //similar to interface in java
 public:
     void setField(int fieldSize, string fieldValue);
     string getField(int &startIndex);
 };
 
-class DynamicStringAdap {
+class DynamicStringAdap {   //similar to interface in java
 public:
+    void setField(int fieldSize, string fieldValue);
+    string getField(int &startIndex);
 };
 
 class FixRecFixStrAdap: public FixedRecordAdap, public FixedStringAdap {
@@ -68,6 +70,8 @@ public:
 class FixRecDynStrAdap: public FixedRecordAdap, public DynamicStringAdap {
 public:
     FixRecDynStrAdap(Config& conf, int fixRecSize);
+    void writeRec(Student& student) override;
+    void readRec(int index, Student& student) override;
 };
 
 class DynRecFixStrAdap: public Adaptor, public DynamicRecordAdap, public FixedStringAdap {
