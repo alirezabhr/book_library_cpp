@@ -88,6 +88,8 @@ public:
 class DynRecDynStrAdap: public DynamicRecordAdap, public DynamicStringAdap {
 public:
     DynRecDynStrAdap(Config& conf);
+    void writeRec(Student& student) override;
+    void readRec(int index, Student& student) override;
 };
 
 #endif //BOOKS_LIBRARY_ADAPTORS_H

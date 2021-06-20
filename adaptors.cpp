@@ -375,3 +375,42 @@ void DynRecFixStrAdap::readRec(int index, Student &student) {
     cout << "std name is: =" << stdName << "=" << endl;
     cout << "std last name is: =" << stdLastName << "=" << endl;
 }
+
+void DynRecDynStrAdap::writeRec(Student &student) {
+    cout << "writeRec in DynRecDynStrAdap" << endl;
+
+    int recordSize = 0;
+    int id = student.getStudentId();
+    recordSize += sizeof(int);
+    recordSize += sizeof(int);
+    int nameSize = student.getName().size();
+    recordSize += sizeof(int);
+    recordSize += nameSize;
+    int lastNameSize = student.getLastName().size();
+    recordSize += sizeof(int);
+    recordSize += lastNameSize;
+
+    this->recSize = recordSize;
+
+    setRecord();
+    setIntField(id);
+    setField(nameSize, student.getName());
+    setField(lastNameSize, student.getLastName());
+}
+
+void DynRecDynStrAdap::readRec(int index, Student &student) {
+    cout << "readRec in DynRecDynStrAdap" << endl;
+    int startIndex = 0;
+    int stdId;
+    string stdName;
+    string stdLastName;
+
+    startIndex = getRecord(index);
+    stdId = getIntField(startIndex);
+    stdName = getField(startIndex);
+    stdLastName = getField(startIndex);
+
+    cout << "std id: =" << stdId << "=" << endl;
+    cout << "std name is: =" << stdName << "=" << endl;
+    cout << "std last name is: =" << stdLastName << "=" << endl;
+}
