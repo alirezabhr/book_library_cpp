@@ -24,6 +24,14 @@ FixRecDynStrAdap::FixRecDynStrAdap(Config& conf, int fixRecSize) {
     this->recSize = fixRecSize;
 }
 
+DynRecFixStrAdap::DynRecFixStrAdap(Config& conf) {
+    adpConf = conf;
+}
+
+DynRecDynStrAdap::DynRecDynStrAdap(Config& conf) {
+    adpConf = conf;
+}
+
 int Adaptor::getRecSize() {
     return recSize;
 }
@@ -107,6 +115,64 @@ void FixedRecordAdap::setRecord() {
 }
 
 int FixedRecordAdap::getRecord(int index) {
+    int recordSize = -2;
+    int totalSize = 0;
+
+    ifstream infile;
+    infile.open("students.txt", ios::binary | ios::in);
+
+    for (int i = 0; i < index-1; ++i) {
+        totalSize += 4;
+        infile.read(reinterpret_cast<char *>(&recordSize), sizeof(int));
+        totalSize += recordSize;
+        infile.seekg(totalSize);
+    }
+
+    infile.close();
+
+    return totalSize+4;
+}
+
+void DynamicRecordAdap::writeRec(Student &student) {
+    cout << "write rec in DynamicRecordAdap" << endl;
+}
+
+void DynamicRecordAdap::readRec(int index, Student &student) {
+    cout << "read rec in DynamicRecordAdap" << endl;
+}
+
+void DynamicRecordAdap::setRecord() {
+    cout << "Dyn Record Adap:: set record function" << endl;
+    int startIndex = 0;
+    int tmpSize = 1;
+    int recordSize = this->recSize;
+
+    ifstream infile;
+    infile.open("students.txt", ios::binary | ios::in);
+    if (!infile.fail()) {    // file could be opened
+        infile.seekg (0);
+        cout << "before while in set record" << "\ttmp Size: " << tmpSize << "\tstart index: " << startIndex << endl;
+        while(true) {
+            tmpSize = 0;
+            infile.seekg(startIndex);
+            infile.read(reinterpret_cast<char *>(&tmpSize), sizeof(int));
+            cout << "tmp Size:" << tmpSize << endl;
+            if (tmpSize == 0) break;
+            else {
+                startIndex = startIndex + sizeof(int) + tmpSize;
+            }
+            cout << "start index:" << startIndex << endl;
+        }
+    }
+    infile.close();
+    ofstream outfile;
+    outfile.open("students.txt", ios::binary | ios::out | ios::app);
+    outfile.write(reinterpret_cast<const char *>(&recordSize), sizeof(int));
+    outfile.close();
+}
+
+int DynamicRecordAdap::getRecord(int index) {
+    cout << "Dyn Record Adap:: get record function" << endl;
     int recordSize = -2;
     int totalSize = 0;
 
@@ -256,6 +322,45 @@ void FixRecDynStrAdap::writeRec(Student &student) {
 
 void FixRecDynStrAdap::readRec(int index, Student &student) {
     cout << "readRec in FixRecDynStrAdap" << endl;
+    int startIndex = 0;
+    int stdId;
+    string stdName;
+    string stdLastName;
+
+    startIndex = getRecord(index);
+    stdId = getIntField(startIndex);
+    stdName = getField(startIndex);
+    stdLastName = getField(startIndex);
+
+    cout << "std id: =" << stdId << "=" << endl;
+    cout << "std name is: =" << stdName << "=" << endl;
+    cout << "std last name is: =" << stdLastName << "=" << endl;
+}
+
+void DynRecFixStrAdap::writeRec(Student &student) {
+    cout << "writeRec in DynRecFixStrAdap" << endl;
+
+    int recordSize = 0;
+    int id = student.getStudentId();
+    recordSize += sizeof(int);
+    recordSize += sizeof(int);
+    int nameSize = adpConf.getStudentNameSize();
+    recordSize += sizeof(int);
+    recordSize += nameSize;
+    int lastNameSize = adpConf.getStudentLastNameSize();
+    recordSize += sizeof(int);
+    recordSize += lastNameSize;
+
+    this->recSize = recordSize;
+
+    setRecord();
+    setIntField(id);
+    setField(nameSize, student.getName());
+    setField(lastNameSize, student.getLastName());
+}
+
+void DynRecFixStrAdap::readRec(int index, Student &student) {
+    cout << "readRec in DynRecFixStrAdap" << endl;
     int startIndex = 0;
     int stdId;
     string stdName;

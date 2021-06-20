@@ -44,8 +44,12 @@ public:
     int getRecord(int index);
 };
 
-class DynamicRecordAdap {
+class DynamicRecordAdap : public Adaptor{
 public:
+    void writeRec(Student& student) override;
+    void readRec(int index, Student& student) override;
+    void setRecord() override;
+    int getRecord(int index);
 };
 
 class FixedStringAdap{  //similar to interface in java
@@ -74,14 +78,16 @@ public:
     void readRec(int index, Student& student) override;
 };
 
-class DynRecFixStrAdap: public Adaptor, public DynamicRecordAdap, public FixedStringAdap {
+class DynRecFixStrAdap: public DynamicRecordAdap, public FixedStringAdap {
 public:
-   DynRecFixStrAdap(Config conf, int fixNameSize, int fixLastNameSize);
+    DynRecFixStrAdap(Config& conf);
+    void writeRec(Student& student) override;
+    void readRec(int index, Student& student) override;
 };
 
-class DynRecDynStrAdap: public Adaptor, public DynamicRecordAdap, public DynamicStringAdap {
+class DynRecDynStrAdap: public DynamicRecordAdap, public DynamicStringAdap {
 public:
-    DynRecDynStrAdap(Config conf);
+    DynRecDynStrAdap(Config& conf);
 };
 
 #endif //BOOKS_LIBRARY_ADAPTORS_H
