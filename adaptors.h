@@ -12,23 +12,18 @@ class Adaptor;
 
 class File {
     Adaptor *fAdapt;
-    char *charFile;
 public:
     File(Adaptor *fAdapt);
 
     void write(Student& s);
     void read(int index, Student &s);
-    void append(char *data);
 };
 
 class Adaptor {
 protected:
     int recSize = 0;
-    int strSize = 0;
     Config adpConf;
 public:
-    int getRecSize();
-    int getStrSize();
     virtual void writeRec(Student& student) = 0;
     virtual void readRec(int index, Student& student) = 0;
     virtual void setRecord() = 0;
@@ -52,7 +47,7 @@ public:
     int getRecord(int index);
 };
 
-class FixedStringAdap{  //similar to interface in java
+class FixedStringAdap {  //similar to interface in java
 public:
     void setField(int fieldSize, string fieldValue);
     string getField(int &startIndex);
@@ -66,14 +61,14 @@ public:
 
 class FixRecFixStrAdap: public FixedRecordAdap, public FixedStringAdap {
 public:
-    FixRecFixStrAdap(Config& conf, int fixRecSize, int fixStrSize);
+    FixRecFixStrAdap(Config& conf);
     void writeRec(Student& student) override;
     void readRec(int index, Student& student) override;
 };
 
 class FixRecDynStrAdap: public FixedRecordAdap, public DynamicStringAdap {
 public:
-    FixRecDynStrAdap(Config& conf, int fixRecSize);
+    FixRecDynStrAdap(Config& conf);
     void writeRec(Student& student) override;
     void readRec(int index, Student& student) override;
 };

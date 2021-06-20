@@ -2,7 +2,7 @@
 
 
 File::File(Adaptor *fAdapt) : fAdapt(fAdapt) {
-    this->charFile = new char[fAdapt->getRecSize()];
+
 }
 
 void File::write(Student& s) {
@@ -13,15 +13,14 @@ void File::read(int index, Student &s) {
     fAdapt->readRec(index, s);
 }
 
-FixRecFixStrAdap::FixRecFixStrAdap(Config& conf, int fixRecSize, int fixStrSize)  {
+FixRecFixStrAdap::FixRecFixStrAdap(Config& conf)  {
     this->adpConf = conf;
-    this->recSize = fixRecSize;
-    this->strSize = fixStrSize;
+    this->recSize = conf.getRecordSize();
 }
 
-FixRecDynStrAdap::FixRecDynStrAdap(Config& conf, int fixRecSize) {
+FixRecDynStrAdap::FixRecDynStrAdap(Config& conf) {
     this->adpConf = conf;
-    this->recSize = fixRecSize;
+    this->recSize = conf.getRecordSize();
 }
 
 DynRecFixStrAdap::DynRecFixStrAdap(Config& conf) {
@@ -32,13 +31,6 @@ DynRecDynStrAdap::DynRecDynStrAdap(Config& conf) {
     adpConf = conf;
 }
 
-int Adaptor::getRecSize() {
-    return recSize;
-}
-
-int Adaptor::getStrSize() {
-    return strSize;
-}
 void Adaptor::setIntField(int num) {
     const int intSize = sizeof(int);
 
