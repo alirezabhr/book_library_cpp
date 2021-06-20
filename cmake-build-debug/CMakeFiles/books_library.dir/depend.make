@@ -4,6 +4,7 @@
 CMakeFiles/books_library.dir/adaptors.cpp.obj: ../adaptors.cpp
 CMakeFiles/books_library.dir/adaptors.cpp.obj: ../adaptors.h
 CMakeFiles/books_library.dir/adaptors.cpp.obj: ../entities.h
+CMakeFiles/books_library.dir/adaptors.cpp.obj: ../ui.h
 
 CMakeFiles/books_library.dir/entities.cpp.obj: ../entities.cpp
 CMakeFiles/books_library.dir/entities.cpp.obj: ../entities.h

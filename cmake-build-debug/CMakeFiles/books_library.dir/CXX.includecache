@@ -6,9 +6,25 @@
 
 #IncludeRegexTransform: 
 
-D:/programming/cpp projects/books_library/ui.cpp
+D:/programming/cpp projects/books_library/adaptors.h
+iostream
+-
+fstream
+-
+entities.h
+D:/programming/cpp projects/books_library/entities.h
 ui.h
 D:/programming/cpp projects/books_library/ui.h
+
+D:/programming/cpp projects/books_library/entities.h
+iostream
+-
+
+D:/programming/cpp projects/books_library/main.cpp
+iostream
+-
+adaptors.h
+D:/programming/cpp projects/books_library/adaptors.h
 
 D:/programming/cpp projects/books_library/ui.h
 iostream

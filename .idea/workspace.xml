@@ -14,6 +14,7 @@
     <list default="true" id="d910d12c-0034-4e33-9e4f-ec14269d2e83" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/adaptors.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/adaptors.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adaptors.h" beforeDir="false" afterPath="$PROJECT_DIR$/adaptors.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/CXX.includecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/adaptors.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/adaptors.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/depend.internal" afterDir="false" />
@@ -24,8 +25,6 @@
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/ui.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/books_library.dir/ui.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/books_library.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/books_library.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ui.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui.h" beforeDir="false" afterPath="$PROJECT_DIR$/ui.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +80,9 @@
       <workItem from="1623434132454" duration="30000" />
       <workItem from="1623673849871" duration="10211000" />
       <workItem from="1623769512780" duration="4000" />
-      <workItem from="1623826506450" duration="19194000" />
+      <workItem from="1623826506450" duration="21649000" />
+      <workItem from="1624004438142" duration="18783000" />
+      <workItem from="1624081775029" duration="32963000" />
     </task>
     <servers />
   </component>
@@ -97,58 +98,58 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="407" y="144" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.680@0.0.1280.680" timestamp="1623857309709" />
-    <state x="423" y="57" key="#com.intellij.ide.util.MemberChooser" timestamp="1623861082141">
+    <state x="423" y="57" key="#com.intellij.ide.util.MemberChooser" timestamp="1624111050011">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="423" y="57" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1623861082141" />
-    <state width="1237" height="225" key="GridCell.Tab.0.bottom" timestamp="1623863833862">
+    <state x="423" y="57" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1624111050011" />
+    <state width="1237" height="186" key="GridCell.Tab.0.bottom" timestamp="1624192207142">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="225" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1623863833862" />
-    <state width="1237" height="225" key="GridCell.Tab.0.center" timestamp="1623863833862">
+    <state width="1237" height="186" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1624192207142" />
+    <state width="1237" height="186" key="GridCell.Tab.0.center" timestamp="1624192207142">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="225" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1623863833862" />
-    <state width="1237" height="225" key="GridCell.Tab.0.left" timestamp="1623863833862">
+    <state width="1237" height="186" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1624192207142" />
+    <state width="1237" height="186" key="GridCell.Tab.0.left" timestamp="1624192207142">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="225" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1623863833862" />
-    <state width="1237" height="225" key="GridCell.Tab.0.right" timestamp="1623863833862">
+    <state width="1237" height="186" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1624192207142" />
+    <state width="1237" height="186" key="GridCell.Tab.0.right" timestamp="1624192207142">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="225" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1623863833862" />
-    <state width="1237" height="212" key="GridCell.Tab.1.bottom" timestamp="1623769493820">
+    <state width="1237" height="186" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1624192207142" />
+    <state width="1237" height="213" key="GridCell.Tab.1.bottom" timestamp="1624192195611">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="212" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1623769493820" />
-    <state width="1237" height="212" key="GridCell.Tab.1.center" timestamp="1623769493820">
+    <state width="1237" height="213" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1624192195611" />
+    <state width="1237" height="213" key="GridCell.Tab.1.center" timestamp="1624192195611">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="212" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1623769493820" />
-    <state width="1237" height="212" key="GridCell.Tab.1.left" timestamp="1623769493820">
+    <state width="1237" height="213" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1624192195611" />
+    <state width="1237" height="213" key="GridCell.Tab.1.left" timestamp="1624192195611">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="212" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1623769493820" />
-    <state width="1237" height="212" key="GridCell.Tab.1.right" timestamp="1623769493820">
+    <state width="1237" height="213" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1624192195611" />
+    <state width="1237" height="213" key="GridCell.Tab.1.right" timestamp="1624192195611">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="212" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1623769493820" />
-    <state x="338" y="165" key="com.intellij.ide.util.TipDialog" timestamp="1623826506617">
+    <state width="1237" height="213" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1624192195611" />
+    <state x="338" y="165" key="com.intellij.ide.util.TipDialog" timestamp="1624081790268">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="338" y="165" key="com.intellij.ide.util.TipDialog/0.0.1280.680@0.0.1280.680" timestamp="1623826506617" />
-    <state x="0" y="0" width="611" height="680" key="find.popup" timestamp="1623252472451">
+    <state x="338" y="165" key="com.intellij.ide.util.TipDialog/0.0.1280.680@0.0.1280.680" timestamp="1624081790268" />
+    <state x="0" y="0" width="611" height="680" key="find.popup" timestamp="1623866366263">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="0" y="0" width="611" height="680" key="find.popup/0.0.1280.680@0.0.1280.680" timestamp="1623252472451" />
-    <state x="367" y="0" key="refactoring.ChangeSignatureDialog" timestamp="1623237015014">
+    <state x="0" y="0" width="611" height="680" key="find.popup/0.0.1280.680@0.0.1280.680" timestamp="1623866366263" />
+    <state x="367" y="0" key="refactoring.ChangeSignatureDialog" timestamp="1624111122888">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="367" y="0" key="refactoring.ChangeSignatureDialog/0.0.1280.680@0.0.1280.680" timestamp="1623237015014" />
-    <state x="298" y="151" key="run.anything.popup" timestamp="1623763592366">
+    <state x="367" y="0" key="refactoring.ChangeSignatureDialog/0.0.1280.680@0.0.1280.680" timestamp="1624111122888" />
+    <state x="298" y="151" key="run.anything.popup" timestamp="1624102596491">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="298" y="151" key="run.anything.popup/0.0.1280.680@0.0.1280.680" timestamp="1623763592366" />
+    <state x="298" y="151" key="run.anything.popup/0.0.1280.680@0.0.1280.680" timestamp="1624102596491" />
     <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1623154852984">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
