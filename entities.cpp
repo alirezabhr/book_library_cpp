@@ -7,16 +7,52 @@ string Object::getObjectFileName() {
     return this->objectFileName;
 }
 
-Student::Student(int studentID, const string &name, const string &lastName) : studentID(studentID), name(name),
-                                                                              lastName(lastName) {
+Student::Student(Adaptor *adaptor, int studentID, const string &name, const string &lastName) : studentID(studentID),
+                                                                                                name(name),
+                                                                                                lastName(lastName) {
+    this->objAdaptor = adaptor;
     this->objectFileName = "students";
 }
 
-Student::Student() {
+Student::Student(Adaptor *adaptor) {
     studentID = 0;
     name = "";
     lastName = "";
+    this->objAdaptor = adaptor;
     this->objectFileName = "students";
+}
+
+void Student::add() {
+    Config conf = objAdaptor->getAdpConf();
+    int recordSize;
+    int id = this->studentID;
+    int nameSize;
+    int lastNameSize;
+
+    if (conf.getRecordMode() == "Fix" && conf.getStringMode() == "Fix") {
+        nameSize = conf.getStudentNameSize();
+        lastNameSize = conf.getStudentLastNameSize();
+        recordSize = conf.getRecordSize();
+    } else if (conf.getRecordMode() == "Fix" && conf.getStringMode() == "Dyn") {
+        nameSize = this->name.size();
+        lastNameSize = this->lastName.size();
+        recordSize = conf.getRecordSize();
+    } else if (conf.getRecordMode() == "Dyn" && conf.getStringMode() == "Fix") {
+        nameSize = conf.getStudentNameSize();
+        lastNameSize = conf.getStudentLastNameSize();
+        recordSize = sizeof(int) + sizeof(int) + sizeof(int) + nameSize + sizeof(int) + lastNameSize;
+    } else {    //Dynamic Record Dynamic String
+        nameSize = this->name.size();
+        lastNameSize = this->lastName.size();
+        recordSize = sizeof(int) + sizeof(int) + sizeof(int) + nameSize + sizeof(int) + lastNameSize;
+    }
+
+    objAdaptor->setRecordSize(recordSize);
+
+    objAdaptor->setRecord();
+    objAdaptor->setIntField(id);
+    objAdaptor->setField(nameSize, this->name);
+    objAdaptor->setField(lastNameSize, this->lastName);
 }
 
 int Student::getStudentId() {
@@ -35,12 +71,14 @@ Book::Book(int id, const string &name, const string &author) : id(id), name(name
     this->objectFileName = "books";
 }
 
-Student getStudent(int nameSz, int lastNameSz) {
+Student getStudent(Adaptor *adaptor, int nameSz, int lastNameSz) {
     string name;
     string lastName;
+    string stdNoStr;
     int stdNo;
+    bool isValidNum;
 
-    cout << "STUDENT FORM" << endl;
+    cout << "-----------STUDENT FORM-----------" << endl;
     cout << "name SZ: " << nameSz << "last name SZ: " << lastNameSz << endl;
     while (true) {
         cout << "enter student name: ";
@@ -60,10 +98,21 @@ Student getStudent(int nameSz, int lastNameSz) {
             continue;
         } else break;
     }
-    cout << "enter student id: ";
-    cin >> stdNo;
+    while (true) {
+        cout << "enter student id: ";
+        getline(cin, stdNoStr);
+        isValidNum = check_number(stdNoStr);
+        if (!isValidNum) {
+            //system("cls");
+            cout << "!! PLEASE ENTER A VALID STUDENT ID !!" << endl;
+            continue;
+        } else {
+            stdNo = stoi(stdNoStr);
+            break;
+        }
+    }
 
-    Student s(stdNo, name, lastName);
+    Student s(adaptor, stdNo, name, lastName);
 //    system("cls");
     return s;
 }
