@@ -1,18 +1,6 @@
 #include "adaptors.h"
 
 
-File::File(Adaptor *fAdapt) : fAdapt(fAdapt) {
-
-}
-
-void File::write(Student& s) {
-    fAdapt->writeRec(s);
-}
-
-void File::read(int index, Student &s) {
-    fAdapt->readRec(index, s);
-}
-
 FixRecFixStrAdap::FixRecFixStrAdap(Config& conf)  {
     this->adpConf = conf;
     this->recSize = conf.getRecordSize();
@@ -29,6 +17,10 @@ DynRecFixStrAdap::DynRecFixStrAdap(Config& conf) {
 
 DynRecDynStrAdap::DynRecDynStrAdap(Config& conf) {
     adpConf = conf;
+}
+
+void Adaptor::setRecordSize(int recordSize) {
+    Adaptor::recSize = recordSize;
 }
 
 void Adaptor::setIntField(int num) {
@@ -56,11 +48,15 @@ int Adaptor::getIntField(int &startIndex) {
     return fieldValue;
 }
 
-void FixedRecordAdap::writeRec(Student& student) {
+const Config &Adaptor::getAdpConf() const {
+    return adpConf;
+}
+
+void FixedRecordAdap::writeRec() {
     cout << "write rec in FixedRecordAdap" << endl;
 }
 
-void FixedRecordAdap::readRec(int index, Student &student) {
+void FixedRecordAdap::readRec(int index) {
     cout << "read rec in FixedRecordAdap" << endl;
 }
 
@@ -125,16 +121,20 @@ int FixedRecordAdap::getRecord(int index) {
     return totalSize+4;
 }
 
-void DynamicRecordAdap::writeRec(Student &student) {
+void FixedRecordAdap::setField(int size, string value) {
+    cout << "FixedRecordAdap::setField not ok" << endl;
+}
+
+void DynamicRecordAdap::writeRec() {
     cout << "write rec in DynamicRecordAdap" << endl;
 }
 
-void DynamicRecordAdap::readRec(int index, Student &student) {
+void DynamicRecordAdap::readRec(int index) {
     cout << "read rec in DynamicRecordAdap" << endl;
 }
 
 void DynamicRecordAdap::setRecord() {
-    cout << "Dyn Record Adap:: set record function" << endl;
+    cout << "DynRecordAdap::setRecord" << endl;
     int startIndex = 0;
     int tmpSize = 1;
     int recordSize = this->recSize;
@@ -181,6 +181,10 @@ int DynamicRecordAdap::getRecord(int index) {
     infile.close();
 
     return totalSize+4;
+}
+
+void DynamicRecordAdap::setField(int size, string value) {
+    cout << "DynamicRecordAdap::setField not ok" << endl;
 }
 
 void FixedStringAdap::setField(int fieldSize, string fieldValue) {
@@ -269,20 +273,11 @@ string DynamicStringAdap::getField(int &startIndex) {
     return fieldValue;
 }
 
-void FixRecFixStrAdap::writeRec(Student& student) {
+void FixRecFixStrAdap::writeRec() {
     cout << "writeRec in FixRecFixStrAdap" << endl;
-
-    int id = student.getStudentId();
-    int nameSize = adpConf.getStudentNameSize();
-    int lastNameSize = adpConf.getStudentLastNameSize();
-
-    setRecord();
-    setIntField(id);
-    setField(nameSize, student.getName());
-    setField(lastNameSize, student.getLastName());
 }
 
-void FixRecFixStrAdap::readRec(int index, Student &student) {
+void FixRecFixStrAdap::readRec(int index) {
     cout << "readRec in FixRecFixStrAdap" << endl;
     int startIndex = 0;
     int stdId;
@@ -299,20 +294,16 @@ void FixRecFixStrAdap::readRec(int index, Student &student) {
     cout << "std last name is: =" << stdLastName << "=" << endl;
 }
 
-void FixRecDynStrAdap::writeRec(Student &student) {
-    cout << "writeRec in FixRecDynStrAdap" << endl;
-
-    int id = student.getStudentId();
-    int nameSize = student.getName().size();
-    int lastNameSize = student.getLastName().size();
-
-    setRecord();
-    setIntField(id);
-    setField(nameSize, student.getName());
-    setField(lastNameSize, student.getLastName());
+void FixRecFixStrAdap::setField(int size, string value) {
+    cout << "FixRecFixStrAdap::setField maybe ok" << endl;
+    FixedStringAdap::setField(size, value);
 }
 
-void FixRecDynStrAdap::readRec(int index, Student &student) {
+void FixRecDynStrAdap::writeRec() {
+    cout << "writeRec in FixRecDynStrAdap" << endl;
+}
+
+void FixRecDynStrAdap::readRec(int index) {
     cout << "readRec in FixRecDynStrAdap" << endl;
     int startIndex = 0;
     int stdId;
@@ -329,29 +320,16 @@ void FixRecDynStrAdap::readRec(int index, Student &student) {
     cout << "std last name is: =" << stdLastName << "=" << endl;
 }
 
-void DynRecFixStrAdap::writeRec(Student &student) {
-    cout << "writeRec in DynRecFixStrAdap" << endl;
-
-    int recordSize = 0;
-    int id = student.getStudentId();
-    recordSize += sizeof(int);
-    recordSize += sizeof(int);
-    int nameSize = adpConf.getStudentNameSize();
-    recordSize += sizeof(int);
-    recordSize += nameSize;
-    int lastNameSize = adpConf.getStudentLastNameSize();
-    recordSize += sizeof(int);
-    recordSize += lastNameSize;
-
-    this->recSize = recordSize;
-
-    setRecord();
-    setIntField(id);
-    setField(nameSize, student.getName());
-    setField(lastNameSize, student.getLastName());
+void FixRecDynStrAdap::setField(int size, string value) {
+    cout << "FixRecDynStrAdap::setField maybe ok" << endl;
+    DynamicStringAdap::setField(size, value);
 }
 
-void DynRecFixStrAdap::readRec(int index, Student &student) {
+void DynRecFixStrAdap::writeRec() {
+    cout << "writeRec in DynRecFixStrAdap" << endl;
+}
+
+void DynRecFixStrAdap::readRec(int index) {
     cout << "readRec in DynRecFixStrAdap" << endl;
     int startIndex = 0;
     int stdId;
@@ -368,29 +346,16 @@ void DynRecFixStrAdap::readRec(int index, Student &student) {
     cout << "std last name is: =" << stdLastName << "=" << endl;
 }
 
-void DynRecDynStrAdap::writeRec(Student &student) {
-    cout << "writeRec in DynRecDynStrAdap" << endl;
-
-    int recordSize = 0;
-    int id = student.getStudentId();
-    recordSize += sizeof(int);
-    recordSize += sizeof(int);
-    int nameSize = student.getName().size();
-    recordSize += sizeof(int);
-    recordSize += nameSize;
-    int lastNameSize = student.getLastName().size();
-    recordSize += sizeof(int);
-    recordSize += lastNameSize;
-
-    this->recSize = recordSize;
-
-    setRecord();
-    setIntField(id);
-    setField(nameSize, student.getName());
-    setField(lastNameSize, student.getLastName());
+void DynRecFixStrAdap::setField(int size, string value) {
+    cout << "DynRecFixStrAdap::setField maybe ok" << endl;
+    FixedStringAdap::setField(size, value);
 }
 
-void DynRecDynStrAdap::readRec(int index, Student &student) {
+void DynRecDynStrAdap::writeRec() {
+    cout << "writeRec in DynRecDynStrAdap" << endl;
+}
+
+void DynRecDynStrAdap::readRec(int index) {
     cout << "readRec in DynRecDynStrAdap" << endl;
     int startIndex = 0;
     int stdId;
@@ -405,4 +370,9 @@ void DynRecDynStrAdap::readRec(int index, Student &student) {
     cout << "std id: =" << stdId << "=" << endl;
     cout << "std name is: =" << stdName << "=" << endl;
     cout << "std last name is: =" << stdLastName << "=" << endl;
+}
+
+void DynRecDynStrAdap::setField(int size, string value) {
+    cout << "DynRecDynStrAdap::setField maybe ok" << endl;
+    DynamicStringAdap::setField(size, value);
 }
