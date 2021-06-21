@@ -18,21 +18,21 @@ int showMainMenu() {    //return int number from [1(add student), 2(add book), .
     bool isValidNum;
     vector<int> size_vector;
 
-    system("cls");
+    //system("cls");
     while (true) {
-        cout << "1. Add Student\n2. Add Book" << endl;
+        cout << "1. Add Student\n2. Add Book\n3. Exit" << endl;
         cout << "Enter A Number:";
 
         getline(cin, inputNum);
         isValidNum = check_number(inputNum);
         if (!isValidNum) {
-            system("cls");
+            //system("cls");
             cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
             continue;
         } else {
             inputNumInt = stoi(inputNum);
-            if (inputNumInt <= 0 || inputNumInt > 2) {
-                system("cls");
+            if (inputNumInt <= 0 || inputNumInt > 3) {
+                //system("cls");
                 cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
                 continue;
             }
@@ -40,7 +40,7 @@ int showMainMenu() {    //return int number from [1(add student), 2(add book), .
         }
     }
 
-    system("cls");
+    //system("cls");
     return inputNumInt;
 }
 
@@ -85,13 +85,13 @@ int getRecordSize() {
     bool isValid;
 
     while (true) {
-        system("cls");
+        //system("cls");
         cout << "please enter a size for record? (from 10 to 100)" << endl;
         cout << "Enter A Size:";
-        cin >> inputNum;
+        cin >> inputNum; //need change --> getline(cin, inputNumStr);
         isValid = check_number(inputNum);
         if (!isValid) {
-            system("cls");
+            //system("cls");
             cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
             continue;
         } else {
@@ -99,7 +99,7 @@ int getRecordSize() {
             if (inputNumInt >= 10 && inputNumInt <= 100) {
                 break;
             } else {
-                system("cls");
+                //system("cls");
                 cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
                 continue;
             }
@@ -114,13 +114,13 @@ int getNameStrSize() {
     bool isValid;
 
     while (true) {
-        system("cls");
+        //system("cls");
         cout << "please enter a size for name? (from 1 to 20)" << endl;
         cout << "Enter A Size:";
-        cin >> inputNum;
+        cin >> inputNum; //need change --> getline(cin, inputNumStr);
         isValid = check_number(inputNum);
         if (!isValid) {
-            system("cls");
+            //system("cls");
             cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
             continue;
         } else {
@@ -128,7 +128,7 @@ int getNameStrSize() {
             if (inputNumInt >= 1 && inputNumInt <= 20) {
                 break;
             } else {
-                system("cls");
+                //system("cls");
                 cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
                 continue;
             }
@@ -143,13 +143,13 @@ int getLastNameStrSize() {
     bool isValid;
 
     while (true) {
-        system("cls");
+        //system("cls");
         cout << "please enter a size for record? (from 1 to 30)" << endl;
         cout << "Enter A Size:";
-        cin >> inputNum;
+        cin >> inputNum; //need change --> getline(cin, inputNumStr);
         isValid = check_number(inputNum);
         if (!isValid) {
-            system("cls");
+            //system("cls");
             cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
             continue;
         } else {
@@ -157,7 +157,7 @@ int getLastNameStrSize() {
             if (inputNumInt >= 1 && inputNumInt <= 30) {
                 break;
             } else {
-                system("cls");
+                //system("cls");
                 cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
                 continue;
             }
