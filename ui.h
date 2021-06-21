@@ -10,11 +10,8 @@ class CONFIG_EXCEPTION;
 class Config;
 
 bool check_number(const std::string &str);
-void showMainMenu();
+int showMainMenu();
 Config getAdaptorOptions();
-int getRecordSize();
-int getNameStrSize();
-int getLastNameStrSize();
 std::vector<std::string> myTokenize(std::string line);
 
 class CONFIG_EXCEPTION {

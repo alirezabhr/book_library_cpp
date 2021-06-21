@@ -12,7 +12,7 @@ bool check_number(const string &str) {
     return true;
 }
 
-void showMainMenu() {
+int showMainMenu() {    //return int number from [1(add student), 2(add book), ...]
     string inputNum;
     int inputNumInt;
     bool isValidNum;
@@ -23,7 +23,7 @@ void showMainMenu() {
         cout << "1. Add Student\n2. Add Book" << endl;
         cout << "Enter A Number:";
 
-        cin >> inputNum;
+        getline(cin, inputNum);
         isValidNum = check_number(inputNum);
         if (!isValidNum) {
             system("cls");
@@ -40,13 +40,8 @@ void showMainMenu() {
         }
     }
 
-    if (inputNumInt == 1) {
-        system("cls");
-    } else if (inputNumInt == 2) {
-        cout << "here 2" << endl;
-    } else {
-        cout << "not 1 and not 2" << endl;
-    }
+    system("cls");
+    return inputNumInt;
 }
 
 Config getAdaptorOptions() {
