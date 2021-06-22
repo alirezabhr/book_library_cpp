@@ -9,25 +9,29 @@ class Student;
 class Object {
 protected:
     Adaptor *objAdaptor;
-    std::string objectFileName;
+    string objectFileName;
+    vector<string> fieldsName;
 public:
-   std::string getObjectFileName();
-   virtual void add() = 0;
+    string getObjectFileName();
+    const vector<string> &getFieldsName() const;
+    virtual void add() = 0;
+    virtual void find(int option) = 0;
 };
 
 class Student: public Object{
     int studentID;
-    std::string name;
-    std::string lastName;
+    string name;
+    string lastName;
 public:
-    Student(Adaptor *adaptor, int studentID, const std::string &name, const std::string &lastName);
+    Student(Adaptor *adaptor, int studentID, const string &name, const string &lastName);
     Student(Adaptor *adaptor);
 
     void add() override;
+    void find(int option) override;
     int getStudentId();
-    std::string getName();
-    std::string getLastName();
-    friend std::ostream &operator<<(std::ostream &os, const Student &student) {
+    string getName();
+    string getLastName();
+    friend ostream &operator<<(ostream &os, const Student &student) {
         os << "studentID: " << student.studentID << " name: " << student.name << " lastName: " << student.lastName << std::endl;
         return os;
     }
@@ -35,12 +39,14 @@ public:
 
 class Book: public Object{
     int id;
-    std::string name;
-    std::string author;
+    string name;
+    string author;
 public:
-    Book(int id, const std::string &name, const std::string &author);
+    Book(int id, const string &name, const string &author);
 };
 
 Student getStudent(Adaptor *adaptor, int nameSize, int lastNameSize);
+
+bool check_number(const string &str);
 
 #endif //BOOKS_LIBRARY_ENTITIES_H

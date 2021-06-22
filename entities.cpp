@@ -7,11 +7,16 @@ string Object::getObjectFileName() {
     return this->objectFileName;
 }
 
+const vector<string> &Object::getFieldsName() const {
+    return fieldsName;
+}
+
 Student::Student(Adaptor *adaptor, int studentID, const string &name, const string &lastName) : studentID(studentID),
                                                                                                 name(name),
                                                                                                 lastName(lastName) {
     this->objAdaptor = adaptor;
     this->objectFileName = "students";
+    this->fieldsName = {"student id", "student name", "student last name"};
 }
 
 Student::Student(Adaptor *adaptor) {
@@ -20,6 +25,7 @@ Student::Student(Adaptor *adaptor) {
     lastName = "";
     this->objAdaptor = adaptor;
     this->objectFileName = "students";
+    this->fieldsName = {"student id", "student name", "student last name"};
 }
 
 void Student::add() {
@@ -53,6 +59,20 @@ void Student::add() {
     objAdaptor->setIntField(id);
     objAdaptor->setField(nameSize, this->name);
     objAdaptor->setField(lastNameSize, this->lastName);
+}
+
+void Student::find(int option) {
+    switch (option){
+        case 1: //find by id
+            cout << "find student by id" << endl;
+            break;
+        case 2: //find by name
+            cout << "find student by name" << endl;
+            break;
+        case 3: //find by last name
+            cout << "find student by last name" << endl;
+            break;
+    }
 }
 
 int Student::getStudentId() {
@@ -115,4 +135,14 @@ Student getStudent(Adaptor *adaptor, int nameSz, int lastNameSz) {
     Student s(adaptor, stdNo, name, lastName);
 //    system("cls");
     return s;
+}
+
+bool check_number(const string &str) {
+    if (str.empty()) return false;
+    for (char i : str) {
+        if (isdigit(i) == 0) {
+            return false;
+        }
+    }
+    return true;
 }
