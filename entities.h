@@ -16,6 +16,7 @@ public:
     const vector<string> &getFieldsName() const;
     virtual void add() = 0;
     virtual void find(int option) = 0;
+    virtual void read(int index) = 0;
 };
 
 class Student: public Object{
@@ -28,13 +29,11 @@ public:
 
     void add() override;
     void find(int option) override;
+    void read(int index);
     int getStudentId();
     string getName();
     string getLastName();
-    friend ostream &operator<<(ostream &os, const Student &student) {
-        os << "studentID: " << student.studentID << " name: " << student.name << " lastName: " << student.lastName << std::endl;
-        return os;
-    }
+    friend ostream &operator<<(ostream &os, const Student &student);
 };
 
 class Book: public Object{

@@ -62,7 +62,7 @@ void Student::add() {
 }
 
 void Student::find(int option) {
-    switch (option){
+    switch (option) {
         case 1: //find by id
             cout << "find student by id" << endl;
             break;
@@ -75,6 +75,24 @@ void Student::find(int option) {
     }
 }
 
+void Student::read(int index) {
+    int startIndex = 0;
+    int stdId;
+    string stdName;
+    string stdLastName;
+
+    startIndex = objAdaptor->getRecord(index);
+    stdId = objAdaptor->getIntField(startIndex);
+    stdName = objAdaptor->getField(startIndex);
+    stdLastName = objAdaptor->getField(startIndex);
+
+    this->studentID = stdId;
+    this->name = stdName;
+    this->lastName = stdLastName;
+
+    cout << *this;
+}
+
 int Student::getStudentId() {
     return studentID;
 }
@@ -85,6 +103,11 @@ string Student::getName() {
 
 string Student::getLastName() {
     return lastName;
+}
+
+ostream &operator<<(ostream &os, const Student &student) {
+    os << student.studentID << " | " << student.name << " | " << student.lastName << std::endl;
+    return os;
 }
 
 Book::Book(int id, const string &name, const string &author) : id(id), name(name), author(author) {
