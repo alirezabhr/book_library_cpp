@@ -120,4 +120,6 @@ public:
     string getField(int &startIndex) override;
 };
 
+int getFileSize(const string &fileName);
+
 #endif //BOOKS_LIBRARY_ADAPTORS_H

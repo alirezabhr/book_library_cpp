@@ -81,7 +81,12 @@ void Student::read(int index) {
     string stdName;
     string stdLastName;
 
-    startIndex = objAdaptor->getRecord(index);
+    try {
+        startIndex = objAdaptor->getRecord(index);
+    } catch (out_of_range e) {
+        throw e;
+    }
+
     stdId = objAdaptor->getIntField(startIndex);
     stdName = objAdaptor->getField(startIndex);
     stdLastName = objAdaptor->getField(startIndex);
@@ -89,8 +94,6 @@ void Student::read(int index) {
     this->studentID = stdId;
     this->name = stdName;
     this->lastName = stdLastName;
-
-    cout << *this;
 }
 
 int Student::getStudentId() {

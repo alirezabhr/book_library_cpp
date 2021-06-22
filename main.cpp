@@ -1,5 +1,5 @@
 #include <iostream>
-#include "entities.h"
+#include "ui.h"
 
 using namespace std;
 
@@ -15,6 +15,7 @@ int main() {
     Config config;
     Adaptor *adaptor = nullptr;
     int option = 0;
+    int findOption = 0;
 
     try {
         config = getAdaptorOptions();
@@ -53,13 +54,21 @@ int main() {
                 break;
             case ALL_STUDENTS_OPTION: {
                 cout << "All students" << endl;
-//                Student tmpStudent(adaptor);
-//                file.read(2, testStd);
+                Student tmpStudent(adaptor);
+                try {
+                    tmpStudent.read(5);
+                } catch (out_of_range e) {
+                    cout << "\aError: " << e.what() << endl;
+                    continue;
+                }
+                cout << tmpStudent;
             }
                 break;
             case FIND_STUDENT_OPTION: {
                 cout << "Find Student" << endl;
                 Student tmpStudent(adaptor);
+                findOption = findObjectMenu(tmpStudent);
+                tmpStudent.find(findOption);
 //                file.read(2, testStd);
             }
                 break;

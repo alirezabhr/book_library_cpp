@@ -307,15 +307,21 @@ int DynamicRecordAdap::getRecord(int index) {
     cout << "Dyn Record Adap:: get record function" << endl;
     int recordSize = -2;
     int totalSize = 0;
+    int fileSize = 0;
 
     ifstream infile;
     infile.open("students.txt", ios::binary | ios::in);
+    fileSize = getFileSize("students.txt");
+    cout << "fileSize: " << fileSize << endl;
 
     for (int i = 0; i < index-1; ++i) {
         totalSize += 4;
         infile.read(reinterpret_cast<char *>(&recordSize), sizeof(int));
         totalSize += recordSize;
         infile.seekg(totalSize);
+        if (totalSize >= fileSize) {
+            throw std::out_of_range("Dont have Object with this index number!");
+        }
     }
 
     infile.close();
@@ -479,4 +485,12 @@ void DynRecDynStrAdap::setField(int size, string value) {
 string DynRecDynStrAdap::getField(int &startIndex) {
     cout << "DynRecDynStrAdap::getField" << endl;
     return DynamicStringAdap::getField(startIndex);
+}
+
+int getFileSize(const string &fileName) {
+    int fileSize = 0;
+    ifstream infile( fileName, ios::binary | ios::ate);
+    fileSize = infile.tellg();
+    infile.close();
+    return fileSize;
 }
