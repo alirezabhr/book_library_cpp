@@ -2,6 +2,8 @@
 
 using namespace std;
 
+#define MAX_MENU_OPTIONS 7
+
 
 bool check_number(const string &str) {
     for (char i : str) {
@@ -12,7 +14,7 @@ bool check_number(const string &str) {
     return true;
 }
 
-int showMainMenu() {    //return int number from [1(add student), 2(add book), ...]
+int showMainMenu() {    //return int number from [1(add student), 2(all students), ...]
     string inputNum;
     int inputNumInt;
     bool isValidNum;
@@ -20,7 +22,8 @@ int showMainMenu() {    //return int number from [1(add student), 2(add book), .
 
     //system("cls");
     while (true) {
-        cout << "1. Add Student\n2. Add Book\n3. Exit" << endl;
+        cout << "----------Main Menu----------" << endl;
+        cout << "1. Add Student\n2. All Students\n3. Find Student\n4. Add Book\n5. All Books\n6. Find Book\n7. Exit" << endl;
         cout << "Enter A Number:";
 
         getline(cin, inputNum);
@@ -31,7 +34,7 @@ int showMainMenu() {    //return int number from [1(add student), 2(add book), .
             continue;
         } else {
             inputNumInt = stoi(inputNum);
-            if (inputNumInt <= 0 || inputNumInt > 3) {
+            if (inputNumInt <= 0 || inputNumInt > MAX_MENU_OPTIONS) {
                 //system("cls");
                 cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
                 continue;
