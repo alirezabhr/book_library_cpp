@@ -47,7 +47,9 @@ public:
     virtual void writeRec() = 0;
     virtual void readRec(int index) = 0;
     virtual void setRecord() = 0;
+    virtual int getRecord(int index) = 0;
     virtual void setField(int size, string value) = 0;
+    virtual string getField(int &startIndex) = 0;
     void setIntField(int num);
     int getIntField(int &startIndex);
 
@@ -59,8 +61,7 @@ public:
     void writeRec() override;
     void readRec(int index) override;
     void setRecord() override;
-    int getRecord(int index);
-    void setField(int size, string value) override;
+    int getRecord(int index) override ;
 };
 
 class DynamicRecordAdap : public Adaptor{
@@ -68,8 +69,7 @@ public:
     void writeRec() override;
     void readRec(int index) override;
     void setRecord() override;
-    int getRecord(int index);
-    void setField(int size, string value) override;
+    int getRecord(int index) override ;
 };
 
 class FixedStringAdap {  //similar to interface in java
@@ -90,6 +90,7 @@ public:
     void writeRec() override;
     void readRec(int index) override;
     void setField(int size, string value) override;
+    string getField(int &startIndex) override;
 };
 
 class FixRecDynStrAdap: public FixedRecordAdap, public DynamicStringAdap {
@@ -98,6 +99,7 @@ public:
     void writeRec() override;
     void readRec(int index) override;
     void setField(int size, string value) override;
+    string getField(int &startIndex) override;
 };
 
 class DynRecFixStrAdap: public DynamicRecordAdap, public FixedStringAdap {
@@ -106,6 +108,7 @@ public:
     void writeRec() override;
     void readRec(int index) override;
     void setField(int size, string value) override;
+    string getField(int &startIndex) override;
 };
 
 class DynRecDynStrAdap: public DynamicRecordAdap, public DynamicStringAdap {
@@ -114,6 +117,7 @@ public:
     void writeRec() override;
     void readRec(int index) override;
     void setField(int size, string value) override;
+    string getField(int &startIndex) override;
 };
 
 #endif //BOOKS_LIBRARY_ADAPTORS_H

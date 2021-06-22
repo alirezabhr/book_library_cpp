@@ -265,10 +265,6 @@ int FixedRecordAdap::getRecord(int index) {
     return totalSize+4;
 }
 
-void FixedRecordAdap::setField(int size, string value) {
-    cout << "FixedRecordAdap::setField not ok" << endl;
-}
-
 void DynamicRecordAdap::writeRec() {
     cout << "write rec in DynamicRecordAdap" << endl;
 }
@@ -325,10 +321,6 @@ int DynamicRecordAdap::getRecord(int index) {
     infile.close();
 
     return totalSize+4;
-}
-
-void DynamicRecordAdap::setField(int size, string value) {
-    cout << "DynamicRecordAdap::setField not ok" << endl;
 }
 
 void FixedStringAdap::setField(int fieldSize, string fieldValue) {
@@ -423,24 +415,16 @@ void FixRecFixStrAdap::writeRec() {
 
 void FixRecFixStrAdap::readRec(int index) {
     cout << "readRec in FixRecFixStrAdap" << endl;
-    int startIndex = 0;
-    int stdId;
-    string stdName;
-    string stdLastName;
-
-    startIndex = getRecord(index);
-    stdId = getIntField(startIndex);
-    stdName = getField(startIndex);
-    stdLastName = getField(startIndex);
-
-    cout << "std id: =" << stdId << "=" << endl;
-    cout << "std name is: =" << stdName << "=" << endl;
-    cout << "std last name is: =" << stdLastName << "=" << endl;
 }
 
 void FixRecFixStrAdap::setField(int size, string value) {
-    cout << "FixRecFixStrAdap::setField maybe ok" << endl;
+    cout << "FixRecFixStrAdap::setField" << endl;
     FixedStringAdap::setField(size, value);
+}
+
+string FixRecFixStrAdap::getField(int &startIndex) {
+    cout << "FixRecFixStrAdap::getField" << endl;
+    return FixedStringAdap::getField(startIndex);
 }
 
 void FixRecDynStrAdap::writeRec() {
@@ -449,24 +433,16 @@ void FixRecDynStrAdap::writeRec() {
 
 void FixRecDynStrAdap::readRec(int index) {
     cout << "readRec in FixRecDynStrAdap" << endl;
-    int startIndex = 0;
-    int stdId;
-    string stdName;
-    string stdLastName;
-
-    startIndex = getRecord(index);
-    stdId = getIntField(startIndex);
-    stdName = getField(startIndex);
-    stdLastName = getField(startIndex);
-
-    cout << "std id: =" << stdId << "=" << endl;
-    cout << "std name is: =" << stdName << "=" << endl;
-    cout << "std last name is: =" << stdLastName << "=" << endl;
 }
 
 void FixRecDynStrAdap::setField(int size, string value) {
-    cout << "FixRecDynStrAdap::setField maybe ok" << endl;
+    cout << "FixRecDynStrAdap::setField" << endl;
     DynamicStringAdap::setField(size, value);
+}
+
+string FixRecDynStrAdap::getField(int &startIndex) {
+    cout << "FixRecDynStrAdap::getField" << endl;
+    return DynamicStringAdap::getField(startIndex);
 }
 
 void DynRecFixStrAdap::writeRec() {
@@ -475,24 +451,16 @@ void DynRecFixStrAdap::writeRec() {
 
 void DynRecFixStrAdap::readRec(int index) {
     cout << "readRec in DynRecFixStrAdap" << endl;
-    int startIndex = 0;
-    int stdId;
-    string stdName;
-    string stdLastName;
-
-    startIndex = getRecord(index);
-    stdId = getIntField(startIndex);
-    stdName = getField(startIndex);
-    stdLastName = getField(startIndex);
-
-    cout << "std id: =" << stdId << "=" << endl;
-    cout << "std name is: =" << stdName << "=" << endl;
-    cout << "std last name is: =" << stdLastName << "=" << endl;
 }
 
 void DynRecFixStrAdap::setField(int size, string value) {
-    cout << "DynRecFixStrAdap::setField maybe ok" << endl;
+    cout << "DynRecFixStrAdap::setField" << endl;
     FixedStringAdap::setField(size, value);
+}
+
+string DynRecFixStrAdap::getField(int &startIndex) {
+    cout << "DynRecFixStrAdap::getField" << endl;
+    return FixedStringAdap::getField(startIndex);
 }
 
 void DynRecDynStrAdap::writeRec() {
@@ -501,22 +469,14 @@ void DynRecDynStrAdap::writeRec() {
 
 void DynRecDynStrAdap::readRec(int index) {
     cout << "readRec in DynRecDynStrAdap" << endl;
-    int startIndex = 0;
-    int stdId;
-    string stdName;
-    string stdLastName;
-
-    startIndex = getRecord(index);
-    stdId = getIntField(startIndex);
-    stdName = getField(startIndex);
-    stdLastName = getField(startIndex);
-
-    cout << "std id: =" << stdId << "=" << endl;
-    cout << "std name is: =" << stdName << "=" << endl;
-    cout << "std last name is: =" << stdLastName << "=" << endl;
 }
 
 void DynRecDynStrAdap::setField(int size, string value) {
-    cout << "DynRecDynStrAdap::setField maybe ok" << endl;
+    cout << "DynRecDynStrAdap::setField" << endl;
     DynamicStringAdap::setField(size, value);
+}
+
+string DynRecDynStrAdap::getField(int &startIndex) {
+    cout << "DynRecDynStrAdap::getField" << endl;
+    return DynamicStringAdap::getField(startIndex);
 }
