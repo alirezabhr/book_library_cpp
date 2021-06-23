@@ -168,11 +168,8 @@ void Adaptor::setRecordSize(int recordSize) {
 }
 
 void Adaptor::setIntField(int num) {
-    const int intSize = sizeof(int);
-
     ofstream outfile;
     outfile.open("students.txt", ios::binary | ios::out | ios::app);
-    outfile.write(reinterpret_cast<const char *>(&intSize), sizeof(int));
     outfile.write(reinterpret_cast<const char *>(&num), sizeof(int));
     outfile.close();
 }
@@ -182,7 +179,6 @@ int Adaptor::getIntField(int &startIndex) {
 
     ifstream infile;
     infile.open("students.txt", ios::binary | ios::in);
-    startIndex += sizeof(int);
     infile.seekg(startIndex);
     infile.read(reinterpret_cast<char *>(&fieldValue), sizeof(int));
     startIndex += sizeof(int);
@@ -210,6 +206,7 @@ void FixedRecordAdap::setRecord() {
     int startIndex = 0;
     int tmpSize = 1;
     int fileSize = 0;
+    int lastObjectId = 0;
 
     ifstream infile;
     infile.open("students.txt", ios::binary | ios::in);
@@ -225,11 +222,15 @@ void FixedRecordAdap::setRecord() {
             cout << "tmp Size:" << tmpSize << endl;
             if (tmpSize == 0) break;
             else {
+                infile.read(reinterpret_cast<char *>(&lastObjectId), sizeof(int));
                 startIndex = startIndex + sizeof(int) + recordSize;
             }
             cout << "start index:" << startIndex << endl;
         }
     }
+
+    int newId = lastObjectId + 1;
+
     infile.close();
     int zeroExSize = startIndex-fileSize;
     cout << "start index:" << startIndex << endl;
@@ -243,26 +244,33 @@ void FixedRecordAdap::setRecord() {
     outfile.write(zeroEx, zeroExSize);
     delete[] zeroEx;
     outfile.write(reinterpret_cast<const char *>(&recordSize), sizeof(int));
+    outfile.write(reinterpret_cast<const char *>(&newId), sizeof(int));
     outfile.close();
 }
 
 int FixedRecordAdap::getRecord(int index) {
     int recordSize = -2;
     int totalSize = 0;
+    int fileSize = 0;
 
     ifstream infile;
     infile.open("students.txt", ios::binary | ios::in);
+    fileSize = getFileSize("students.txt");
 
     for (int i = 0; i < index-1; ++i) {
         totalSize += 4;
         infile.read(reinterpret_cast<char *>(&recordSize), sizeof(int));
         totalSize += recordSize;
+        totalSize += 4;
         infile.seekg(totalSize);
+        if (totalSize >= fileSize) {
+            throw std::out_of_range("Dont have Object with this index number!");
+        }
     }
 
     infile.close();
 
-    return totalSize+4;
+    return totalSize+4+4;
 }
 
 void DynamicRecordAdap::writeRec() {
@@ -278,6 +286,7 @@ void DynamicRecordAdap::setRecord() {
     int startIndex = 0;
     int tmpSize = 1;
     int recordSize = this->recSize;
+    int lastObjectId = 0;
 
     ifstream infile;
     infile.open("students.txt", ios::binary | ios::in);
@@ -291,15 +300,20 @@ void DynamicRecordAdap::setRecord() {
             cout << "tmp Size:" << tmpSize << endl;
             if (tmpSize == 0) break;
             else {
+                infile.read(reinterpret_cast<char *>(&lastObjectId), sizeof(int));
                 startIndex = startIndex + sizeof(int) + tmpSize;
             }
             cout << "start index:" << startIndex << endl;
         }
     }
+
+    int newId = lastObjectId + 1;
+
     infile.close();
     ofstream outfile;
     outfile.open("students.txt", ios::binary | ios::out | ios::app);
     outfile.write(reinterpret_cast<const char *>(&recordSize), sizeof(int));
+    outfile.write(reinterpret_cast<const char *>(&newId), sizeof(int));
     outfile.close();
 }
 
@@ -312,12 +326,12 @@ int DynamicRecordAdap::getRecord(int index) {
     ifstream infile;
     infile.open("students.txt", ios::binary | ios::in);
     fileSize = getFileSize("students.txt");
-    cout << "fileSize: " << fileSize << endl;
 
     for (int i = 0; i < index-1; ++i) {
         totalSize += 4;
         infile.read(reinterpret_cast<char *>(&recordSize), sizeof(int));
         totalSize += recordSize;
+        totalSize += 4;
         infile.seekg(totalSize);
         if (totalSize >= fileSize) {
             throw std::out_of_range("Dont have Object with this index number!");
@@ -326,7 +340,7 @@ int DynamicRecordAdap::getRecord(int index) {
 
     infile.close();
 
-    return totalSize+4;
+    return totalSize+4+4;
 }
 
 void FixedStringAdap::setField(int fieldSize, string fieldValue) {
