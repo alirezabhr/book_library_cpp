@@ -168,17 +168,19 @@ void Adaptor::setRecordSize(int recordSize) {
 }
 
 void Adaptor::setIntField(int num) {
+    string file = this->fileName;
     ofstream outfile;
-    outfile.open("students.txt", ios::binary | ios::out | ios::app);
+    outfile.open(file, ios::binary | ios::out | ios::app);
     outfile.write(reinterpret_cast<const char *>(&num), sizeof(int));
     outfile.close();
 }
 
 int Adaptor::getIntField(int &startIndex) {
+    string file = this->fileName;
     int fieldValue = -3;
 
     ifstream infile;
-    infile.open("students.txt", ios::binary | ios::in);
+    infile.open(file, ios::binary | ios::in);
     infile.seekg(startIndex);
     infile.read(reinterpret_cast<char *>(&fieldValue), sizeof(int));
     startIndex += sizeof(int);
@@ -192,16 +194,21 @@ const Config &Adaptor::getAdpConf() const {
     return adpConf;
 }
 
+void Adaptor::setFileName(const string &fileName) {
+    Adaptor::fileName = fileName;
+}
+
 void FixedRecordAdap::writeRec() {
     cout << "write rec in FixedRecordAdap" << endl;
 }
 
-void FixedRecordAdap::readRec(int index) {
+void FixedRecordAdap::readRec() {
     cout << "read rec in FixedRecordAdap" << endl;
 }
 
 void FixedRecordAdap::setRecord() {
     cout << "Fixed Record Adap:: set record function" << endl;
+    string file = this->fileName;
     int recordSize = adpConf.getRecordSize();
     int startIndex = 0;
     int tmpSize = 1;
@@ -209,7 +216,7 @@ void FixedRecordAdap::setRecord() {
     int lastObjectId = 0;
 
     ifstream infile;
-    infile.open("students.txt", ios::binary | ios::in);
+    infile.open(file, ios::binary | ios::in);
     if (!infile.fail()) {    // file could be opened
         infile.seekg (0, std::ifstream::end);
         fileSize = infile.tellg();
@@ -236,7 +243,7 @@ void FixedRecordAdap::setRecord() {
     cout << "start index:" << startIndex << endl;
 
     ofstream outfile;
-    outfile.open("students.txt", ios::binary | ios::out | ios::app);
+    outfile.open(file, ios::binary | ios::out | ios::app);
     char *zeroEx = new char[zeroExSize];
     for (int i = 0; i < zeroExSize; ++i) {
         zeroEx[i] = 0;
@@ -249,13 +256,14 @@ void FixedRecordAdap::setRecord() {
 }
 
 int FixedRecordAdap::getRecord(int index) {
+    string file = this->fileName;
     int recordSize = -2;
     int totalSize = 0;
     int fileSize = 0;
 
     ifstream infile;
-    infile.open("students.txt", ios::binary | ios::in);
-    fileSize = getFileSize("students.txt");
+    infile.open(file, ios::binary | ios::in);
+    fileSize = getFileSize(file);
 
     for (int i = 0; i < index-1; ++i) {
         totalSize += 4;
@@ -277,19 +285,20 @@ void DynamicRecordAdap::writeRec() {
     cout << "write rec in DynamicRecordAdap" << endl;
 }
 
-void DynamicRecordAdap::readRec(int index) {
+void DynamicRecordAdap::readRec() {
     cout << "read rec in DynamicRecordAdap" << endl;
 }
 
 void DynamicRecordAdap::setRecord() {
     cout << "DynRecordAdap::setRecord" << endl;
+    string file = this->fileName;
     int startIndex = 0;
     int tmpSize = 1;
     int recordSize = this->recSize;
     int lastObjectId = 0;
 
     ifstream infile;
-    infile.open("students.txt", ios::binary | ios::in);
+    infile.open(file, ios::binary | ios::in);
     if (!infile.fail()) {    // file could be opened
         infile.seekg (0);
         cout << "before while in set record" << "\ttmp Size: " << tmpSize << "\tstart index: " << startIndex << endl;
@@ -311,7 +320,7 @@ void DynamicRecordAdap::setRecord() {
 
     infile.close();
     ofstream outfile;
-    outfile.open("students.txt", ios::binary | ios::out | ios::app);
+    outfile.open(file, ios::binary | ios::out | ios::app);
     outfile.write(reinterpret_cast<const char *>(&recordSize), sizeof(int));
     outfile.write(reinterpret_cast<const char *>(&newId), sizeof(int));
     outfile.close();
@@ -319,13 +328,14 @@ void DynamicRecordAdap::setRecord() {
 
 int DynamicRecordAdap::getRecord(int index) {
     cout << "Dyn Record Adap:: get record function" << endl;
+    string file = this->fileName;
     int recordSize = -2;
     int totalSize = 0;
     int fileSize = 0;
 
     ifstream infile;
-    infile.open("students.txt", ios::binary | ios::in);
-    fileSize = getFileSize("students.txt");
+    infile.open(file, ios::binary | ios::in);
+    fileSize = getFileSize(file);
 
     for (int i = 0; i < index-1; ++i) {
         totalSize += 4;
@@ -343,20 +353,21 @@ int DynamicRecordAdap::getRecord(int index) {
     return totalSize+4+4;
 }
 
-void FixedStringAdap::setField(int fieldSize, string fieldValue) {
+void FixedStringAdap::setField(const string &fileName, int fieldSize, string fieldValue) {
     cout << "Fixed String Adap:: set field function" << endl;
+    const string& file = fileName;
 
     ofstream outfile;
-    outfile.open("students.txt", ios::binary | ios::out | ios::app);
+    outfile.open(file, ios::binary | ios::out | ios::app);
     outfile.write(reinterpret_cast<const char *>(&fieldSize), sizeof(int));
     outfile.close();
 
-    outfile.open("students.txt", ios::out | ios::app);
+    outfile.open(file, ios::out | ios::app);
     outfile << fieldValue;
     int zeroExSize = fieldSize - fieldValue.size();
     char *zeroEx = new char[zeroExSize];
     outfile.close();
-    outfile.open("students.txt", ios::binary | ios::out | ios::app);
+    outfile.open(file, ios::binary | ios::out | ios::app);
     for (int i = 0; i < zeroExSize; ++i) {
         zeroEx[i] = 0;
     }
@@ -366,13 +377,14 @@ void FixedStringAdap::setField(int fieldSize, string fieldValue) {
     outfile.close();
 }
 
-string FixedStringAdap::getField(int &startIndex) {
+string FixedStringAdap::getField(const string &fileName, int &startIndex) {
     cout << "Fixed String Adap:: get field function" << endl;
+    const string& file = fileName;
     int fieldSize = -2;
     string fieldValue;
 
     ifstream infile;
-    infile.open("students.txt", ios::binary | ios::in);
+    infile.open(file, ios::binary | ios::in);
 
     infile.seekg(startIndex);
     infile.read(reinterpret_cast<char *>(&fieldSize), sizeof(int));
@@ -391,26 +403,28 @@ string FixedStringAdap::getField(int &startIndex) {
     return fieldValue;
 }
 
-void DynamicStringAdap::setField(int fieldSize, string fieldValue) {
+void DynamicStringAdap::setField(const string &fileName, int fieldSize, string fieldValue) {
     cout << "Dynamic String Adap:: set field function" << endl;
+    const string& file = fileName;
 
     ofstream outfile;
-    outfile.open("students.txt", ios::binary | ios::out | ios::app);
+    outfile.open(file, ios::binary | ios::out | ios::app);
     outfile.write(reinterpret_cast<const char *>(&fieldSize), sizeof(int));
     outfile.close();
 
-    outfile.open("students.txt", ios::out | ios::app);
+    outfile.open(file, ios::out | ios::app);
     outfile << fieldValue;
     outfile.close();
 }
 
-string DynamicStringAdap::getField(int &startIndex) {
+string DynamicStringAdap::getField(const string &fileName, int &startIndex) {
     cout << "Dynamic String Adap:: get field function" << endl;
+    const string& file = fileName;
     int fieldSize = -2;
     string fieldValue;
 
     ifstream infile;
-    infile.open("students.txt", ios::binary | ios::in);
+    infile.open(file, ios::binary | ios::in);
 
     infile.seekg(startIndex);
     infile.read(reinterpret_cast<char *>(&fieldSize), sizeof(int));
@@ -433,72 +447,80 @@ void FixRecFixStrAdap::writeRec() {
     cout << "writeRec in FixRecFixStrAdap" << endl;
 }
 
-void FixRecFixStrAdap::readRec(int index) {
+void FixRecFixStrAdap::readRec() {
     cout << "readRec in FixRecFixStrAdap" << endl;
 }
 
 void FixRecFixStrAdap::setField(int size, string value) {
     cout << "FixRecFixStrAdap::setField" << endl;
-    FixedStringAdap::setField(size, value);
+    string file = this->fileName;
+    FixedStringAdap::setField(file, size, value);
 }
 
 string FixRecFixStrAdap::getField(int &startIndex) {
     cout << "FixRecFixStrAdap::getField" << endl;
-    return FixedStringAdap::getField(startIndex);
+    string file = this->fileName;
+    return FixedStringAdap::getField(file, startIndex);
 }
 
 void FixRecDynStrAdap::writeRec() {
     cout << "writeRec in FixRecDynStrAdap" << endl;
 }
 
-void FixRecDynStrAdap::readRec(int index) {
+void FixRecDynStrAdap::readRec() {
     cout << "readRec in FixRecDynStrAdap" << endl;
 }
 
 void FixRecDynStrAdap::setField(int size, string value) {
     cout << "FixRecDynStrAdap::setField" << endl;
-    DynamicStringAdap::setField(size, value);
+    string file = this->fileName;
+    DynamicStringAdap::setField(file, size, value);
 }
 
 string FixRecDynStrAdap::getField(int &startIndex) {
     cout << "FixRecDynStrAdap::getField" << endl;
-    return DynamicStringAdap::getField(startIndex);
+    string file = this->fileName;
+    return DynamicStringAdap::getField(file, startIndex);
 }
 
 void DynRecFixStrAdap::writeRec() {
     cout << "writeRec in DynRecFixStrAdap" << endl;
 }
 
-void DynRecFixStrAdap::readRec(int index) {
+void DynRecFixStrAdap::readRec() {
     cout << "readRec in DynRecFixStrAdap" << endl;
 }
 
 void DynRecFixStrAdap::setField(int size, string value) {
     cout << "DynRecFixStrAdap::setField" << endl;
-    FixedStringAdap::setField(size, value);
+    string file = this->fileName;
+    FixedStringAdap::setField(file, size, value);
 }
 
 string DynRecFixStrAdap::getField(int &startIndex) {
     cout << "DynRecFixStrAdap::getField" << endl;
-    return FixedStringAdap::getField(startIndex);
+    string file = this->fileName;
+    return FixedStringAdap::getField(file, startIndex);
 }
 
 void DynRecDynStrAdap::writeRec() {
     cout << "writeRec in DynRecDynStrAdap" << endl;
 }
 
-void DynRecDynStrAdap::readRec(int index) {
+void DynRecDynStrAdap::readRec() {
     cout << "readRec in DynRecDynStrAdap" << endl;
 }
 
 void DynRecDynStrAdap::setField(int size, string value) {
     cout << "DynRecDynStrAdap::setField" << endl;
-    DynamicStringAdap::setField(size, value);
+    string file = this->fileName;
+    DynamicStringAdap::setField(file, size, value);
 }
 
 string DynRecDynStrAdap::getField(int &startIndex) {
     cout << "DynRecDynStrAdap::getField" << endl;
-    return DynamicStringAdap::getField(startIndex);
+    string file = this->fileName;
+    return DynamicStringAdap::getField(file, startIndex);
 }
 
 int getFileSize(const string &fileName) {
