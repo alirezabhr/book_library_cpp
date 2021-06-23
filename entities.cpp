@@ -89,7 +89,7 @@ void Student::find(int option) {
     int inputNum;
     bool isValidNum;
     int objectsCount = this->objectCount();
-    bool found = false;
+    vector<int> idList;
 
     switch (option) {
         case 1: //find by id
@@ -109,12 +109,14 @@ void Student::find(int option) {
             for (int i = 1; i <= objectsCount ; ++i) {
                 this->read(i);
                 if (this->studentID == inputNum) {
-                    found = true;
-                    break;
+                    idList.push_back(i);
                 }
             }
-            if (found) {
-                cout << *this;
+            if (!idList.empty()) {
+                for (int id: idList) {
+                    this->read(id);
+                    cout << *this;
+                }
             } else {
                 cout << "\aStudent With Id " << inputNum << " NOT FOUND" << endl;
             }
@@ -125,12 +127,14 @@ void Student::find(int option) {
             for (int i = 1; i <= objectsCount ; ++i) {
                 this->read(i);
                 if (this->name == input) {
-                    found = true;
-                    break;
+                    idList.push_back(i);
                 }
             }
-            if (found) {
-                cout << *this;
+            if (!idList.empty()) {
+                for (int id: idList) {
+                    this->read(id);
+                    cout << *this;
+                }
             } else {
                 cout << "\aStudent With Name " << input << " NOT FOUND" << endl;
             }
@@ -141,12 +145,14 @@ void Student::find(int option) {
             for (int i = 1; i <= objectsCount ; ++i) {
                 this->read(i);
                 if (this->lastName == input) {
-                    found = true;
-                    break;
+                    idList.push_back(i);
                 }
             }
-            if (found) {
-                cout << *this;
+            if (!idList.empty()) {
+                for (int id: idList) {
+                    this->read(id);
+                    cout << *this;
+                }
             } else {
                 cout << "\astudent with id " << input << " NOT FOUND" << endl;
             }
