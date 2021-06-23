@@ -55,13 +55,7 @@ int main() {
             case ALL_STUDENTS_OPTION: {
                 cout << "All students" << endl;
                 Student tmpStudent(adaptor);
-                try {
-                    tmpStudent.read(5);
-                } catch (out_of_range e) {
-                    cout << "\aError: " << e.what() << endl;
-                    continue;
-                }
-                cout << tmpStudent;
+                tmpStudent.printAllObjects();
             }
                 break;
             case FIND_STUDENT_OPTION: {
@@ -69,7 +63,6 @@ int main() {
                 Student tmpStudent(adaptor);
                 findOption = findObjectMenu(tmpStudent);
                 tmpStudent.find(findOption);
-//                file.read(2, testStd);
             }
                 break;
             case ADD_BOOK_OPTION:

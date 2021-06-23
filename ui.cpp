@@ -131,12 +131,12 @@ int findObjectMenu(Object& object) {
     int inputNum = 0;
     bool isValidNum;
 
-    cout << "find " << object.getObjectFileName() << " by:" << endl;
     for (int i = 0; i < fields.size(); ++i) {
         cout << i+1 << ". " << fields.at(i) << endl;
     }
 
     while (true) {
+        cout << "find " << object.getObjectFileName() << " by:" << endl;
         getline(cin, inputNumStr);
         isValidNum = check_number(inputNumStr);
         if (!isValidNum) {

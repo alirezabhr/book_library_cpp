@@ -14,8 +14,8 @@ const vector<string> &Object::getFieldsName() const {
 int Object::objectCount() {
     int objectsCount = 0;
     try {
-        while(true) {
-            this->read(objectsCount+1);
+        while (true) {
+            this->read(objectsCount + 1);
             objectsCount++;
         }
     } catch (out_of_range e) {
@@ -29,7 +29,7 @@ void Object::printAllObjects() {
 
     for (int i = 1; i <= objectsCount; ++i) {
         this->read(i);
-        cout << *(Student*)this;
+        cout << *(Student *) this;
     }
 }
 
@@ -85,15 +85,71 @@ void Student::add() {
 }
 
 void Student::find(int option) {
+    string input;
+    int inputNum;
+    bool isValidNum;
+    int objectsCount = this->objectCount();
+    bool found = false;
+
     switch (option) {
         case 1: //find by id
-            cout << "find student by id" << endl;
+            while (true) {
+                cout << "Enter Student Id: " << endl;
+                getline(cin, input);
+                isValidNum = check_number(input);
+                if (!isValidNum) {
+                    //system("cls");
+                    cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
+                    continue;
+                } else {
+                    inputNum = stoi(input);
+                    break;
+                }
+            }
+            for (int i = 1; i <= objectsCount ; ++i) {
+                this->read(i);
+                if (this->studentID == inputNum) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                cout << *this;
+            } else {
+                cout << "\aStudent With Id " << inputNum << " NOT FOUND" << endl;
+            }
             break;
         case 2: //find by name
-            cout << "find student by name" << endl;
+            cout << "Enter Student Name: " << endl;
+            getline(cin, input);
+            for (int i = 1; i <= objectsCount ; ++i) {
+                this->read(i);
+                if (this->name == input) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                cout << *this;
+            } else {
+                cout << "\aStudent With Name " << input << " NOT FOUND" << endl;
+            }
             break;
         case 3: //find by last name
-            cout << "find student by last name" << endl;
+            cout << "Enter Student Last Name: " << endl;
+            getline(cin, input);
+            for (int i = 1; i <= objectsCount ; ++i) {
+                this->read(i);
+                if (this->lastName == input) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                cout << *this;
+            } else {
+                cout << "\astudent with id " << input << " NOT FOUND" << endl;
+            }
             break;
     }
 }
