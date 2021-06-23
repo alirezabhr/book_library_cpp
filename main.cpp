@@ -6,10 +6,12 @@ using namespace std;
 #define ADD_STUDENT_OPTION 1
 #define ALL_STUDENTS_OPTION 2
 #define FIND_STUDENT_OPTION 3
-#define ADD_BOOK_OPTION 4
-#define ALL_BOOKS_OPTION 5
-#define FIND_BOOK_OPTION 6
-#define EXIT_PROGRAM_OPTION 7
+#define EDIT_STUDENT_OPTION 4
+#define ADD_BOOK_OPTION 5
+#define ALL_BOOKS_OPTION 6
+#define FIND_BOOK_OPTION 7
+#define EDIT_BOOK_OPTION 8
+#define EXIT_PROGRAM_OPTION 9
 
 int main() {
     Config config;
@@ -62,8 +64,15 @@ int main() {
                 cout << "Find Student" << endl;
                 Student tmpStudent(adaptor);
                 findOption = findObjectMenu(tmpStudent);
-                tmpStudent.find(findOption);
+                vector<int> idList = tmpStudent.find(findOption);
+                for (int id: idList) {
+                    tmpStudent.read(id);
+                    cout << tmpStudent;
+                }
             }
+                break;
+            case EDIT_STUDENT_OPTION:
+                cout << "Edit Student" << endl;
                 break;
             case ADD_BOOK_OPTION:
                 cout << "request for adding a book" << endl;
@@ -73,6 +82,9 @@ int main() {
                 break;
             case FIND_BOOK_OPTION:
                 cout << "find book" << endl;
+                break;
+            case EDIT_BOOK_OPTION:
+                cout << "edit book" << endl;
                 break;
             case EXIT_PROGRAM_OPTION:
                 cout << "Program Closed" << endl;

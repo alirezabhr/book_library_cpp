@@ -88,7 +88,7 @@ void Student::add() {
     objAdaptor->setField(lastNameSize, this->lastName);
 }
 
-void Student::find(int option) {
+vector<int> Student::find(int option) {
     string input;
     int inputNum;
     bool isValidNum;
@@ -116,15 +116,10 @@ void Student::find(int option) {
                     idList.push_back(i);
                 }
             }
-            if (!idList.empty()) {
-                for (int id: idList) {
-                    this->read(id);
-                    cout << *this;
-                }
-            } else {
-                cout << "\aStudent With Id " << inputNum << " NOT FOUND" << endl;
+            if (idList.empty()) {
+                cout << "\aStudent With Id \'" << inputNum << "\' NOT FOUND" << endl;
             }
-            break;
+            return idList;
         case 2: //find by name
             cout << "Enter Student Name: " << endl;
             getline(cin, input);
@@ -134,15 +129,10 @@ void Student::find(int option) {
                     idList.push_back(i);
                 }
             }
-            if (!idList.empty()) {
-                for (int id: idList) {
-                    this->read(id);
-                    cout << *this;
-                }
-            } else {
-                cout << "\aStudent With Name " << input << " NOT FOUND" << endl;
+            if (idList.empty()) {
+                cout << "\aStudent With Name \'" << input << "\' NOT FOUND" << endl;
             }
-            break;
+            return idList;
         case 3: //find by last name
             cout << "Enter Student Last Name: " << endl;
             getline(cin, input);
@@ -152,15 +142,12 @@ void Student::find(int option) {
                     idList.push_back(i);
                 }
             }
-            if (!idList.empty()) {
-                for (int id: idList) {
-                    this->read(id);
-                    cout << *this;
-                }
-            } else {
-                cout << "\astudent with id " << input << " NOT FOUND" << endl;
+            if (idList.empty()) {
+                cout << "\astudent with id \'" << input << "\' NOT FOUND" << endl;
             }
-            break;
+            return idList;
+        default:
+            return idList;
     }
 }
 
@@ -183,6 +170,10 @@ void Student::read(int index) {
     this->studentID = stdId;
     this->name = stdName;
     this->lastName = stdLastName;
+}
+
+void Student::edit(int index) {
+
 }
 
 int Student::getStudentId() {

@@ -17,8 +17,9 @@ public:
     int objectCount();
     void printAllObjects();
     virtual void add() = 0;
-    virtual void find(int option) = 0;
+    virtual vector<int> find(int option) = 0;
     virtual void read(int index) = 0;
+    virtual void edit(int index) = 0;
 };
 
 class Student: public Object{
@@ -32,8 +33,9 @@ public:
     Student(Adaptor *adaptor);
 
     void add() override;
-    void find(int option) override;
-    void read(int index);
+    vector<int> find(int option) override;
+    void read(int index) override;
+    void edit(int index) override;
     int getStudentId();
     string getName();
     string getLastName();
