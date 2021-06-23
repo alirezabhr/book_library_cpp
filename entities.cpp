@@ -11,6 +11,28 @@ const vector<string> &Object::getFieldsName() const {
     return fieldsName;
 }
 
+int Object::objectCount() {
+    int objectsCount = 0;
+    try {
+        while(true) {
+            this->read(objectsCount+1);
+            objectsCount++;
+        }
+    } catch (out_of_range e) {
+        return objectsCount;
+    }
+}
+
+void Object::printAllObjects() {
+    int objectsCount = this->objectCount();
+    cout << "number of " << this->objectFileName << " : " << objectsCount << endl;
+
+    for (int i = 1; i <= objectsCount; ++i) {
+        this->read(i);
+        cout << *(Student*)this;
+    }
+}
+
 Student::Student(Adaptor *adaptor, int studentID, const string &name, const string &lastName) : studentID(studentID),
                                                                                                 name(name),
                                                                                                 lastName(lastName) {
@@ -32,6 +54,7 @@ void Student::add() {
     Config conf = objAdaptor->getAdpConf();
     int recordSize;
     int id = this->studentID;
+    int idSize = sizeof(int);
     int nameSize;
     int lastNameSize;
 
@@ -46,11 +69,11 @@ void Student::add() {
     } else if (conf.getRecordMode() == "Dyn" && conf.getStringMode() == "Fix") {
         nameSize = conf.getStudentNameSize();
         lastNameSize = conf.getStudentLastNameSize();
-        recordSize = sizeof(int) + sizeof(int) + sizeof(int) + nameSize + sizeof(int) + lastNameSize;
+        recordSize = idSize + sizeof(int) + nameSize + sizeof(int) + lastNameSize;
     } else {    //Dynamic Record Dynamic String
         nameSize = this->name.size();
         lastNameSize = this->lastName.size();
-        recordSize = sizeof(int) + sizeof(int) + sizeof(int) + nameSize + sizeof(int) + lastNameSize;
+        recordSize = idSize + sizeof(int) + nameSize + sizeof(int) + lastNameSize;
     }
 
     objAdaptor->setRecordSize(recordSize);

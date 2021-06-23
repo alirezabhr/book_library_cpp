@@ -14,6 +14,8 @@ protected:
 public:
     string getObjectFileName();
     const vector<string> &getFieldsName() const;
+    int objectCount();
+    void printAllObjects();
     virtual void add() = 0;
     virtual void find(int option) = 0;
     virtual void read(int index) = 0;
