@@ -157,3 +157,36 @@ int findObjectMenu(Object& object) {
 
     return inputNum;
 }
+
+int editObjectMenu(Object& object) {
+    vector<string> fields = object.getFieldsName();
+    string inputNumStr;
+    int inputNum = 0;
+    bool isValidNum;
+
+    for (int i = 0; i < fields.size(); ++i) {
+        cout << i+1 << ". " << fields.at(i) << endl;
+    }
+
+    while (true) {
+        cout << "Edit " << object.getObjectFileName() << " By:" << endl;
+        getline(cin, inputNumStr);
+        isValidNum = check_number(inputNumStr);
+        if (!isValidNum) {
+            //system("cls");
+            cout << "!! PLEASE ENTER A VALID STUDENT ID !!" << endl;
+            continue;
+        } else {
+            inputNum = stoi(inputNumStr);
+            if (inputNum >= 1 && inputNum <= fields.size()) {
+                break;
+            } else {
+                //system("cls");
+                cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
+                continue;
+            }
+        }
+    }
+
+    return inputNum;
+}

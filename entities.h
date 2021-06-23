@@ -19,7 +19,7 @@ public:
     virtual void add() = 0;
     virtual vector<int> find(int option) = 0;
     virtual void read(int index) = 0;
-    virtual void edit(int index) = 0;
+    virtual void edit(int option, int index) = 0;
 };
 
 class Student: public Object{
@@ -35,7 +35,7 @@ public:
     void add() override;
     vector<int> find(int option) override;
     void read(int index) override;
-    void edit(int index) override;
+    void edit(int option, int index) override;
     int getStudentId();
     string getName();
     string getLastName();

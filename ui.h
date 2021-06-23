@@ -9,5 +9,6 @@
 
 int showMainMenu();
 int findObjectMenu(Object& object);
+int editObjectMenu(Object& object);
 
 #endif //BOOKS_LIBRARY_UI_H

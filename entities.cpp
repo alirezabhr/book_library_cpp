@@ -110,7 +110,7 @@ vector<int> Student::find(int option) {
                     break;
                 }
             }
-            for (int i = 1; i <= objectsCount ; ++i) {
+            for (int i = 1; i <= objectsCount; ++i) {
                 this->read(i);
                 if (this->studentID == inputNum) {
                     idList.push_back(i);
@@ -123,7 +123,7 @@ vector<int> Student::find(int option) {
         case 2: //find by name
             cout << "Enter Student Name: " << endl;
             getline(cin, input);
-            for (int i = 1; i <= objectsCount ; ++i) {
+            for (int i = 1; i <= objectsCount; ++i) {
                 this->read(i);
                 if (this->name == input) {
                     idList.push_back(i);
@@ -136,7 +136,7 @@ vector<int> Student::find(int option) {
         case 3: //find by last name
             cout << "Enter Student Last Name: " << endl;
             getline(cin, input);
-            for (int i = 1; i <= objectsCount ; ++i) {
+            for (int i = 1; i <= objectsCount; ++i) {
                 this->read(i);
                 if (this->lastName == input) {
                     idList.push_back(i);
@@ -172,8 +172,37 @@ void Student::read(int index) {
     this->lastName = stdLastName;
 }
 
-void Student::edit(int index) {
+void Student::edit(int option, int index) {
+    string input;
+    int inputNum;
+    bool isValidNum;
 
+    switch (option) {
+        case 1: //find by id
+            while (true) {
+                cout << "Edit Student Id: " << endl;
+                getline(cin, input);
+                isValidNum = check_number(input);
+                if (!isValidNum) {
+                    //system("cls");
+                    cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
+                    continue;
+                } else {
+                    inputNum = stoi(input);
+                    break;
+                }
+            }
+            break;
+        case 2: //find by name
+            cout << "Edit Student Name: " << endl;
+            getline(cin, input);
+            break;
+
+        case 3: //find by last name
+            cout << "Edit Student Last Name: " << endl;
+            getline(cin, input);
+            break;
+    }
 }
 
 int Student::getStudentId() {

@@ -18,6 +18,7 @@ int main() {
     Adaptor *adaptor = nullptr;
     int option = 0;
     int findOption = 0;
+    int editOption = 0;
 
     try {
         config = getAdaptorOptions();
@@ -71,8 +72,22 @@ int main() {
                 }
             }
                 break;
-            case EDIT_STUDENT_OPTION:
+            case EDIT_STUDENT_OPTION: {
                 cout << "Edit Student" << endl;
+                Student tmpStudent(adaptor);
+                findOption = findObjectMenu(tmpStudent);
+                vector<int> idList = tmpStudent.find(findOption);
+                if (idList.size() > 1) {
+                    cout << "There Is More Than One Item!" << endl;
+                    continue;
+                }
+                for (int id: idList) {
+                    tmpStudent.read(id);
+                    cout << tmpStudent;
+                }
+                editOption = editObjectMenu(tmpStudent);
+                tmpStudent.edit(editOption, idList.at(0));
+            }
                 break;
             case ADD_BOOK_OPTION:
                 cout << "request for adding a book" << endl;
