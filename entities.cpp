@@ -37,10 +37,10 @@ Student::Student(Adaptor *adaptor, int studentID, const string &name, const stri
                                                                                                 name(name),
                                                                                                 lastName(lastName) {
     this->objAdaptor = adaptor;
-    this->objectFileName = "students";
+    this->objectFileName = constFileName;
     string fileName = this->objectFileName + ".txt";
     this->objAdaptor->setFileName(fileName);
-    this->fieldsName = {"student id", "student name", "student last name"};
+    this->fieldsName = constFieldsName;
 }
 
 Student::Student(Adaptor *adaptor) {
@@ -48,10 +48,10 @@ Student::Student(Adaptor *adaptor) {
     name = "";
     lastName = "";
     this->objAdaptor = adaptor;
-    this->objectFileName = "students";
+    this->objectFileName = constFileName;
     string fileName = this->objectFileName + ".txt";
     this->objAdaptor->setFileName(fileName);
-    this->fieldsName = {"student id", "student name", "student last name"};
+    this->fieldsName = constFieldsName;
 }
 
 void Student::add() {
