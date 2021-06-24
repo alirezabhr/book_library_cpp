@@ -17,7 +17,8 @@ protected:
     Config adpConf;
     string fileName;
 public:
-    void setRecordSize(int recSize);
+    void setRecSize(int recSize);
+    int getRecSize();
     char *readFromTo(int start, int end);
     virtual void writeRec() = 0;
     virtual void readRec() = 0;
@@ -25,6 +26,7 @@ public:
     virtual int getRecord(int index) = 0;
     virtual void setField(int size, string value) = 0;
     virtual string getField(int &startIndex) = 0;
+    virtual void editField(int startIndex, int size, string value) = 0;
     void setIntField(int num);
     int getIntField(int &startIndex);
     void editIntField(int startIndex, int num);
@@ -37,7 +39,7 @@ public:
     void writeRec() override;
     void readRec() override;
     void setRecord() override;
-    int getRecord(int index) override ;
+    int getRecord(int index) override;
 };
 
 class DynamicRecordAdap : public Adaptor{
@@ -45,19 +47,21 @@ public:
     void writeRec() override;
     void readRec() override;
     void setRecord() override;
-    int getRecord(int index) override ;
+    int getRecord(int index) override;
 };
 
 class FixedStringAdap {  //similar to interface in java
 public:
     void setField(const string &fileName, int fieldSize, string fieldValue);
     string getField(const string &fileName, int &startIndex);
+    void editField(const string &fileName, int startIndex, int size, string &value, char *data1, char *data2);
 };
 
 class DynamicStringAdap {   //similar to interface in java
 public:
     void setField(const string &fileName, int fieldSize, string fieldValue);
     string getField(const string &fileName, int &startIndex);
+    void editField(const string &fileName, int startIndex, int size, string &value, char *data1, char *data2);
 };
 
 class FixRecFixStrAdap: public FixedRecordAdap, public FixedStringAdap {
@@ -67,6 +71,7 @@ public:
     void readRec() override;
     void setField(int size, string value) override;
     string getField(int &startIndex) override;
+    void editField(int startIndex, int size, string value) override;
 };
 
 class FixRecDynStrAdap: public FixedRecordAdap, public DynamicStringAdap {
@@ -76,6 +81,7 @@ public:
     void readRec() override;
     void setField(int size, string value) override;
     string getField(int &startIndex) override;
+    void editField(int startIndex, int size, string value) override;
 };
 
 class DynRecFixStrAdap: public DynamicRecordAdap, public FixedStringAdap {
@@ -85,6 +91,7 @@ public:
     void readRec() override;
     void setField(int size, string value) override;
     string getField(int &startIndex) override;
+    void editField(int startIndex, int size, string value) override;
 };
 
 class DynRecDynStrAdap: public DynamicRecordAdap, public DynamicStringAdap {
@@ -94,6 +101,7 @@ public:
     void readRec() override;
     void setField(int size, string value) override;
     string getField(int &startIndex) override;
+    void editField(int startIndex, int size, string value) override;
 };
 
 int getFileSize(const string &fileName);

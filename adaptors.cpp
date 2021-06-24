@@ -19,8 +19,12 @@ DynRecDynStrAdap::DynRecDynStrAdap(Config& conf) {
     adpConf = conf;
 }
 
-void Adaptor::setRecordSize(int recordSize) {
+void Adaptor::setRecSize(int recordSize) {
     Adaptor::recSize = recordSize;
+}
+
+int Adaptor::getRecSize() {
+    return recSize;
 }
 
 char *Adaptor::readFromTo(int start, int end) {
@@ -64,16 +68,18 @@ void Adaptor::editIntField(int startIndex, int num) {
     int fieldValue = num;
 
     int fileSize = getFileSize(file);
-    char *d1 = readFromTo(0,startIndex);
-    char *d2 = readFromTo(startIndex+4, fileSize);
+    char *data1 = readFromTo(0,startIndex);
+    char *data2 = readFromTo(startIndex+4, fileSize);
 
     ofstream outfile;
     outfile.open(file, ios::binary | ios::out);
-    outfile.write(d1, startIndex);
+    outfile.write(data1, startIndex);
     outfile.write(reinterpret_cast<char *>(&fieldValue), sizeof(int));
-    outfile.write(d2, fileSize-(startIndex+4));
+    outfile.write(data2, fileSize-(startIndex+4));
 
     outfile.close();
+//    delete[] data1;
+//    delete[] data2;
 }
 
 const Config &Adaptor::getAdpConf() const {
@@ -295,6 +301,22 @@ string FixedStringAdap::getField(const string &fileName, int &startIndex) {
     return fieldValue;
 }
 
+void FixedStringAdap::editField(const string &fileName, int startIndex, int size, string &value, char *data1, char *data2) {
+    cout << "Fixed String Adap:: edit field function" << endl;
+    int fileSize = getFileSize(fileName);
+
+    ofstream outfile;
+    outfile.open(fileName, ios::binary | ios::out);
+    outfile.write(data1, startIndex);
+    outfile.close();
+
+    this->setField(fileName, size, value);
+
+    outfile.open(fileName, ios::binary | ios::app);
+    outfile.write(data2, fileSize-(startIndex+4));
+    outfile.close();
+}
+
 void DynamicStringAdap::setField(const string &fileName, int fieldSize, string fieldValue) {
     cout << "Dynamic String Adap:: set field function" << endl;
     const string& file = fileName;
@@ -335,6 +357,24 @@ string DynamicStringAdap::getField(const string &fileName, int &startIndex) {
     return fieldValue;
 }
 
+void DynamicStringAdap::editField(const string &fileName, int startIndex, int size, string &value, char *data1, char *data2) {
+    cout << "Dynamic String Adap:: edit field function" << endl;
+    int fileSize = getFileSize(fileName);
+
+    ofstream outfile;
+    outfile.open(fileName, ios::binary | ios::out);
+    outfile.write(data1, startIndex);
+    outfile.close();
+
+    outfile.open(fileName, ios::out | ios::app);
+    outfile << value;
+    outfile.close();
+
+    outfile.open(fileName, ios::binary | ios::app);
+    outfile.write(data2, fileSize-(startIndex+size));
+    outfile.close();
+}
+
 void FixRecFixStrAdap::writeRec() {
     cout << "writeRec in FixRecFixStrAdap" << endl;
 }
@@ -353,6 +393,20 @@ string FixRecFixStrAdap::getField(int &startIndex) {
     cout << "FixRecFixStrAdap::getField" << endl;
     string file = this->fileName;
     return FixedStringAdap::getField(file, startIndex);
+}
+
+void FixRecFixStrAdap::editField(int startIndex, int size, string value) {
+    cout << "FixRecFixStrAdap::editField" << endl;
+    string file = this->fileName;
+    int fileSize = getFileSize(file);
+
+    char *data1 = readFromTo(0,startIndex);
+    char *data2 = readFromTo(startIndex+size, fileSize);
+
+    FixedStringAdap::editField(file, startIndex, size, value, data1, data2);
+
+    delete[] data1;
+    delete[] data2;
 }
 
 void FixRecDynStrAdap::writeRec() {
@@ -375,6 +429,22 @@ string FixRecDynStrAdap::getField(int &startIndex) {
     return DynamicStringAdap::getField(file, startIndex);
 }
 
+void FixRecDynStrAdap::editField(int startIndex, int size, string value) {
+    cout << "FixRecDynStrAdap::editField" << endl;
+    string file = this->fileName;
+    int fileSize = getFileSize(file);
+
+    editIntField(startIndex-4, value.size());
+
+    char *data1 = readFromTo(0,startIndex);
+    char *data2 = readFromTo(startIndex+size, fileSize);
+
+    DynamicStringAdap::editField(file, startIndex, size, value, data1, data2);
+
+    delete[] data1;
+    delete[] data2;
+}
+
 void DynRecFixStrAdap::writeRec() {
     cout << "writeRec in DynRecFixStrAdap" << endl;
 }
@@ -395,6 +465,20 @@ string DynRecFixStrAdap::getField(int &startIndex) {
     return FixedStringAdap::getField(file, startIndex);
 }
 
+void DynRecFixStrAdap::editField(int startIndex, int size, string value) {
+    cout << "DynRecFixStrAdap::editField" << endl;
+    string file = this->fileName;
+    int fileSize = getFileSize(file);
+
+    char *data1 = readFromTo(0,startIndex);
+    char *data2 = readFromTo(startIndex+size, fileSize);
+
+    FixedStringAdap::editField(file, startIndex, size, value, data1, data2);
+
+    delete[] data1;
+    delete[] data2;
+}
+
 void DynRecDynStrAdap::writeRec() {
     cout << "writeRec in DynRecDynStrAdap" << endl;
 }
@@ -413,6 +497,22 @@ string DynRecDynStrAdap::getField(int &startIndex) {
     cout << "DynRecDynStrAdap::getField" << endl;
     string file = this->fileName;
     return DynamicStringAdap::getField(file, startIndex);
+}
+
+void DynRecDynStrAdap::editField(int startIndex, int size, string value) {
+    cout << "DynRecDynStrAdap::editField" << endl;
+    string file = this->fileName;
+    int fileSize = getFileSize(file);
+
+    editIntField(startIndex-4, value.size());
+
+    char *data1 = readFromTo(0,startIndex);
+    char *data2 = readFromTo(startIndex+size, fileSize);
+
+    DynamicStringAdap::editField(file, startIndex, size, value, data1, data2);
+
+    delete[] data1;
+    delete[] data2;
 }
 
 int getFileSize(const string &fileName) {
