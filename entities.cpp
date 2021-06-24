@@ -18,18 +18,24 @@ int Object::objectCount() {
             this->read(objectsCount + 1);
             objectsCount++;
         }
-    } catch (out_of_range e) {
+    } catch (out_of_range &e) {
         return objectsCount;
+    } catch (fstream::failure &e) {
+        throw e;
     }
 }
 
 void Object::printAllObjects() {
-    int objectsCount = this->objectCount();
-    cout << "number of " << this->objectFileName << " : " << objectsCount << endl;
+    try {
+        int objectsCount = this->objectCount();
+        cout << "number of " << this->objectFileName << " : " << objectsCount << endl;
 
-    for (int i = 1; i <= objectsCount; ++i) {
-        this->read(i);
-        cout << *(Student *) this;
+        for (int i = 1; i <= objectsCount; ++i) {
+            this->read(i);
+            cout << *(Student *) this;
+        }
+    } catch (ifstream::failure &exc) {
+        cout << "\aERROR: Can't Open This File" << endl;
     }
 }
 
@@ -92,8 +98,16 @@ vector<int> Student::find(int option) {
     string input;
     int inputNum;
     bool isValidNum;
-    int objectsCount = this->objectCount();
     vector<int> idList;
+    int objectsCount;
+
+    try {
+        objectsCount = this->objectCount();
+    } catch (fstream::failure &exp) {
+        cout << "\aERROR: Can't Open This File" << endl;
+        return {};
+    }
+
 
     switch (option) {
         case 1: //find by id
@@ -159,7 +173,9 @@ void Student::read(int index) {
 
     try {
         startIndex = objAdaptor->getRecord(index);
-    } catch (out_of_range e) {
+    } catch (out_of_range &e) {
+        throw e;
+    } catch (ifstream::failure &e) {
         throw e;
     }
 

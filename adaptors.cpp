@@ -120,6 +120,9 @@ int FixedRecordAdap::getRecord(int index) {
     ifstream infile;
     infile.open(file, ios::binary | ios::in);
     fileSize = getFileSize(file);
+    if (infile.fail()) {
+        throw std::ifstream::failure("File Not Found!");
+    }
 
     for (int i = 0; i < index-1; ++i) {
         totalSize += 4;
@@ -192,6 +195,9 @@ int DynamicRecordAdap::getRecord(int index) {
     ifstream infile;
     infile.open(file, ios::binary | ios::in);
     fileSize = getFileSize(file);
+    if (infile.fail()) {
+        throw std::ifstream::failure("File Not Found!");
+    }
 
     for (int i = 0; i < index-1; ++i) {
         totalSize += 4;
