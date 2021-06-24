@@ -25,6 +25,7 @@ public:
     virtual void setRecord() = 0;
     virtual int getRecord(int index) = 0;
     virtual void editRecord(int index, int diff) = 0;
+    virtual void edit(char *data1, char *data2) = 0;
     virtual void setField(int size, string value) = 0;
     virtual string getField(int &startIndex) = 0;
     virtual void editField(int startIndex, int size, string value) = 0;
@@ -33,6 +34,8 @@ public:
     void editIntField(int startIndex, int num);
     const Config &getAdpConf() const;
     void setFileName(const string &fileName);
+
+    const string &getFileName() const;
 };
 
 class FixedRecordAdap : public Adaptor {
@@ -75,6 +78,7 @@ public:
     void setField(int size, string value) override;
     string getField(int &startIndex) override;
     void editField(int startIndex, int size, string value) override;
+    void edit(char *data1, char *data2) override;
 };
 
 class FixRecDynStrAdap: public FixedRecordAdap, public DynamicStringAdap {
@@ -85,6 +89,7 @@ public:
     void setField(int size, string value) override;
     string getField(int &startIndex) override;
     void editField(int startIndex, int size, string value) override;
+    void edit(char *data1, char *data2) override;
 };
 
 class DynRecFixStrAdap: public DynamicRecordAdap, public FixedStringAdap {
@@ -95,6 +100,7 @@ public:
     void setField(int size, string value) override;
     string getField(int &startIndex) override;
     void editField(int startIndex, int size, string value) override;
+    void edit(char *data1, char *data2) override;
 };
 
 class DynRecDynStrAdap: public DynamicRecordAdap, public DynamicStringAdap {
@@ -105,6 +111,7 @@ public:
     void setField(int size, string value) override;
     string getField(int &startIndex) override;
     void editField(int startIndex, int size, string value) override;
+    void edit(char *data1, char *data2) override;
 };
 
 int getFileSize(const string &fileName);

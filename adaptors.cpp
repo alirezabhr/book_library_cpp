@@ -90,6 +90,10 @@ void Adaptor::setFileName(const string &fName) {
     Adaptor::fileName = fName;
 }
 
+const string &Adaptor::getFileName() const {
+    return fileName;
+}
+
 void FixedRecordAdap::writeRec() {
     cout << "write rec in FixedRecordAdap" << endl;
 }
@@ -474,6 +478,10 @@ void FixRecFixStrAdap::editField(int startIndex, int size, string value) {
 //    delete[] data2;
 }
 
+void FixRecFixStrAdap::edit(char *data1, char *data2) {
+
+}
+
 void FixRecDynStrAdap::writeRec() {
     cout << "writeRec in FixRecDynStrAdap" << endl;
 }
@@ -515,6 +523,10 @@ void FixRecDynStrAdap::editField(int startIndex, int size, string value) {
 //    delete[] second_data;
 }
 
+void FixRecDynStrAdap::edit(char *data1, char *data2) {
+
+}
+
 void DynRecFixStrAdap::writeRec() {
     cout << "writeRec in DynRecFixStrAdap" << endl;
 }
@@ -547,6 +559,10 @@ void DynRecFixStrAdap::editField(int startIndex, int size, string value) {
 
     delete[] data1;
     delete[] data2;
+}
+
+void DynRecFixStrAdap::edit(char *data1, char *data2) {
+
 }
 
 void DynRecDynStrAdap::writeRec() {
@@ -583,6 +599,10 @@ void DynRecDynStrAdap::editField(int startIndex, int size, string value) {
 
     delete[] data1;
     delete[] data2;
+}
+
+void DynRecDynStrAdap::edit(char *data1, char *data2) {
+    cout << "DynRecDynStrAdap::editField" << endl;
 }
 
 int getFileSize(const string &fileName) {

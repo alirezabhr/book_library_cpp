@@ -1,6 +1,8 @@
 #include <iostream>
 #include "entities.h"
 
+#include <ostream>
+
 using namespace std;
 
 string Object::getObjectFileName() {
@@ -193,14 +195,17 @@ void Student::edit(int option, int index) {
     string input;
     int inputNum;
     bool isValidNum;
-    int startIndex;
-    int newRecSize;
-    int diff = 0;
+    int startIndex1 = 0;
+    int startIndex2 = 0;
+    int fileSize = getFileSize(objAdaptor->getFileName());
 
     try {
-        startIndex = objAdaptor->getRecord(index);
+        startIndex1 = objAdaptor->getRecord(index);
+        startIndex1 -= 8;
+        startIndex2 = objAdaptor->getRecord(index + 1);
+        startIndex2 -= 8;
     } catch (out_of_range &e) {
-        throw e;
+        startIndex2 = fileSize;
     } catch (ifstream::failure &e) {
         throw e;
     }
@@ -220,40 +225,45 @@ void Student::edit(int option, int index) {
                     break;
                 }
             }
-            objAdaptor->editIntField(startIndex, inputNum);
+            this->studentID = inputNum;
             break;
         case 2: //edit student name
         {
             cout << "Edit Student Name: " << endl;
             getline(cin, input);
-            if (config.getStringMode() == "Dyn") {
-                newRecSize = sizeof(int) + sizeof(int) + input.size() + sizeof(int) + lastName.size();
-                if (config.getRecordMode() == "Dyn") {
-                    objAdaptor->editIntField(startIndex-8, newRecSize);
-                }
-            }
-            startIndex += sizeof(int); //size of student id field
-            diff = name.size() - input.size();
-            int nameSize = objAdaptor->getIntField(startIndex);
-            objAdaptor->editField(startIndex, nameSize, input);
-            objAdaptor->editRecord(index, diff);
+            this->name = input;
+
         }
             break;
         case 3: //edit student last name
             cout << "Edit Student Last Name: " << endl;
             getline(cin, input);
-            if (objAdaptor->getAdpConf().getStringMode() == "Dyn") {
-                newRecSize = sizeof(int) + sizeof(int) + name.size() + sizeof(int) + input.size();
-                if (config.getRecordMode() == "Dyn") {
-                    objAdaptor->editIntField(startIndex-8, newRecSize);
-                }
-            }
-            startIndex = startIndex + sizeof(int) + sizeof(int) + name.size();
-            diff = lastName.size() - input.size();
-            int lastNameSize = objAdaptor->getIntField(startIndex);
-            objAdaptor->editField(startIndex, lastNameSize, input);
-            objAdaptor->editRecord(index, diff);
+            this->lastName = input;
             break;
+    }
+
+    int tmpStdId = this->studentID;
+    string tmpStdName = this->name;
+    string tmpStdLastName = this->lastName;
+
+    char *data1 = objAdaptor->readFromTo(0, startIndex1);
+    char *data2 = objAdaptor->readFromTo(startIndex2, fileSize);
+
+    ofstream outfile;
+    outfile.open(objAdaptor->getFileName(), ios::binary | ios::out);
+    outfile.write(data1, startIndex1);
+    outfile.close();
+
+    this->studentID = tmpStdId;
+    this->name = tmpStdName;
+    this->lastName = tmpStdLastName;
+    this->add();
+
+    if (startIndex2 < fileSize) {
+        cout << "DATA2: +" << data2 << "+" << endl;
+        outfile.open(objAdaptor->getFileName(), ios::binary | ios::app);
+        outfile.write(data2, fileSize - startIndex2);
+        outfile.close();
     }
 }
 
