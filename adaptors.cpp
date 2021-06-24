@@ -187,24 +187,36 @@ void FixedRecordAdap::editRecord(int index, int diff) {
         startIndex += sizeof(int);  //unique id
     }
 
-    int zeroExSize = diff;
+//    int zeroExSize = diff;
 
     if (diff > 0) {
-        char *zeroEx = new char[zeroExSize];
-        for (int i = 0; i < zeroExSize; ++i) {
+        char *zeroEx = new char[diff];
+        for (int i = 0; i < diff; ++i) {
             zeroEx[i] = 0;
         }
 
+        char *data1 = readFromTo(0,startIndex-diff);
+        char *data2 = readFromTo(startIndex-diff, fileSize);
+
+//        ofstream outfile;
+//        outfile.open(fileName, ios::binary | ios::app);//todo check without append
+//        outfile.seekp(startIndex-zeroExSize);
+//        outfile.write(zeroEx, zeroExSize);
+//        outfile.close();
         ofstream outfile;
+        outfile.open(fileName, ios::binary | ios::out);
+        outfile.write(data1, startIndex-diff);
+        outfile.close();
+
         outfile.open(fileName, ios::binary | ios::app);
-        outfile.seekp(startIndex-zeroExSize);
-        outfile.write(zeroEx, zeroExSize);
+        outfile.write(zeroEx, diff);
+        outfile.write(data2, fileSize-(startIndex-diff));
         outfile.close();
 
         delete[] zeroEx;
     } else {
         char *data1 = readFromTo(0,startIndex);
-        char *data2 = readFromTo(startIndex-zeroExSize, fileSize);
+        char *data2 = readFromTo(startIndex-diff, fileSize);
 
         ofstream outfile;
         outfile.open(fileName, ios::binary | ios::out);
@@ -212,9 +224,12 @@ void FixedRecordAdap::editRecord(int index, int diff) {
         outfile.close();
 
         outfile.open(fileName, ios::binary | ios::app);
-        outfile.write(data2, fileSize-(startIndex-zeroExSize));
+        outfile.write(data2, fileSize-(startIndex-diff));
         outfile.close();
     }
+
+//    delete[] data1; //todo remove comments
+//    delete[] data2;
 }
 
 void DynamicRecordAdap::writeRec() {
@@ -452,8 +467,8 @@ void FixRecFixStrAdap::editField(int startIndex, int size, string value) {
 
     FixedStringAdap::editField(file, startIndex, size, value, data1, data2);
 
-    delete[] data1;
-    delete[] data2;
+//    delete[] data1;
+//    delete[] data2;
 }
 
 void FixRecDynStrAdap::writeRec() {
@@ -493,8 +508,8 @@ void FixRecDynStrAdap::editField(int startIndex, int size, string value) {
     DynamicStringAdap::editField(file, startIndex, size, value, first_data, second_data);
     cout << "hello4" << endl;
 
-    delete[] first_data;   //todo remove comments
-    delete[] second_data;
+//    delete[] first_data;   //todo remove comments
+//    delete[] second_data;
 }
 
 void DynRecFixStrAdap::writeRec() {
