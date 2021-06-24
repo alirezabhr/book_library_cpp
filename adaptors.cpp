@@ -186,6 +186,9 @@ void FixedRecordAdap::editRecord(int index, int diff) {
         startIndex += sizeof(int);
         startIndex += sizeof(int);  //unique id
     }
+    if (startIndex >= fileSize) {
+        return;
+    }
 
 //    int zeroExSize = diff;
 
