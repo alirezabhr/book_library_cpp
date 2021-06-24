@@ -24,6 +24,7 @@ public:
     virtual void readRec() = 0;
     virtual void setRecord() = 0;
     virtual int getRecord(int index) = 0;
+    virtual void editRecord(int index, int diff) = 0;
     virtual void setField(int size, string value) = 0;
     virtual string getField(int &startIndex) = 0;
     virtual void editField(int startIndex, int size, string value) = 0;
@@ -40,6 +41,7 @@ public:
     void readRec() override;
     void setRecord() override;
     int getRecord(int index) override;
+    void editRecord(int index, int diff) override;
 };
 
 class DynamicRecordAdap : public Adaptor{
@@ -48,6 +50,7 @@ public:
     void readRec() override;
     void setRecord() override;
     int getRecord(int index) override;
+    void editRecord(int index, int diff) override;
 };
 
 class FixedStringAdap {  //similar to interface in java

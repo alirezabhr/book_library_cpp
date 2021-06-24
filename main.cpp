@@ -77,16 +77,16 @@ int main() {
                 Student tmpStudent(adaptor);
                 findOption = findObjectMenu(tmpStudent);
                 vector<int> idList = tmpStudent.find(findOption);
+                for (int id: idList) {
+                    tmpStudent.read(id);
+                    cout << tmpStudent;
+                }
                 if (idList.size() > 1) {
                     cout << "There Is More Than One Item!" << endl;
                     continue;
                 }
                 if (idList.empty()) {
                     continue;
-                }
-                for (int id: idList) {
-                    tmpStudent.read(id);
-                    cout << tmpStudent;
                 }
                 editOption = editObjectMenu(tmpStudent);
                 tmpStudent.edit(editOption, idList.at(0));

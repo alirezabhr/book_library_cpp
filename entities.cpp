@@ -189,11 +189,13 @@ void Student::read(int index) {
 }
 
 void Student::edit(int option, int index) {
+    Config config = objAdaptor->getAdpConf();
     string input;
     int inputNum;
     bool isValidNum;
     int startIndex;
     int newRecSize;
+    int diff = 0;
 
     try {
         startIndex = objAdaptor->getRecord(index);
@@ -224,13 +226,17 @@ void Student::edit(int option, int index) {
         {
             cout << "Edit Student Name: " << endl;
             getline(cin, input);
-            if (objAdaptor->getAdpConf().getStringMode() == "Dyn") {
+            if (config.getStringMode() == "Dyn") {
                 newRecSize = sizeof(int) + sizeof(int) + input.size() + sizeof(int) + lastName.size();
-                objAdaptor->editIntField(startIndex-8, newRecSize);
+                if (config.getRecordMode() == "Dyn") {
+                    objAdaptor->editIntField(startIndex-8, newRecSize);
+                }
             }
             startIndex += sizeof(int); //size of student id field
+            diff = name.size() - input.size();
             int nameSize = objAdaptor->getIntField(startIndex);
             objAdaptor->editField(startIndex, nameSize, input);
+            objAdaptor->editRecord(index, diff);
         }
             break;
         case 3: //edit student last name
@@ -238,11 +244,15 @@ void Student::edit(int option, int index) {
             getline(cin, input);
             if (objAdaptor->getAdpConf().getStringMode() == "Dyn") {
                 newRecSize = sizeof(int) + sizeof(int) + name.size() + sizeof(int) + input.size();
-                objAdaptor->editIntField(startIndex-8, newRecSize);
+                if (config.getRecordMode() == "Dyn") {
+                    objAdaptor->editIntField(startIndex-8, newRecSize);
+                }
             }
             startIndex = startIndex + sizeof(int) + sizeof(int) + name.size();
-            int nameSize = objAdaptor->getIntField(startIndex);
-            objAdaptor->editField(startIndex, nameSize, input);
+            diff = lastName.size() - input.size();
+            int lastNameSize = objAdaptor->getIntField(startIndex);
+            objAdaptor->editField(startIndex, lastNameSize, input);
+            objAdaptor->editRecord(index, diff);
             break;
     }
 }

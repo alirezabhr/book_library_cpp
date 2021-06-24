@@ -66,7 +66,7 @@ int Adaptor::getIntField(int &startIndex) {
 void Adaptor::editIntField(int startIndex, int num) {
     string file = this->fileName;
     int fieldValue = num;
-
+    cout << "ehem0" << endl;
     int fileSize = getFileSize(file);
     char *data1 = readFromTo(0,startIndex);
     char *data2 = readFromTo(startIndex+4, fileSize);
@@ -163,8 +163,8 @@ int FixedRecordAdap::getRecord(int index) {
     for (int i = 0; i < index-1; ++i) {
         totalSize += 4;
         infile.read(reinterpret_cast<char *>(&recordSize), sizeof(int));
-        totalSize += recordSize;
         totalSize += 4;
+        totalSize += recordSize;
         infile.seekg(totalSize);
         if (totalSize >= fileSize) {
             throw std::out_of_range("Dont have Object with this index number!");
@@ -174,6 +174,47 @@ int FixedRecordAdap::getRecord(int index) {
     infile.close();
 
     return totalSize+4+4;
+}
+
+void FixedRecordAdap::editRecord(int index, int diff) {
+    cout << "Fixed Record Adap:: set record function" << endl;
+    int startIndex = 0;
+    int fileSize = getFileSize(fileName);
+
+    for (int i = 0; i < index; ++i) {
+        startIndex += recSize;
+        startIndex += sizeof(int);
+        startIndex += sizeof(int);  //unique id
+    }
+
+    int zeroExSize = diff;
+
+    if (diff > 0) {
+        char *zeroEx = new char[zeroExSize];
+        for (int i = 0; i < zeroExSize; ++i) {
+            zeroEx[i] = 0;
+        }
+
+        ofstream outfile;
+        outfile.open(fileName, ios::binary | ios::app);
+        outfile.seekp(startIndex-zeroExSize);
+        outfile.write(zeroEx, zeroExSize);
+        outfile.close();
+
+        delete[] zeroEx;
+    } else {
+        char *data1 = readFromTo(0,startIndex);
+        char *data2 = readFromTo(startIndex-zeroExSize, fileSize);
+
+        ofstream outfile;
+        outfile.open(fileName, ios::binary | ios::out);
+        outfile.write(data1, startIndex);
+        outfile.close();
+
+        outfile.open(fileName, ios::binary | ios::app);
+        outfile.write(data2, fileSize-(startIndex-zeroExSize));
+        outfile.close();
+    }
 }
 
 void DynamicRecordAdap::writeRec() {
@@ -251,6 +292,10 @@ int DynamicRecordAdap::getRecord(int index) {
     return totalSize+4+4;
 }
 
+void DynamicRecordAdap::editRecord(int index, int diff) {
+    cout << "DynRecordAdap::editRecord" << endl;
+}
+
 void FixedStringAdap::setField(const string &fileName, int fieldSize, string fieldValue) {
     cout << "Fixed String Adap:: set field function" << endl;
     const string& file = fileName;
@@ -262,13 +307,15 @@ void FixedStringAdap::setField(const string &fileName, int fieldSize, string fie
 
     outfile.open(file, ios::out | ios::app);
     outfile << fieldValue;
+    outfile.close();
+
     int zeroExSize = fieldSize - fieldValue.size();
     char *zeroEx = new char[zeroExSize];
-    outfile.close();
-    outfile.open(file, ios::binary | ios::out | ios::app);
     for (int i = 0; i < zeroExSize; ++i) {
         zeroEx[i] = 0;
     }
+
+    outfile.open(file, ios::binary | ios::out | ios::app);
     outfile.write(zeroEx, zeroExSize);
     delete[] zeroEx;
 
@@ -431,18 +478,23 @@ string FixRecDynStrAdap::getField(int &startIndex) {
 
 void FixRecDynStrAdap::editField(int startIndex, int size, string value) {
     cout << "FixRecDynStrAdap::editField" << endl;
+    cout << "record size: " << recSize << endl;
     string file = this->fileName;
+    cout << "hello" << endl;
     int fileSize = getFileSize(file);
+    cout << "hello0" << endl;
 
     editIntField(startIndex-4, value.size());
+    cout << "hello1" << endl;
+    char *first_data = readFromTo(0,startIndex);
+    cout << "hello2" << endl;
+    char *second_data = readFromTo(startIndex+size, fileSize);
+    cout << "hello3" << endl;
+    DynamicStringAdap::editField(file, startIndex, size, value, first_data, second_data);
+    cout << "hello4" << endl;
 
-    char *data1 = readFromTo(0,startIndex);
-    char *data2 = readFromTo(startIndex+size, fileSize);
-
-    DynamicStringAdap::editField(file, startIndex, size, value, data1, data2);
-
-    delete[] data1;
-    delete[] data2;
+    delete[] first_data;   //todo remove comments
+    delete[] second_data;
 }
 
 void DynRecFixStrAdap::writeRec() {
