@@ -86,7 +86,7 @@ void Student::add() {
         recordSize = idSize + sizeof(int) + nameSize + sizeof(int) + lastNameSize;
     }
 
-    objAdaptor->setRecordSize(recordSize);
+    objAdaptor->setRecSize(recordSize);
 
     objAdaptor->setRecord();
     objAdaptor->setIntField(id);
@@ -193,6 +193,7 @@ void Student::edit(int option, int index) {
     int inputNum;
     bool isValidNum;
     int startIndex;
+    int newRecSize;
 
     try {
         startIndex = objAdaptor->getRecord(index);
@@ -220,14 +221,28 @@ void Student::edit(int option, int index) {
             objAdaptor->editIntField(startIndex, inputNum);
             break;
         case 2: //edit student name
+        {
             cout << "Edit Student Name: " << endl;
             getline(cin, input);
-
+            if (objAdaptor->getAdpConf().getStringMode() == "Dyn") {
+                newRecSize = sizeof(int) + sizeof(int) + input.size() + sizeof(int) + lastName.size();
+                objAdaptor->editIntField(startIndex-8, newRecSize);
+            }
+            startIndex += sizeof(int); //size of student id field
+            int nameSize = objAdaptor->getIntField(startIndex);
+            objAdaptor->editField(startIndex, nameSize, input);
+        }
             break;
         case 3: //edit student last name
             cout << "Edit Student Last Name: " << endl;
             getline(cin, input);
-
+            if (objAdaptor->getAdpConf().getStringMode() == "Dyn") {
+                newRecSize = sizeof(int) + sizeof(int) + name.size() + sizeof(int) + input.size();
+                objAdaptor->editIntField(startIndex-8, newRecSize);
+            }
+            startIndex = startIndex + sizeof(int) + sizeof(int) + name.size();
+            int nameSize = objAdaptor->getIntField(startIndex);
+            objAdaptor->editField(startIndex, nameSize, input);
             break;
     }
 }

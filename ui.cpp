@@ -132,7 +132,7 @@ int findObjectMenu(Object& object) {
     bool isValidNum;
 
     for (int i = 0; i < fields.size(); ++i) {
-        cout << i+1 << ". " << object.getObjectFileName() << fields.at(i) << endl;
+        cout << i+1 << ". " << object.getObjectFileName() << " " << fields.at(i) << endl;
     }
 
     while (true) {
