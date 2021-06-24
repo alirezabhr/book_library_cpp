@@ -23,6 +23,19 @@ void Adaptor::setRecordSize(int recordSize) {
     Adaptor::recSize = recordSize;
 }
 
+char *Adaptor::readFromTo(int start, int end) {
+    char *data = new char[end-start+1];
+
+    ifstream infile;
+    infile.open(this->fileName, ios::binary | ios::in);
+    infile.seekg(start);
+    infile.read(data, end - start);
+    infile.close();
+    data[end-start+1] = 0;
+
+    return data;
+}
+
 void Adaptor::setIntField(int num) {
     string file = this->fileName;
     ofstream outfile;
@@ -46,12 +59,29 @@ int Adaptor::getIntField(int &startIndex) {
     return fieldValue;
 }
 
+void Adaptor::editIntField(int startIndex, int num) {
+    string file = this->fileName;
+    int fieldValue = num;
+
+    int fileSize = getFileSize(file);
+    char *d1 = readFromTo(0,startIndex);
+    char *d2 = readFromTo(startIndex+4, fileSize);
+
+    ofstream outfile;
+    outfile.open(file, ios::binary | ios::out);
+    outfile.write(d1, startIndex);
+    outfile.write(reinterpret_cast<char *>(&fieldValue), sizeof(int));
+    outfile.write(d2, fileSize-(startIndex+4));
+
+    outfile.close();
+}
+
 const Config &Adaptor::getAdpConf() const {
     return adpConf;
 }
 
-void Adaptor::setFileName(const string &fileName) {
-    Adaptor::fileName = fileName;
+void Adaptor::setFileName(const string &fName) {
+    Adaptor::fileName = fName;
 }
 
 void FixedRecordAdap::writeRec() {

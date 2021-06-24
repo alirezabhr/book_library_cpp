@@ -192,9 +192,18 @@ void Student::edit(int option, int index) {
     string input;
     int inputNum;
     bool isValidNum;
+    int startIndex;
+
+    try {
+        startIndex = objAdaptor->getRecord(index);
+    } catch (out_of_range &e) {
+        throw e;
+    } catch (ifstream::failure &e) {
+        throw e;
+    }
 
     switch (option) {
-        case 1: //find by id
+        case 1: //edit student id
             while (true) {
                 cout << "Edit Student Id: " << endl;
                 getline(cin, input);
@@ -208,15 +217,17 @@ void Student::edit(int option, int index) {
                     break;
                 }
             }
+            objAdaptor->editIntField(startIndex, inputNum);
             break;
-        case 2: //find by name
+        case 2: //edit student name
             cout << "Edit Student Name: " << endl;
             getline(cin, input);
-            break;
 
-        case 3: //find by last name
+            break;
+        case 3: //edit student last name
             cout << "Edit Student Last Name: " << endl;
             getline(cin, input);
+
             break;
     }
 }

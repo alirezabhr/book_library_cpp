@@ -18,6 +18,7 @@ protected:
     string fileName;
 public:
     void setRecordSize(int recSize);
+    char *readFromTo(int start, int end);
     virtual void writeRec() = 0;
     virtual void readRec() = 0;
     virtual void setRecord() = 0;
@@ -26,6 +27,7 @@ public:
     virtual string getField(int &startIndex) = 0;
     void setIntField(int num);
     int getIntField(int &startIndex);
+    void editIntField(int startIndex, int num);
     const Config &getAdpConf() const;
     void setFileName(const string &fileName);
 };

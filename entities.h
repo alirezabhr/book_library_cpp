@@ -27,7 +27,7 @@ class Student: public Object{
     string name;
     string lastName;
     const string constFileName = "Student";
-    const vector<string> constFieldsName = {"student id", "student name", "student last name"};
+    const vector<string> constFieldsName = {"Id", "Name", "Last Name"};
 public:
     Student(Adaptor *adaptor, int studentID, const string &name, const string &lastName);
     Student(Adaptor *adaptor);

@@ -81,6 +81,9 @@ int main() {
                     cout << "There Is More Than One Item!" << endl;
                     continue;
                 }
+                if (idList.empty()) {
+                    continue;
+                }
                 for (int id: idList) {
                     tmpStudent.read(id);
                     cout << tmpStudent;
