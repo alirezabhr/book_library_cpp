@@ -122,7 +122,7 @@ void FixedRecordAdap::setRecord() {
             if (tmpSize == 0) break;
             else {
                 infile.read(reinterpret_cast<char *>(&lastObjectId), sizeof(int));
-                startIndex = startIndex + sizeof(int) + recordSize;
+                startIndex = startIndex + sizeof(int) + sizeof(int) + recordSize;
             }
             cout << "start index:" << startIndex << endl;
         }
@@ -307,13 +307,13 @@ void FixedStringAdap::editField(const string &fileName, int startIndex, int size
 
     ofstream outfile;
     outfile.open(fileName, ios::binary | ios::out);
-    outfile.write(data1, startIndex);
+    outfile.write(data1, startIndex-4);
     outfile.close();
 
     this->setField(fileName, size, value);
 
     outfile.open(fileName, ios::binary | ios::app);
-    outfile.write(data2, fileSize-(startIndex+4));
+    outfile.write(data2, fileSize-(startIndex+size));
     outfile.close();
 }
 
@@ -400,7 +400,7 @@ void FixRecFixStrAdap::editField(int startIndex, int size, string value) {
     string file = this->fileName;
     int fileSize = getFileSize(file);
 
-    char *data1 = readFromTo(0,startIndex);
+    char *data1 = readFromTo(0,startIndex-4);
     char *data2 = readFromTo(startIndex+size, fileSize);
 
     FixedStringAdap::editField(file, startIndex, size, value, data1, data2);
@@ -470,7 +470,7 @@ void DynRecFixStrAdap::editField(int startIndex, int size, string value) {
     string file = this->fileName;
     int fileSize = getFileSize(file);
 
-    char *data1 = readFromTo(0,startIndex);
+    char *data1 = readFromTo(0,startIndex-4);
     char *data2 = readFromTo(startIndex+size, fileSize);
 
     FixedStringAdap::editField(file, startIndex, size, value, data1, data2);
