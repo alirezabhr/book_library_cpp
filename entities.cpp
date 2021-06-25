@@ -195,20 +195,7 @@ void Student::edit(int option, int index) {
     string input;
     int inputNum;
     bool isValidNum;
-    int startIndex1 = 0;
-    int startIndex2 = 0;
-    int fileSize = getFileSize(objAdaptor->getFileName());
-
-    try {
-        startIndex1 = objAdaptor->getRecord(index);
-        startIndex1 -= 8;
-        startIndex2 = objAdaptor->getRecord(index + 1);
-        startIndex2 -= 8;
-    } catch (out_of_range &e) {
-        startIndex2 = fileSize;
-    } catch (ifstream::failure &e) {
-        throw e;
-    }
+    string fileName = objAdaptor->getFileName();
 
     switch (option) {
         case 1: //edit student id
@@ -246,24 +233,35 @@ void Student::edit(int option, int index) {
     string tmpStdName = this->name;
     string tmpStdLastName = this->lastName;
 
-    char *data1 = objAdaptor->readFromTo(0, startIndex1);
-    char *data2 = objAdaptor->readFromTo(startIndex2, fileSize);
+    int objectCount = this->objectCount();
+    vector<Student> v1;
+    vector<Student> v2;
+
+    for (int i = 1; i <= index-1; ++i) {
+        this->read(i);
+        v1.push_back(*this);
+    }
+
+    for (int j = index+1; j <= objectCount; ++j) {
+        this->read(j);
+        v2.push_back(*this);
+    }
 
     ofstream outfile;
-    outfile.open(objAdaptor->getFileName(), ios::binary | ios::out);
-    outfile.write(data1, startIndex1);
+    outfile.open(fileName, ios::binary | ios::out);
     outfile.close();
+
+    for (Student std: v1) {
+        std.add();
+    }
 
     this->studentID = tmpStdId;
     this->name = tmpStdName;
     this->lastName = tmpStdLastName;
     this->add();
 
-    if (startIndex2 < fileSize) {
-        cout << "DATA2: +" << data2 << "+" << endl;
-        outfile.open(objAdaptor->getFileName(), ios::binary | ios::app);
-        outfile.write(data2, fileSize - startIndex2);
-        outfile.close();
+    for (Student std: v2) {
+        std.add();
     }
 }
 
