@@ -8,6 +8,7 @@ class Student;
 
 class Object {
 protected:
+    int uniqueId;
     Adaptor *objAdaptor;
     string objectFileName;
     vector<string> fieldsName;

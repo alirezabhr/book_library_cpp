@@ -131,6 +131,7 @@ int findObjectMenu(Object& object) {
     int inputNum = 0;
     bool isValidNum;
 
+    cout << "0. Unique Id" << endl;
     for (int i = 0; i < fields.size(); ++i) {
         cout << i+1 << ". " << object.getObjectFileName() << " " << fields.at(i) << endl;
     }
@@ -145,7 +146,7 @@ int findObjectMenu(Object& object) {
             continue;
         } else {
             inputNum = stoi(inputNumStr);
-            if (inputNum >= 1 && inputNum <= fields.size()) {
+            if (inputNum >= 0 && inputNum <= fields.size()) {
                 break;
             } else {
                 //system("cls");

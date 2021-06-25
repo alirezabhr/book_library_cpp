@@ -112,7 +112,28 @@ vector<int> Student::find(int option) {
 
 
     switch (option) {
-        case 1: //find by id
+        case 0: //find by unique id
+            while (true) {
+                cout << "Enter Student Id: " << endl;
+                getline(cin, input);
+                isValidNum = check_number(input);
+                if (!isValidNum) {
+                    //system("cls");
+                    cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
+                    continue;
+                } else {
+                    inputNum = stoi(input);
+                    break;
+                }
+            }
+
+            if (inputNum > objectsCount || inputNum <= 0) {
+                cout << "\aStudent With Unique Id \'" << inputNum << "\' Does Not Exist!" << endl;
+            } else {
+                idList.push_back(inputNum);
+            }
+            return idList;
+        case 1: //find by student id
             while (true) {
                 cout << "Enter Student Id: " << endl;
                 getline(cin, input);
@@ -170,6 +191,7 @@ vector<int> Student::find(int option) {
 void Student::read(int index) {
     int startIndex = 0;
     int stdId;
+    int id;
     string stdName;
     string stdLastName;
 
@@ -181,10 +203,12 @@ void Student::read(int index) {
         throw e;
     }
 
+    id = objAdaptor->getIntField(startIndex);
     stdId = objAdaptor->getIntField(startIndex);
     stdName = objAdaptor->getField(startIndex);
     stdLastName = objAdaptor->getField(startIndex);
 
+    this->uniqueId = id;
     this->studentID = stdId;
     this->name = stdName;
     this->lastName = stdLastName;
@@ -229,6 +253,7 @@ void Student::edit(int option, int index) {
             break;
     }
 
+    int tmpId = this->uniqueId;
     int tmpStdId = this->studentID;
     string tmpStdName = this->name;
     string tmpStdLastName = this->lastName;
@@ -255,6 +280,7 @@ void Student::edit(int option, int index) {
         std.add();
     }
 
+    this->uniqueId = tmpId;
     this->studentID = tmpStdId;
     this->name = tmpStdName;
     this->lastName = tmpStdLastName;
@@ -278,7 +304,7 @@ string Student::getLastName() {
 }
 
 ostream &operator<<(ostream &os, const Student &student) {
-    os << student.studentID << " | " << student.name << " | " << student.lastName << std::endl;
+    os << student.uniqueId << ": " << student.studentID << " | " << student.name << " | " << student.lastName << std::endl;
     return os;
 }
 
