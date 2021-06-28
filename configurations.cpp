@@ -33,6 +33,8 @@ Config getAdaptorOptions() {
         config.setFields(cmd1, cmd2);
     }
 
+    config.checkConfigValidation();
+
     return config;
 }
 
@@ -232,4 +234,21 @@ vector<string> Config::tokenize(string line) {
     v1.push_back(line);
 
     return v1;
+}
+
+void Config::checkConfigValidation() {
+    unsigned int totalSize = 0;
+
+    if (this->studentRecordMode == "Fix" && this->studentStringMode == "Fix"){
+        totalSize = (sizeof(int) * 3) + this->studentNameSize + this->studentLastNameSize;
+        if (totalSize > this->studentRecordSize) {
+            throw CONFIG_EXCEPTION("Student Record Size Is Too Small!");
+        }
+    }
+    if (this->bookRecordMode == "Fix" && this->bookStringMode == "Fix"){
+        totalSize = sizeof(long long) + (sizeof(int) * 4) + this->bookNameSize + this->bookAuthorSize + this->bookPublisherSize;
+        if (totalSize > this->bookRecordSize) {
+            throw CONFIG_EXCEPTION("Book Record Size Is Too Small!");
+        }
+    }
 }

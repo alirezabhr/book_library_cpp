@@ -33,6 +33,7 @@ class Config {
     int bookPublisherSize = 0;
 public:
     Config();
+    void checkConfigValidation();
     const string &getStudentRecordMode() const;
     const string &getStudentStringMode() const;
     int getStudentRecordSize() const;
