@@ -2,7 +2,7 @@
 
 using namespace std;
 
-#define MAX_MENU_OPTIONS 9
+#define MAX_MENU_OPTIONS 10
 
 
 int showMainMenu() {    //return int number from [1(add student), 2(all students), ...]
@@ -14,7 +14,8 @@ int showMainMenu() {    //return int number from [1(add student), 2(all students
     //system("cls");
     while (true) {
         cout << "----------Main Menu----------" << endl;
-        cout << "1. Add Student\n2. All Students\n3. Find Student\n4. Edit Student\n5. Add Book\n6. All Books\n7. Find Book\n8. Edit Book\n9. Exit" << endl;
+        cout << "1.  Add Student\n2.  All Students\n3.  Find Student\n4.  Edit Student\n5.  Delete Student\n6.  Add Book"
+                "\n7.  All Books\n8.  Find Book\n9.  Edit Book\n10. Delete Book\n0.  Exit" << endl;
         cout << "Enter A Number:";
 
         getline(cin, inputNum);
@@ -25,7 +26,7 @@ int showMainMenu() {    //return int number from [1(add student), 2(all students
             continue;
         } else {
             inputNumInt = stoi(inputNum);
-            if (inputNumInt <= 0 || inputNumInt > MAX_MENU_OPTIONS) {
+            if (inputNumInt < 0 || inputNumInt > MAX_MENU_OPTIONS) {
                 //system("cls");
                 cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
                 continue;

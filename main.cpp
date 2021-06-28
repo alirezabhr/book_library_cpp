@@ -7,11 +7,13 @@ using namespace std;
 #define ALL_STUDENTS_OPTION 2
 #define FIND_STUDENT_OPTION 3
 #define EDIT_STUDENT_OPTION 4
-#define ADD_BOOK_OPTION 5
-#define ALL_BOOKS_OPTION 6
-#define FIND_BOOK_OPTION 7
-#define EDIT_BOOK_OPTION 8
-#define EXIT_PROGRAM_OPTION 9
+#define DELETE_STUDENT_OPTION 5
+#define ADD_BOOK_OPTION 6
+#define ALL_BOOKS_OPTION 7
+#define FIND_BOOK_OPTION 8
+#define EDIT_BOOK_OPTION 9
+#define DELETE_BOOK_OPTION 10
+#define EXIT_PROGRAM_OPTION 0
 
 int main() {
     Config config;
@@ -92,6 +94,25 @@ int main() {
                 tmpStudent.edit(editOption, idList.at(0));
             }
                 break;
+            case DELETE_STUDENT_OPTION: {
+                cout << "Delete Student" << endl;
+                Student tmpStudent(adaptor);
+                findOption = findObjectMenu(tmpStudent);
+                vector<int> idList = tmpStudent.find(findOption);
+                for (int id: idList) {
+                    tmpStudent.read(id);
+                    cout << tmpStudent;
+                }
+                if (idList.size() > 1) {
+                    cout << "There Is More Than One Item!" << endl;
+                    continue;
+                }
+                if (idList.empty()) {
+                    continue;
+                }
+                tmpStudent.deleteObj(idList.at(0));
+            }
+                break;
             case ADD_BOOK_OPTION:
                 cout << "request for adding a book" << endl;
                 break;
@@ -103,6 +124,9 @@ int main() {
                 break;
             case EDIT_BOOK_OPTION:
                 cout << "edit book" << endl;
+                break;
+            case DELETE_BOOK_OPTION:
+                cout << "delete book" << endl;
                 break;
             case EXIT_PROGRAM_OPTION:
                 cout << "Program Closed" << endl;
