@@ -16,7 +16,7 @@ public:
     string getObjectFileName();
     const vector<string> &getFieldsName() const;
     int objectCount();
-    void printAllObjects();
+    virtual void printAllObjects() = 0;
     virtual bool checkConfigValidation(Config &config) = 0;
     virtual void add() = 0;
     virtual vector<int> find(int option) = 0;
@@ -36,6 +36,7 @@ public:
     Student(Adaptor *adaptor);
 
     bool checkConfigValidation(Config &config) override;
+    void printAllObjects();
     void add() override;
     vector<int> find(int option) override;
     void read(int index) override;

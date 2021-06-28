@@ -27,20 +27,6 @@ int Object::objectCount() {
     }
 }
 
-void Object::printAllObjects() {
-    try {
-        int objectsCount = this->objectCount();
-        cout << "Number Of " << this->objectFileName << "s : " << objectsCount << endl;
-
-        for (int i = 1; i <= objectsCount; ++i) {
-            this->read(i);
-            cout << *(Student *) this;  //todo should change this
-        }
-    } catch (ifstream::failure &exc) {
-        cout << "\aERROR: Can't Open This File" << endl;
-    }
-}
-
 Student::Student(Adaptor *adaptor, int studentID, const string &name, const string &lastName) : studentID(studentID),
                                                                                                 name(name),
                                                                                                 lastName(lastName) {
@@ -60,6 +46,20 @@ Student::Student(Adaptor *adaptor) {
     string fileName = this->objectFileName + ".txt";
     this->objAdaptor->setFileName(fileName);
     this->fieldsName = constFieldsName;
+}
+
+void Student::printAllObjects() {
+    try {
+        int objectsCount = this->objectCount();
+        cout << "Number Of " << this->objectFileName << "s: " << objectsCount << endl;
+
+        for (int i = 1; i <= objectsCount; ++i) {
+            this->read(i);
+            cout << *this;
+        }
+    } catch (ifstream::failure &exc) {
+        cout << "\aERROR: Can't Open This File" << endl;
+    }
 }
 
 void Student::add() {
