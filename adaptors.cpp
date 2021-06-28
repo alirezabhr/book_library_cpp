@@ -177,7 +177,7 @@ int FixedRecordAdap::getRecord(int index) {
 }
 
 void FixedRecordAdap::editRecord(int index, int diff) {
-    cout << "Fixed Record Adap:: set record function" << endl;
+//    cout << "Fixed Record Adap:: set record function" << endl;
     int startIndex = 0;
     int fileSize = getFileSize(fileName);
 
@@ -239,7 +239,7 @@ void DynamicRecordAdap::readRec() {
 }
 
 void DynamicRecordAdap::setRecord() {
-    cout << "DynRecordAdap::setRecord" << endl;
+//    cout << "DynRecordAdap::setRecord" << endl;
     string file = this->fileName;
     int startIndex = 0;
     int tmpSize = 1;
@@ -273,7 +273,7 @@ void DynamicRecordAdap::setRecord() {
 }
 
 int DynamicRecordAdap::getRecord(int index) {
-    cout << "Dyn Record Adap:: get record function" << endl;
+//    cout << "Dyn Record Adap:: get record function" << endl;
     string file = this->fileName;
     int recordSize = -2;
     int totalSize = 0;
@@ -307,7 +307,7 @@ void DynamicRecordAdap::editRecord(int index, int diff) {
 }
 
 void FixedStringAdap::setField(const string &fileName, int fieldSize, string fieldValue) {
-    cout << "Fixed String Adap:: set field function" << endl;
+//    cout << "Fixed String Adap:: set field function" << endl;
     const string& file = fileName;
 
     ofstream outfile;
@@ -333,7 +333,7 @@ void FixedStringAdap::setField(const string &fileName, int fieldSize, string fie
 }
 
 string FixedStringAdap::getField(const string &fileName, int &startIndex) {
-    cout << "Fixed String Adap:: get field function" << endl;
+//    cout << "Fixed String Adap:: get field function" << endl;
     const string& file = fileName;
     int fieldSize = -2;
     string fieldValue;
@@ -359,7 +359,7 @@ string FixedStringAdap::getField(const string &fileName, int &startIndex) {
 }
 
 void FixedStringAdap::editField(const string &fileName, int startIndex, int size, string &value, char *data1, char *data2) {
-    cout << "Fixed String Adap:: edit field function" << endl;
+//    cout << "Fixed String Adap:: edit field function" << endl;
     int fileSize = getFileSize(fileName);
 
     ofstream outfile;
@@ -375,7 +375,7 @@ void FixedStringAdap::editField(const string &fileName, int startIndex, int size
 }
 
 void DynamicStringAdap::setField(const string &fileName, int fieldSize, string fieldValue) {
-    cout << "Dynamic String Adap:: set field function" << endl;
+//    cout << "Dynamic String Adap:: set field function" << endl;
     const string& file = fileName;
 
     ofstream outfile;
@@ -389,7 +389,7 @@ void DynamicStringAdap::setField(const string &fileName, int fieldSize, string f
 }
 
 string DynamicStringAdap::getField(const string &fileName, int &startIndex) {
-    cout << "Dynamic String Adap:: get field function" << endl;
+//    cout << "Dynamic String Adap:: get field function" << endl;
     const string& file = fileName;
     int fieldSize = -2;
     string fieldValue;
@@ -415,7 +415,7 @@ string DynamicStringAdap::getField(const string &fileName, int &startIndex) {
 }
 
 void DynamicStringAdap::editField(const string &fileName, int startIndex, int size, string &value, char *data1, char *data2) {
-    cout << "Dynamic String Adap:: edit field function" << endl;
+//    cout << "Dynamic String Adap:: edit field function" << endl;
     int fileSize = getFileSize(fileName);
 
     ofstream outfile;
@@ -441,19 +441,19 @@ void FixRecFixStrAdap::readRec() {
 }
 
 void FixRecFixStrAdap::setField(int size, string value) {
-    cout << "FixRecFixStrAdap::setField" << endl;
+//    cout << "FixRecFixStrAdap::setField" << endl;
     string file = this->fileName;
     FixedStringAdap::setField(file, size, value);
 }
 
 string FixRecFixStrAdap::getField(int &startIndex) {
-    cout << "FixRecFixStrAdap::getField" << endl;
+//    cout << "FixRecFixStrAdap::getField" << endl;
     string file = this->fileName;
     return FixedStringAdap::getField(file, startIndex);
 }
 
 void FixRecFixStrAdap::editField(int startIndex, int size, string value) {
-    cout << "FixRecFixStrAdap::editField" << endl;
+//    cout << "FixRecFixStrAdap::editField" << endl;
     string file = this->fileName;
     int fileSize = getFileSize(file);
 
@@ -479,19 +479,19 @@ void FixRecDynStrAdap::readRec() {
 }
 
 void FixRecDynStrAdap::setField(int size, string value) {
-    cout << "FixRecDynStrAdap::setField" << endl;
+//    cout << "FixRecDynStrAdap::setField" << endl;
     string file = this->fileName;
     DynamicStringAdap::setField(file, size, value);
 }
 
 string FixRecDynStrAdap::getField(int &startIndex) {
-    cout << "FixRecDynStrAdap::getField" << endl;
+//    cout << "FixRecDynStrAdap::getField" << endl;
     string file = this->fileName;
     return DynamicStringAdap::getField(file, startIndex);
 }
 
 void FixRecDynStrAdap::editField(int startIndex, int size, string value) {
-    cout << "FixRecDynStrAdap::editField" << endl;
+//    cout << "FixRecDynStrAdap::editField" << endl;
     string file = this->fileName;
     int fileSize = getFileSize(file);
 
@@ -517,19 +517,19 @@ void DynRecFixStrAdap::readRec() {
 }
 
 void DynRecFixStrAdap::setField(int size, string value) {
-    cout << "DynRecFixStrAdap::setField" << endl;
+//    cout << "DynRecFixStrAdap::setField" << endl;
     string file = this->fileName;
     FixedStringAdap::setField(file, size, value);
 }
 
 string DynRecFixStrAdap::getField(int &startIndex) {
-    cout << "DynRecFixStrAdap::getField" << endl;
+//    cout << "DynRecFixStrAdap::getField" << endl;
     string file = this->fileName;
     return FixedStringAdap::getField(file, startIndex);
 }
 
 void DynRecFixStrAdap::editField(int startIndex, int size, string value) {
-    cout << "DynRecFixStrAdap::editField" << endl;
+//    cout << "DynRecFixStrAdap::editField" << endl;
     string file = this->fileName;
     int fileSize = getFileSize(file);
 
@@ -555,19 +555,19 @@ void DynRecDynStrAdap::readRec() {
 }
 
 void DynRecDynStrAdap::setField(int size, string value) {
-    cout << "DynRecDynStrAdap::setField" << endl;
+//    cout << "DynRecDynStrAdap::setField" << endl;
     string file = this->fileName;
     DynamicStringAdap::setField(file, size, value);
 }
 
 string DynRecDynStrAdap::getField(int &startIndex) {
-    cout << "DynRecDynStrAdap::getField" << endl;
+//    cout << "DynRecDynStrAdap::getField" << endl;
     string file = this->fileName;
     return DynamicStringAdap::getField(file, startIndex);
 }
 
 void DynRecDynStrAdap::editField(int startIndex, int size, string value) {
-    cout << "DynRecDynStrAdap::editField" << endl;
+//    cout << "DynRecDynStrAdap::editField" << endl;
     string file = this->fileName;
     int fileSize = getFileSize(file);
 
