@@ -36,7 +36,7 @@ public:
     Student(Adaptor *adaptor);
 
     bool checkConfigValidation(Config &config) override;
-    void printAllObjects();
+    void printAllObjects() override;
     void add() override;
     vector<int> find(int option) override;
     void read(int index) override;
@@ -49,11 +49,26 @@ public:
 };
 
 class Book: public Object{
-    int id;
+    int isbn;
     string name;
     string author;
+    string publisher;
+    int onLoan = 0; // 0 if nobody loan this book, or student id if someone loan it
+    const string constFileName = "Book";
+    const vector<string> constFieldsName = {"ISBN", "Name", "Author", "Publisher", "Student"};
 public:
-    Book(int id, const string &name, const string &author);
+    Book(Adaptor *adaptor, int isbn, const string &name, const string &author, const string &publisher);
+    Book(Adaptor *adaptor);
+
+    bool checkConfigValidation(Config &config) override;
+    void printAllObjects() override;
+    void add() override;
+    vector<int> find(int option) override;
+    void read(int index) override;
+    void edit(int option, int index) override;
+    void deleteObj(int index) override;
+
+    friend ostream &operator<<(ostream &os, const Book &book);
 };
 
 Student getStudent(Adaptor *adaptor, int nameSize, int lastNameSize);

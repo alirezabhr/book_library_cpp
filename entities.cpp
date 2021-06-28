@@ -5,6 +5,59 @@
 
 using namespace std;
 
+Student getStudent(Adaptor *adaptor, int nameSz, int lastNameSz) {
+    string name;
+    string lastName;
+    string stdNoStr;
+    int stdNo;
+    bool isValidNum;
+
+    cout << "-----------STUDENT FORM-----------" << endl;
+    while (true) {
+        cout << "enter student name: ";
+        getline(cin, name);
+        if (name.length() > nameSz) {
+            cout << "name is too long\nTRY AGAIN!" << endl;
+            continue;
+        } else break;
+    }
+    while (true) {
+        cout << "enter student last name: ";
+        getline(cin, lastName);
+        if (lastName.length() > lastNameSz) {
+            cout << "last name is too long\nTRY AGAIN!" << endl;
+            continue;
+        } else break;
+    }
+    while (true) {
+        cout << "enter student id: ";
+        getline(cin, stdNoStr);
+        isValidNum = check_number(stdNoStr);
+        if (!isValidNum) {
+            //system("cls");
+            cout << "!! PLEASE ENTER A VALID STUDENT ID !!" << endl;
+            continue;
+        } else {
+            stdNo = stoi(stdNoStr);
+            break;
+        }
+    }
+
+    Student s(adaptor, stdNo, name, lastName);
+//    system("cls");
+    return s;
+}
+
+bool check_number(const string &str) {
+    if (str.empty()) return false;
+    for (char i : str) {
+        if (isdigit(i) == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
 string Object::getObjectFileName() {
     return this->objectFileName;
 }
@@ -395,59 +448,61 @@ bool Student::checkConfigValidation(Config &config) {
     return isValid;
 }
 
-Book::Book(int id, const string &name, const string &author) : id(id), name(name), author(author) {
-    this->objectFileName = "books";
+Book::Book(Adaptor *adaptor, int isbn, const string &name, const string &author, const string &publisher){
+    this->objAdaptor = adaptor;
+    this->objectFileName = constFileName;
+    string fileName = this->objectFileName + ".txt";
+    this->objAdaptor->setFileName(fileName);
+    this->fieldsName = constFieldsName;
+    this->isbn = isbn;
+    this->name = name;
+    this->author = author;
+    this->publisher = publisher;
 }
 
-Student getStudent(Adaptor *adaptor, int nameSz, int lastNameSz) {
-    string name;
-    string lastName;
-    string stdNoStr;
-    int stdNo;
-    bool isValidNum;
-
-    cout << "-----------STUDENT FORM-----------" << endl;
-    while (true) {
-        cout << "enter student name: ";
-        getline(cin, name);
-        if (name.length() > nameSz) {
-            cout << "name is too long\nTRY AGAIN!" << endl;
-            continue;
-        } else break;
-    }
-    while (true) {
-        cout << "enter student last name: ";
-        getline(cin, lastName);
-        if (lastName.length() > lastNameSz) {
-            cout << "last name is too long\nTRY AGAIN!" << endl;
-            continue;
-        } else break;
-    }
-    while (true) {
-        cout << "enter student id: ";
-        getline(cin, stdNoStr);
-        isValidNum = check_number(stdNoStr);
-        if (!isValidNum) {
-            //system("cls");
-            cout << "!! PLEASE ENTER A VALID STUDENT ID !!" << endl;
-            continue;
-        } else {
-            stdNo = stoi(stdNoStr);
-            break;
-        }
-    }
-
-    Student s(adaptor, stdNo, name, lastName);
-//    system("cls");
-    return s;
+Book::Book(Adaptor *adaptor){
+    Book(adaptor, 0, "", "", "");
 }
 
-bool check_number(const string &str) {
-    if (str.empty()) return false;
-    for (char i : str) {
-        if (isdigit(i) == 0) {
-            return false;
-        }
+bool Book::checkConfigValidation(Config &config) {
+    return false;
+}
+
+void Book::printAllObjects() {
+
+}
+
+void Book::add() {
+
+}
+
+vector<int> Book::find(int option) {
+    return vector<int>();
+}
+
+void Book::read(int index) {
+
+}
+
+void Book::edit(int option, int index) {
+
+}
+
+void Book::deleteObj(int index) {
+
+}
+
+ostream &operator<<(ostream &os, const Book &book) {
+    string personName;
+    if (book.onLoan == 0) {
+        personName = "Un-Borrowed";
+    } else {
+        Student tmpStudent(book.objAdaptor);
+        tmpStudent.read(book.onLoan);
+        personName = tmpStudent.getName() + " " + tmpStudent.getLastName();
     }
-    return true;
+
+    os << "id: " << book.uniqueId << " | " << book.isbn << " | " << book.name << " | "
+       << book.author << " | " << book.publisher << " | " <<  personName;
+    return os;
 }
