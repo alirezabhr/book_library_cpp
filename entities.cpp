@@ -30,11 +30,11 @@ int Object::objectCount() {
 void Object::printAllObjects() {
     try {
         int objectsCount = this->objectCount();
-        cout << "number of " << this->objectFileName << " : " << objectsCount << endl;
+        cout << "Number Of " << this->objectFileName << "s : " << objectsCount << endl;
 
         for (int i = 1; i <= objectsCount; ++i) {
             this->read(i);
-            cout << *(Student *) this;
+            cout << *(Student *) this;  //todo should change this
         }
     } catch (ifstream::failure &exc) {
         cout << "\aERROR: Can't Open This File" << endl;
@@ -88,12 +88,20 @@ void Student::add() {
         recordSize = idSize + sizeof(int) + nameSize + sizeof(int) + lastNameSize;
     }
 
+    bool isValid = checkConfigValidation(conf);
+    if (!isValid) {
+        cout << "Add Student Finished, Unsuccessfully!" << endl;
+        return;
+    }
+
     objAdaptor->setRecSize(recordSize);
 
     objAdaptor->setRecord();
     objAdaptor->setIntField(id);
     objAdaptor->setField(nameSize, this->name);
     objAdaptor->setField(lastNameSize, this->lastName);
+
+    cout << "Student Added Successfully" << endl;
 }
 
 vector<int> Student::find(int option) {
@@ -253,6 +261,13 @@ void Student::edit(int option, int index) {
             break;
     }
 
+
+    bool isValid = checkConfigValidation(config);
+    if (!isValid) {
+        cout << "Edit Student Finished, Unsuccessfully!" << endl;
+        return;
+    }
+
     int tmpId = this->uniqueId;
     int tmpStdId = this->studentID;
     string tmpStdName = this->name;
@@ -292,7 +307,6 @@ void Student::edit(int option, int index) {
 }
 
 void Student::deleteObj(int index) {
-    cout << "index: " << index << endl;
     string fileName = objAdaptor->getFileName();
     int objectCount = this->objectCount();
     vector<Student> v1;
@@ -301,13 +315,11 @@ void Student::deleteObj(int index) {
     for (int i = 1; i <= index-1; ++i) {
         this->read(i);
         v1.push_back(*this);
-        cout << "vector1(" << i << "): " << *this << endl;
     }
 
     for (int j = index+1; j <= objectCount; ++j) {
         this->read(j);
         v2.push_back(*this);
-        cout << "vector2(" << j << "): " << *this << endl;
     }
 
     ofstream outfile;
@@ -340,6 +352,49 @@ ostream &operator<<(ostream &os, const Student &student) {
     return os;
 }
 
+bool Student::checkConfigValidation(Config &config) {
+    bool isValid = true;
+
+    int thisRecSize = (3* sizeof(int)) + this->name.size() + this->lastName.size();
+
+    if (config.getRecordMode() == "Fix"){
+        if (config.getStringMode() == "Fix"){   // fix rec fix str
+            if (thisRecSize > config.getRecordSize()) {
+                isValid = false;
+                cout << "\aYOUR RECORD SIZE IS MORE THAN CONFIG RECORD SIZE!" << endl;
+            }
+            if (this->name.size() > config.getStudentNameSize()) {
+                isValid = false;
+                cout << "\aYOUR NAME IS TOO LONG!" << endl;
+            }
+            if (this->lastName.size() > config.getStudentLastNameSize()) {
+                isValid = false;
+                cout << "\aYOUR LAST NAME IS TOO LONG!" << endl;
+            }
+        } else{ // fix rec dyn str
+            if (thisRecSize > config.getRecordSize()) {
+                isValid = false;
+                cout << "\aYOUR RECORD SIZE IS MORE THAN CONFIG RECORD SIZE!" << endl;
+            }
+        }
+    } else{
+        if (config.getStringMode() == "Fix"){   // dyn rec fix str
+            if (this->name.size() > config.getStudentNameSize()) {
+                isValid = false;
+                cout << "\aYOUR NAME IS TOO LONG!" << endl;
+            }
+            if (this->lastName.size() > config.getStudentLastNameSize()) {
+                isValid = false;
+                cout << "\aYOUR LAST NAME IS TOO LONG!" << endl;
+            }
+        } else{ // dyn rec dyn str
+
+        }
+    }
+
+    return isValid;
+}
+
 Book::Book(int id, const string &name, const string &author) : id(id), name(name), author(author) {
     this->objectFileName = "books";
 }
@@ -352,11 +407,9 @@ Student getStudent(Adaptor *adaptor, int nameSz, int lastNameSz) {
     bool isValidNum;
 
     cout << "-----------STUDENT FORM-----------" << endl;
-    cout << "name SZ: " << nameSz << "last name SZ: " << lastNameSz << endl;
     while (true) {
         cout << "enter student name: ";
         getline(cin, name);
-        cout << "name length" << name.length() << endl;
         if (name.length() > nameSz) {
             cout << "name is too long\nTRY AGAIN!" << endl;
             continue;
@@ -365,7 +418,6 @@ Student getStudent(Adaptor *adaptor, int nameSz, int lastNameSz) {
     while (true) {
         cout << "enter student last name: ";
         getline(cin, lastName);
-        cout << "last name length" << lastName.length() << endl;
         if (lastName.length() > lastNameSz) {
             cout << "last name is too long\nTRY AGAIN!" << endl;
             continue;

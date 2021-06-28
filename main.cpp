@@ -31,18 +31,14 @@ int main() {
 
     if (config.getRecordMode() == "Fix") {
         if (config.getStringMode() == "Fix") {
-            cout << "fix rec fix str" << endl << endl;
             adaptor = new FixRecFixStrAdap(config);
         } else {
-            cout << "fix rec dyn str" << endl << endl;
             adaptor = new FixRecDynStrAdap(config);
         }
     } else {
         if (config.getStringMode() == "Fix") {
-            cout << "dyn rec fix str" << endl << endl;
             adaptor = new DynRecFixStrAdap(config);
         } else {
-            cout << "dyn rec dyn str" << endl << endl;
             adaptor = new DynRecDynStrAdap(config);
         }
     }
@@ -52,7 +48,7 @@ int main() {
 
         switch (option) {
             case ADD_STUDENT_OPTION: {
-                cout << "request for adding a student" << endl;
+                cout << "Add Student" << endl;
                 Student student = getStudent(adaptor, config.getStudentNameSize(), config.getStudentLastNameSize());
                 student.add();
             }
