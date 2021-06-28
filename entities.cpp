@@ -101,6 +101,49 @@ Student::Student(Adaptor *adaptor) {
     this->fieldsName = constFieldsName;
 }
 
+bool Student::checkConfigValidation(Config &config) {
+    bool isValid = true;
+
+    int thisRecSize = (3* sizeof(int)) + this->name.size() + this->lastName.size();
+
+    if (config.getStudentRecordMode() == "Fix"){
+        if (config.getStudentStringMode() == "Fix"){   // fix rec fix str
+            if (thisRecSize > config.getStudentRecordSize()) {
+                isValid = false;
+                cout << "\aYOUR RECORD SIZE IS MORE THAN CONFIG RECORD SIZE!" << endl;
+            }
+            if (this->name.size() > config.getStudentNameSize()) {
+                isValid = false;
+                cout << "\aYOUR NAME IS TOO LONG!" << endl;
+            }
+            if (this->lastName.size() > config.getStudentLastNameSize()) {
+                isValid = false;
+                cout << "\aYOUR LAST NAME IS TOO LONG!" << endl;
+            }
+        } else{ // fix rec dyn str
+            if (thisRecSize > config.getStudentRecordSize()) {
+                isValid = false;
+                cout << "\aYOUR RECORD SIZE IS MORE THAN CONFIG RECORD SIZE!" << endl;
+            }
+        }
+    } else{
+        if (config.getStudentStringMode() == "Fix"){   // dyn rec fix str
+            if (this->name.size() > config.getStudentNameSize()) {
+                isValid = false;
+                cout << "\aYOUR NAME IS TOO LONG!" << endl;
+            }
+            if (this->lastName.size() > config.getStudentLastNameSize()) {
+                isValid = false;
+                cout << "\aYOUR LAST NAME IS TOO LONG!" << endl;
+            }
+        } else{ // dyn rec dyn str
+
+        }
+    }
+
+    return isValid;
+}
+
 void Student::printAllObjects() {
     try {
         int objectsCount = this->objectCount();
@@ -123,15 +166,15 @@ void Student::add() {
     int nameSize;
     int lastNameSize;
 
-    if (conf.getRecordMode() == "Fix" && conf.getStringMode() == "Fix") {
+    if (conf.getStudentRecordMode() == "Fix" && conf.getStudentStringMode() == "Fix") {
         nameSize = conf.getStudentNameSize();
         lastNameSize = conf.getStudentLastNameSize();
-        recordSize = conf.getRecordSize();
-    } else if (conf.getRecordMode() == "Fix" && conf.getStringMode() == "Dyn") {
+        recordSize = conf.getStudentRecordSize();
+    } else if (conf.getStudentRecordMode() == "Fix" && conf.getStudentStringMode() == "Dyn") {
         nameSize = this->name.size();
         lastNameSize = this->lastName.size();
-        recordSize = conf.getRecordSize();
-    } else if (conf.getRecordMode() == "Dyn" && conf.getStringMode() == "Fix") {
+        recordSize = conf.getStudentRecordSize();
+    } else if (conf.getStudentRecordMode() == "Dyn" && conf.getStudentStringMode() == "Fix") {
         nameSize = conf.getStudentNameSize();
         lastNameSize = conf.getStudentLastNameSize();
         recordSize = idSize + sizeof(int) + nameSize + sizeof(int) + lastNameSize;
@@ -147,9 +190,9 @@ void Student::add() {
         return;
     }
 
-    objAdaptor->setRecSize(recordSize);
+//    objAdaptor->setRecSize(recordSize);
 
-    objAdaptor->setRecord();
+    objAdaptor->setRecord(recordSize);
     objAdaptor->setIntField(id);
     objAdaptor->setField(nameSize, this->name);
     objAdaptor->setField(lastNameSize, this->lastName);
@@ -405,49 +448,6 @@ ostream &operator<<(ostream &os, const Student &student) {
     return os;
 }
 
-bool Student::checkConfigValidation(Config &config) {
-    bool isValid = true;
-
-    int thisRecSize = (3* sizeof(int)) + this->name.size() + this->lastName.size();
-
-    if (config.getRecordMode() == "Fix"){
-        if (config.getStringMode() == "Fix"){   // fix rec fix str
-            if (thisRecSize > config.getRecordSize()) {
-                isValid = false;
-                cout << "\aYOUR RECORD SIZE IS MORE THAN CONFIG RECORD SIZE!" << endl;
-            }
-            if (this->name.size() > config.getStudentNameSize()) {
-                isValid = false;
-                cout << "\aYOUR NAME IS TOO LONG!" << endl;
-            }
-            if (this->lastName.size() > config.getStudentLastNameSize()) {
-                isValid = false;
-                cout << "\aYOUR LAST NAME IS TOO LONG!" << endl;
-            }
-        } else{ // fix rec dyn str
-            if (thisRecSize > config.getRecordSize()) {
-                isValid = false;
-                cout << "\aYOUR RECORD SIZE IS MORE THAN CONFIG RECORD SIZE!" << endl;
-            }
-        }
-    } else{
-        if (config.getStringMode() == "Fix"){   // dyn rec fix str
-            if (this->name.size() > config.getStudentNameSize()) {
-                isValid = false;
-                cout << "\aYOUR NAME IS TOO LONG!" << endl;
-            }
-            if (this->lastName.size() > config.getStudentLastNameSize()) {
-                isValid = false;
-                cout << "\aYOUR LAST NAME IS TOO LONG!" << endl;
-            }
-        } else{ // dyn rec dyn str
-
-        }
-    }
-
-    return isValid;
-}
-
 Book::Book(Adaptor *adaptor, int isbn, const string &name, const string &author, const string &publisher){
     this->objAdaptor = adaptor;
     this->objectFileName = constFileName;
@@ -465,15 +465,103 @@ Book::Book(Adaptor *adaptor){
 }
 
 bool Book::checkConfigValidation(Config &config) {
-    return false;
+    bool isValid = true;
+
+//    int thisRecSize = (3* sizeof(int)) + this->name.size() + this->lastName.size();
+//
+//    if (config.getRecordMode() == "Fix"){
+//        if (config.getStringMode() == "Fix"){   // fix rec fix str
+//            if (thisRecSize > config.getRecordSize()) {
+//                isValid = false;
+//                cout << "\aYOUR RECORD SIZE IS MORE THAN CONFIG RECORD SIZE!" << endl;
+//            }
+//            if (this->name.size() > config.getStudentNameSize()) {
+//                isValid = false;
+//                cout << "\aYOUR NAME IS TOO LONG!" << endl;
+//            }
+//            if (this->lastName.size() > config.getStudentLastNameSize()) {
+//                isValid = false;
+//                cout << "\aYOUR LAST NAME IS TOO LONG!" << endl;
+//            }
+//        } else{ // fix rec dyn str
+//            if (thisRecSize > config.getRecordSize()) {
+//                isValid = false;
+//                cout << "\aYOUR RECORD SIZE IS MORE THAN CONFIG RECORD SIZE!" << endl;
+//            }
+//        }
+//    } else{
+//        if (config.getStringMode() == "Fix"){   // dyn rec fix str
+//            if (this->name.size() > config.getStudentNameSize()) {
+//                isValid = false;
+//                cout << "\aYOUR NAME IS TOO LONG!" << endl;
+//            }
+//            if (this->lastName.size() > config.getStudentLastNameSize()) {
+//                isValid = false;
+//                cout << "\aYOUR LAST NAME IS TOO LONG!" << endl;
+//            }
+//        } else{ // dyn rec dyn str
+//
+//        }
+//    }
+
+    return isValid;
 }
 
 void Book::printAllObjects() {
+    try {
+        int objectsCount = this->objectCount();
+        cout << "Number Of " << this->objectFileName << "s: " << objectsCount << endl;
 
+        for (int i = 1; i <= objectsCount; ++i) {
+            this->read(i);
+            cout << *this;
+        }
+    } catch (ifstream::failure &exc) {
+        cout << "\aERROR: Can't Open This File" << endl;
+    }
 }
 
 void Book::add() {
+    Config conf = objAdaptor->getAdpConf();
+    int recordSize;
+    const int isbnSize = sizeof(int);
+    const int loanSize = sizeof(int);
+    int nameSize;
+    int authorSize;
+    int publisherSize;
 
+//    if (conf.getRecordMode() == "Fix" && conf.getStringMode() == "Fix") {
+//        nameSize = conf.getStudentNameSize();
+//        lastNameSize = conf.getStudentLastNameSize();
+//        recordSize = conf.getRecordSize();
+//    } else if (conf.getRecordMode() == "Fix" && conf.getStringMode() == "Dyn") {
+//        nameSize = this->name.size();
+//        lastNameSize = this->lastName.size();
+//        recordSize = conf.getRecordSize();
+//    } else if (conf.getRecordMode() == "Dyn" && conf.getStringMode() == "Fix") {
+//        nameSize = conf.getStudentNameSize();
+//        lastNameSize = conf.getStudentLastNameSize();
+//        recordSize = idSize + sizeof(int) + nameSize + sizeof(int) + lastNameSize;
+//    } else {    //Dynamic Record Dynamic String
+//        nameSize = this->name.size();
+//        lastNameSize = this->lastName.size();
+//        recordSize = idSize + sizeof(int) + nameSize + sizeof(int) + lastNameSize;
+//    }
+//
+//    bool isValid = checkConfigValidation(conf);
+//    if (!isValid) {
+//        cout << "Add Student Finished, Unsuccessfully!" << endl;
+//        return;
+//    }
+//
+//    objAdaptor->setRecSize(recordSize);
+//
+//    objAdaptor->setRecord();
+//    objAdaptor->setIntField(id);
+//    objAdaptor->setField(nameSize, this->name);
+//    objAdaptor->setField(lastNameSize, this->lastName);
+
+    cout << "Book Added Successfully" << endl;
 }
 
 vector<int> Book::find(int option) {

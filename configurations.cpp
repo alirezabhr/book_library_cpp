@@ -43,21 +43,18 @@ const string &CONFIG_EXCEPTION::getMsg() const {
 }
 
 Config::Config() {
-    recordSize = 0;
-    studentNameSize = 0;
-    studentLastNameSize = 0;
 }
 
-const string &Config::getRecordMode() const {
-    return recordMode;
+const string &Config::getStudentRecordMode() const {
+    return studentRecordMode;
 }
 
-const string &Config::getStringMode() const {
-    return stringMode;
+const string &Config::getStudentStringMode() const {
+    return studentStringMode;
 }
 
-int Config::getRecordSize() const {
-    return recordSize;
+int Config::getStudentRecordSize() const {
+    return studentRecordSize;
 }
 
 int Config::getStudentNameSize() const {
@@ -68,30 +65,54 @@ int Config::getStudentLastNameSize() const {
     return studentLastNameSize;
 }
 
+const string &Config::getBookRecordMode() const {
+    return bookRecordMode;
+}
+
+const string &Config::getBookStringMode() const {
+    return bookStringMode;
+}
+
+int Config::getBookRecordSize() const {
+    return bookRecordSize;
+}
+
+int Config::getBookNameSize() const {
+    return bookNameSize;
+}
+
+int Config::getBookAuthorSize() const {
+    return bookAuthorSize;
+}
+
+int Config::getBookPublisherSize() const {
+    return bookPublisherSize;
+}
+
 void Config::setFields(const std::string& field, const std::string& value) {
-    if (field == "RECORD_MODE") {
+    if (field == "STD_RECORD_MODE") {
         if (value == "Fix") {
-            this->recordMode = value;
+            this->studentRecordMode = value;
         } else if (value == "Dyn") {
-            this->recordMode = value;
+            this->studentRecordMode = value;
         } else {
             throw CONFIG_EXCEPTION("Wrong Record Mode!");
         }
-    } else if (field == "STRING_MODE") {
+    } else if (field == "STD_STRING_MODE") {
         if (value == "Fix") {
-            this->stringMode = value;
+            this->studentStringMode = value;
         } else if (value == "Dyn") {
-            this->stringMode = value;
+            this->studentStringMode = value;
         } else {
             throw CONFIG_EXCEPTION("Wrong String Mode!");
         }
-    } else if (field == "RECORD_SIZE") {
-        if (this->recordMode == "Dyn") {
-            this->recordSize = -1;
+    } else if (field == "STD_RECORD_SIZE") {
+        if (this->studentRecordMode == "Dyn") {
+            this->studentRecordSize = -1;
         } else {
             try {
-                this->recordSize = stoi(value);
-                if (this->recordSize < 0) {
+                this->studentRecordSize = stoi(value);
+                if (this->studentRecordSize < 0) {
                     throw CONFIG_EXCEPTION("Record Size Is Not Valid!\nTry A Positive Number");
                 }
             } catch (exception &err) {
@@ -99,7 +120,7 @@ void Config::setFields(const std::string& field, const std::string& value) {
             }
         }
     } else if (field == "STD_NAME_SIZE") {
-        if (this->stringMode == "Dyn") {
+        if (this->studentStringMode == "Dyn") {
             this->studentNameSize = -1;
         } else {
             try {
@@ -112,7 +133,7 @@ void Config::setFields(const std::string& field, const std::string& value) {
             }
         }
     } else if (field == "STD_LAST_NAME_SIZE") {
-        if (this->stringMode == "Dyn") {
+        if (this->studentStringMode == "Dyn") {
             this->studentLastNameSize = -1;
         } else {
             try {
@@ -122,6 +143,74 @@ void Config::setFields(const std::string& field, const std::string& value) {
                 }
             } catch (exception &err) {
                 throw CONFIG_EXCEPTION("Student Last Name Size Is Not Valid!");
+            }
+        }
+    } else if (field == "BOOK_RECORD_MODE") {
+        if (value == "Fix") {
+            this->bookRecordMode = value;
+        } else if (value == "Dyn") {
+            this->bookRecordMode = value;
+        } else {
+            throw CONFIG_EXCEPTION("Wrong Record Mode!");
+        }
+    } else if (field == "BOOK_STRING_MODE") {
+        if (value == "Fix") {
+            this->bookStringMode = value;
+        } else if (value == "Dyn") {
+            this->bookStringMode = value;
+        } else {
+            throw CONFIG_EXCEPTION("Wrong String Mode!");
+        }
+    } else if (field == "BOOK_RECORD_SIZE") {
+        if (this->bookRecordMode == "Dyn") {
+            this->bookRecordSize = -1;
+        } else {
+            try {
+                this->bookRecordSize = stoi(value);
+                if (this->bookRecordSize < 0) {
+                    throw CONFIG_EXCEPTION("Record Size Is Not Valid!\nTry A Positive Number");
+                }
+            } catch (exception &err) {
+                throw CONFIG_EXCEPTION("Record Size Is Not Valid!");
+            }
+        }
+    } else if (field == "BOOK_NAME_SIZE") {
+        if (this->bookStringMode == "Dyn") {
+            this->bookNameSize = -1;
+        } else {
+            try {
+                this->bookNameSize = stoi(value);
+                if (this->bookNameSize < 0) {
+                    throw CONFIG_EXCEPTION("Book Name Size Is Not Valid!\nTry A Positive Number");
+                }
+            } catch (exception &err) {
+                throw CONFIG_EXCEPTION("Book Name Size Is Not Valid!");
+            }
+        }
+    } else if (field == "BOOK_AUTHOR_SIZE") {
+        if (this->bookStringMode == "Dyn") {
+            this->bookAuthorSize = -1;
+        } else {
+            try {
+                this->bookAuthorSize = stoi(value);
+                if (this->bookAuthorSize < 0) {
+                    throw CONFIG_EXCEPTION("Book Author Size Is Not Valid!\nTry A Positive Number");
+                }
+            } catch (exception &err) {
+                throw CONFIG_EXCEPTION("Book Author Size Is Not Valid!");
+            }
+        }
+    } else if (field == "BOOK_PUBLISHER_SIZE") {
+        if (this->bookStringMode == "Dyn") {
+            this->bookPublisherSize = -1;
+        } else {
+            try {
+                this->bookPublisherSize = stoi(value);
+                if (this->bookPublisherSize < 0) {
+                    throw CONFIG_EXCEPTION("Book Publisher Size Is Not Valid!\nTry A Positive Number");
+                }
+            } catch (exception &err) {
+                throw CONFIG_EXCEPTION("Book Publisher Size Is Not Valid!");
             }
         }
     } else {

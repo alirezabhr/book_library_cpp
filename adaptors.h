@@ -13,7 +13,7 @@ class Adaptor;
 
 class Adaptor {
 protected:
-    int recSize = 0;
+//    int recSize = 0;
     Config adpConf;
     string fileName;
 public:
@@ -22,9 +22,9 @@ public:
     char *readFromTo(int start, int end);
     virtual void writeRec() = 0;
     virtual void readRec() = 0;
-    virtual void setRecord() = 0;
+    virtual void setRecord(int size) = 0;
     virtual int getRecord(int index) = 0;
-    virtual void editRecord(int index, int diff) = 0;
+//    virtual void editRecord(int index, int diff) = 0;
     virtual void edit(char *data1, char *data2) = 0;
     virtual void setField(int size, string value) = 0;
     virtual string getField(int &startIndex) = 0;
@@ -42,18 +42,18 @@ class FixedRecordAdap : public Adaptor {
 public:
     void writeRec() override;
     void readRec() override;
-    void setRecord() override;
+    void setRecord(int size) override;
     int getRecord(int index) override;
-    void editRecord(int index, int diff) override;
+//    void editRecord(int index, int diff) override;
 };
 
 class DynamicRecordAdap : public Adaptor{
 public:
     void writeRec() override;
     void readRec() override;
-    void setRecord() override;
+    void setRecord(int size) override;
     int getRecord(int index) override;
-    void editRecord(int index, int diff) override;
+//    void editRecord(int index, int diff) override;
 };
 
 class FixedStringAdap {  //similar to interface in java

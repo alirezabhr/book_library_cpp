@@ -20,18 +20,37 @@ public:
 };
 
 class Config {
-    string recordMode;
-    string stringMode;
-    int recordSize;
-    int studentNameSize;
-    int studentLastNameSize;
+    string studentRecordMode;
+    string studentStringMode;
+    int studentRecordSize = 0;
+    int studentNameSize = 0;
+    int studentLastNameSize = 0;
+    string bookRecordMode;
+    string bookStringMode;
+    int bookRecordSize = 0;
+    int bookNameSize = 0;
+    int bookAuthorSize = 0;
+    int bookPublisherSize = 0;
 public:
     Config();
-    const string &getRecordMode() const;
-    const string &getStringMode() const;
-    int getRecordSize() const;
+    const string &getStudentRecordMode() const;
+    const string &getStudentStringMode() const;
+    int getStudentRecordSize() const;
     int getStudentNameSize() const;
     int getStudentLastNameSize() const;
+
+    const string &getBookRecordMode() const;
+
+    const string &getBookStringMode() const;
+
+    int getBookRecordSize() const;
+
+    int getBookNameSize() const;
+
+    int getBookAuthorSize() const;
+
+    int getBookPublisherSize() const;
+
     void setFields(const string& field, const string& value);
     static vector<string> tokenize(string line);
 };

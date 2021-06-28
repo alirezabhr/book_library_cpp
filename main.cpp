@@ -17,7 +17,8 @@ using namespace std;
 
 int main() {
     Config config;
-    Adaptor *adaptor = nullptr;
+    Adaptor *studentAdaptor = nullptr;
+    Adaptor *bookAdaptor = nullptr;
     int option = 0;
     int findOption = 0;
     int editOption = 0;
@@ -29,17 +30,30 @@ int main() {
         return 0;
     }
 
-    if (config.getRecordMode() == "Fix") {
-        if (config.getStringMode() == "Fix") {
-            adaptor = new FixRecFixStrAdap(config);
+    if (config.getStudentRecordMode() == "Fix") {
+        if (config.getStudentStringMode() == "Fix") {
+            studentAdaptor = new FixRecFixStrAdap(config);
         } else {
-            adaptor = new FixRecDynStrAdap(config);
+            studentAdaptor = new FixRecDynStrAdap(config);
         }
     } else {
-        if (config.getStringMode() == "Fix") {
-            adaptor = new DynRecFixStrAdap(config);
+        if (config.getStudentStringMode() == "Fix") {
+            studentAdaptor = new DynRecFixStrAdap(config);
         } else {
-            adaptor = new DynRecDynStrAdap(config);
+            studentAdaptor = new DynRecDynStrAdap(config);
+        }
+    }
+    if (config.getBookRecordMode() == "Fix") {
+        if (config.getBookStringMode() == "Fix") {
+            bookAdaptor = new FixRecFixStrAdap(config);
+        } else {
+            bookAdaptor = new FixRecDynStrAdap(config);
+        }
+    } else {
+        if (config.getBookStringMode() == "Fix") {
+            bookAdaptor = new DynRecFixStrAdap(config);
+        } else {
+            bookAdaptor = new DynRecDynStrAdap(config);
         }
     }
 
@@ -49,19 +63,19 @@ int main() {
         switch (option) {
             case ADD_STUDENT_OPTION: {
                 cout << "Add Student" << endl;
-                Student student = getStudent(adaptor, config.getStudentNameSize(), config.getStudentLastNameSize());
+                Student student = getStudent(studentAdaptor, config.getStudentNameSize(), config.getStudentLastNameSize());
                 student.add();
             }
                 break;
             case ALL_STUDENTS_OPTION: {
                 cout << "All students" << endl;
-                Student tmpStudent(adaptor);
+                Student tmpStudent(studentAdaptor);
                 tmpStudent.printAllObjects();
             }
                 break;
             case FIND_STUDENT_OPTION: {
                 cout << "Find Student" << endl;
-                Student tmpStudent(adaptor);
+                Student tmpStudent(studentAdaptor);
                 findOption = findObjectMenu(tmpStudent);
                 vector<int> idList = tmpStudent.find(findOption);
                 for (int id: idList) {
@@ -72,7 +86,7 @@ int main() {
                 break;
             case EDIT_STUDENT_OPTION: {
                 cout << "Edit Student" << endl;
-                Student tmpStudent(adaptor);
+                Student tmpStudent(studentAdaptor);
                 findOption = findObjectMenu(tmpStudent);
                 vector<int> idList = tmpStudent.find(findOption);
                 for (int id: idList) {
@@ -92,7 +106,7 @@ int main() {
                 break;
             case DELETE_STUDENT_OPTION: {
                 cout << "Delete Student" << endl;
-                Student tmpStudent(adaptor);
+                Student tmpStudent(studentAdaptor);
                 findOption = findObjectMenu(tmpStudent);
                 vector<int> idList = tmpStudent.find(findOption);
                 for (int id: idList) {
