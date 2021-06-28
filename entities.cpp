@@ -291,6 +291,38 @@ void Student::edit(int option, int index) {
     }
 }
 
+void Student::deleteObj(int index) {
+    cout << "index: " << index << endl;
+    string fileName = objAdaptor->getFileName();
+    int objectCount = this->objectCount();
+    vector<Student> v1;
+    vector<Student> v2;
+
+    for (int i = 1; i <= index-1; ++i) {
+        this->read(i);
+        v1.push_back(*this);
+        cout << "vector1(" << i << "): " << *this << endl;
+    }
+
+    for (int j = index+1; j <= objectCount; ++j) {
+        this->read(j);
+        v2.push_back(*this);
+        cout << "vector2(" << j << "): " << *this << endl;
+    }
+
+    ofstream outfile;
+    outfile.open(fileName, ios::binary | ios::out);
+    outfile.close();
+
+    for (Student std: v1) {
+        std.add();
+    }
+
+    for (Student std: v2) {
+        std.add();
+    }
+}
+
 int Student::getStudentId() {
     return studentID;
 }

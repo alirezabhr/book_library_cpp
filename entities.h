@@ -21,6 +21,7 @@ public:
     virtual vector<int> find(int option) = 0;
     virtual void read(int index) = 0;
     virtual void edit(int option, int index) = 0;
+    virtual void deleteObj(int index) = 0;
 };
 
 class Student: public Object{
@@ -37,6 +38,7 @@ public:
     vector<int> find(int option) override;
     void read(int index) override;
     void edit(int option, int index) override;
+    void deleteObj(int index) override;
     int getStudentId();
     string getName();
     string getLastName();
