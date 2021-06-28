@@ -50,7 +50,7 @@ public:
 };
 
 class Book: public Object{
-    int isbn;
+    long long isbn;
     string name;
     string author;
     string publisher;
@@ -58,7 +58,7 @@ class Book: public Object{
     const string constFileName = "Book";
     const vector<string> constFieldsName = {"ISBN", "Name", "Author", "Publisher", "Student"};
 public:
-    Book(Adaptor *adaptor, int isbn, const string &name, const string &author, const string &publisher);
+    Book(Adaptor *adaptor, long long isbn, const string &name, const string &author, const string &publisher);
     Book(Adaptor *adaptor);
 
     static Adaptor *getObjectAdaptor(Config &config);
@@ -74,6 +74,7 @@ public:
 };
 
 Student getStudent(Adaptor *adaptor, int nameSize, int lastNameSize);
+Book getBook(Adaptor *adaptor, int nameSize, int authorSize, int publisherSize);
 
 bool check_number(const string &str);
 

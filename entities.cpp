@@ -48,6 +48,58 @@ Student getStudent(Adaptor *adaptor, int nameSz, int lastNameSz) {
     return s;
 }
 
+Book getBook(Adaptor *adaptor, int nameSize, int authorSize, int publisherSize) {
+    string name;
+    string author;
+    string publisher;
+    string isbnStr;
+    long long isbn;
+    bool isValidNum;
+
+    cout << "-----------BOOK FORM-----------" << endl;
+    while (true) {
+        cout << "enter book name: ";
+        getline(cin, name);
+        if (name.length() > nameSize) {
+            cout << "name is too long\nTRY AGAIN!" << endl;
+            continue;
+        } else break;
+    }
+    while (true) {
+        cout << "enter book author: ";
+        getline(cin, author);
+        if (author.length() > authorSize) {
+            cout << "book author is too long\nTRY AGAIN!" << endl;
+            continue;
+        } else break;
+    }
+    while (true) {
+        cout << "enter book publisher: ";
+        getline(cin, publisher);
+        if (publisher.length() > publisherSize) {
+            cout << "book publisher is too long\nTRY AGAIN!" << endl;
+            continue;
+        } else break;
+    }
+    while (true) {
+        cout << "enter book isbn: ";
+        getline(cin, isbnStr);
+        isValidNum = check_number(isbnStr);
+        if (!isValidNum) {
+            //system("cls");
+            cout << "!! PLEASE ENTER A VALID BOOK ISBN !!" << endl;
+            continue;
+        } else {
+            isbn = stoll(isbnStr);
+            break;
+        }
+    }
+
+    Book book(adaptor, isbn, name, author, publisher);
+//    system("cls");
+    return book;
+}
+
 bool check_number(const string &str) {
     if (str.empty()) return false;
     for (char i : str) {
@@ -468,7 +520,7 @@ Adaptor *Student::getObjectAdaptor(Config &config) {
     return adaptor;
 }
 
-Book::Book(Adaptor *adaptor, int isbn, const string &name, const string &author, const string &publisher){
+Book::Book(Adaptor *adaptor, long long isbn, const string &name, const string &author, const string &publisher){
     this->objAdaptor = adaptor;
     this->objectFileName = constFileName;
     string fileName = this->objectFileName + ".txt";
@@ -507,42 +559,51 @@ Adaptor *Book::getObjectAdaptor(Config &config) {
 bool Book::checkConfigValidation(Config &config) {
     bool isValid = true;
 
-//    int thisRecSize = (3* sizeof(int)) + this->name.size() + this->lastName.size();
-//
-//    if (config.getRecordMode() == "Fix"){
-//        if (config.getStringMode() == "Fix"){   // fix rec fix str
-//            if (thisRecSize > config.getRecordSize()) {
-//                isValid = false;
-//                cout << "\aYOUR RECORD SIZE IS MORE THAN CONFIG RECORD SIZE!" << endl;
-//            }
-//            if (this->name.size() > config.getStudentNameSize()) {
-//                isValid = false;
-//                cout << "\aYOUR NAME IS TOO LONG!" << endl;
-//            }
-//            if (this->lastName.size() > config.getStudentLastNameSize()) {
-//                isValid = false;
-//                cout << "\aYOUR LAST NAME IS TOO LONG!" << endl;
-//            }
-//        } else{ // fix rec dyn str
-//            if (thisRecSize > config.getRecordSize()) {
-//                isValid = false;
-//                cout << "\aYOUR RECORD SIZE IS MORE THAN CONFIG RECORD SIZE!" << endl;
-//            }
-//        }
-//    } else{
-//        if (config.getStringMode() == "Fix"){   // dyn rec fix str
-//            if (this->name.size() > config.getStudentNameSize()) {
-//                isValid = false;
-//                cout << "\aYOUR NAME IS TOO LONG!" << endl;
-//            }
-//            if (this->lastName.size() > config.getStudentLastNameSize()) {
-//                isValid = false;
-//                cout << "\aYOUR LAST NAME IS TOO LONG!" << endl;
-//            }
-//        } else{ // dyn rec dyn str
-//
-//        }
-//    }
+    int thisRecSize = sizeof(long long) + (3* sizeof(int)) + this->name.size() + this->author.size() + this->publisher.size() +
+            sizeof(int);
+
+    if (config.getBookRecordMode() == "Fix"){
+        if (config.getBookStringMode() == "Fix"){   // fix rec fix str
+            if (thisRecSize > config.getBookRecordSize()) {
+                isValid = false;
+                cout << "\aYOUR RECORD SIZE IS MORE THAN CONFIG RECORD SIZE!" << endl;
+            }
+            if (this->name.size() > config.getBookNameSize()) {
+                isValid = false;
+                cout << "\aYOUR NAME IS TOO LONG!" << endl;
+            }
+            if (this->author.size() > config.getBookAuthorSize()) {
+                isValid = false;
+                cout << "\aYOUR AUTHOR IS TOO LONG!" << endl;
+            }
+            if (this->publisher.size() > config.getBookPublisherSize()) {
+                isValid = false;
+                cout << "\aYOUR PUBLISHER IS TOO LONG!" << endl;
+            }
+        } else{ // fix rec dyn str
+            if (thisRecSize > config.getBookRecordSize()) {
+                isValid = false;
+                cout << "\aYOUR RECORD SIZE IS MORE THAN CONFIG RECORD SIZE!" << endl;
+            }
+        }
+    } else{
+        if (config.getBookStringMode() == "Fix"){   // dyn rec fix str
+            if (this->name.size() > config.getBookNameSize()) {
+                isValid = false;
+                cout << "\aYOUR NAME IS TOO LONG!" << endl;
+            }
+            if (this->author.size() > config.getBookAuthorSize()) {
+                isValid = false;
+                cout << "\aYOUR AUTHOR IS TOO LONG!" << endl;
+            }
+            if (this->publisher.size() > config.getBookPublisherSize()) {
+                isValid = false;
+                cout << "\aYOUR PUBLISHER IS TOO LONG!" << endl;
+            }
+        } else{ // dyn rec dyn str
+
+        }
+    }
 
     return isValid;
 }
@@ -564,42 +625,47 @@ void Book::printAllObjects() {
 void Book::add() {
     Config conf = objAdaptor->getAdpConf();
     int recordSize;
-    const int isbnSize = sizeof(int);
-    const int loanSize = sizeof(int);
+    const int isbnSize = sizeof(long long);
     int nameSize;
     int authorSize;
     int publisherSize;
 
-//    if (conf.getRecordMode() == "Fix" && conf.getStringMode() == "Fix") {
-//        nameSize = conf.getStudentNameSize();
-//        lastNameSize = conf.getStudentLastNameSize();
-//        recordSize = conf.getRecordSize();
-//    } else if (conf.getRecordMode() == "Fix" && conf.getStringMode() == "Dyn") {
-//        nameSize = this->name.size();
-//        lastNameSize = this->lastName.size();
-//        recordSize = conf.getRecordSize();
-//    } else if (conf.getRecordMode() == "Dyn" && conf.getStringMode() == "Fix") {
-//        nameSize = conf.getStudentNameSize();
-//        lastNameSize = conf.getStudentLastNameSize();
-//        recordSize = idSize + sizeof(int) + nameSize + sizeof(int) + lastNameSize;
-//    } else {    //Dynamic Record Dynamic String
-//        nameSize = this->name.size();
-//        lastNameSize = this->lastName.size();
-//        recordSize = idSize + sizeof(int) + nameSize + sizeof(int) + lastNameSize;
-//    }
-//
-//    bool isValid = checkConfigValidation(conf);
-//    if (!isValid) {
-//        cout << "Add Student Finished, Unsuccessfully!" << endl;
-//        return;
-//    }
-//
-//    objAdaptor->setRecSize(recordSize);
-//
-//    objAdaptor->setRecord();
-//    objAdaptor->setIntField(id);
-//    objAdaptor->setField(nameSize, this->name);
-//    objAdaptor->setField(lastNameSize, this->lastName);
+    if (conf.getBookRecordMode() == "Fix" && conf.getBookStringMode() == "Fix") {
+        nameSize = conf.getBookNameSize();
+        authorSize = conf.getBookAuthorSize();
+        publisherSize = conf.getBookPublisherSize();
+        recordSize = conf.getBookRecordSize();
+    } else if (conf.getBookRecordMode() == "Fix" && conf.getBookStringMode() == "Dyn") {
+        nameSize = this->name.size();
+        authorSize = this->author.size();
+        publisherSize = this->publisher.size();
+        recordSize = conf.getBookRecordSize();
+    } else if (conf.getBookRecordMode() == "Dyn" && conf.getBookStringMode() == "Fix") {
+        nameSize = conf.getBookNameSize();
+        authorSize = conf.getBookAuthorSize();
+        publisherSize = conf.getBookPublisherSize();
+        recordSize = isbnSize + sizeof(int) + nameSize + sizeof(int) + authorSize + sizeof(int) + publisherSize +
+                sizeof(int);
+    } else {    //Dynamic Record Dynamic String
+        nameSize = this->name.size();
+        authorSize = this->author.size();
+        publisherSize = this->publisher.size();
+        recordSize = isbnSize + sizeof(int) + nameSize + sizeof(int) + authorSize + sizeof(int) + publisherSize +
+                                                            sizeof(int);
+    }
+
+    bool isValid = checkConfigValidation(conf);
+    if (!isValid) {
+        cout << "Add Student Finished, Unsuccessfully!" << endl;
+        return;
+    }
+
+    objAdaptor->setRecord(recordSize);
+    objAdaptor->set8BytesField(this->isbn);
+    objAdaptor->setField(nameSize, this->name);
+    objAdaptor->setField(authorSize, this->author);
+    objAdaptor->setField(publisherSize, this->publisher);
+    objAdaptor->setIntField(this->onLoan);
 
     cout << "Book Added Successfully" << endl;
 }
