@@ -66,16 +66,58 @@ int Adaptor::getIntField(int &startIndex) {
 void Adaptor::editIntField(int startIndex, int num) {
     string file = this->fileName;
     int fieldValue = num;
-    cout << "ehem0" << endl;
     int fileSize = getFileSize(file);
+    int fieldSize = sizeof(int);
     char *data1 = readFromTo(0,startIndex);
-    char *data2 = readFromTo(startIndex+4, fileSize);
+    char *data2 = readFromTo(startIndex+fieldSize, fileSize);
 
     ofstream outfile;
     outfile.open(file, ios::binary | ios::out);
     outfile.write(data1, startIndex);
-    outfile.write(reinterpret_cast<char *>(&fieldValue), sizeof(int));
-    outfile.write(data2, fileSize-(startIndex+4));
+    outfile.write(reinterpret_cast<char *>(&fieldValue), fieldSize);
+    outfile.write(data2, fileSize-(startIndex+fieldSize));
+
+    outfile.close();
+    delete[] data1;
+    delete[] data2;
+}
+
+void Adaptor::set8BytesField(long long num) {
+    string file = this->fileName;
+    ofstream outfile;
+    outfile.open(file, ios::binary | ios::out | ios::app);
+    outfile.write(reinterpret_cast<const char *>(&num), sizeof(long long));
+    outfile.close();
+}
+
+long long Adaptor::get8BytesField(int &startIndex) {
+    string file = this->fileName;
+    int fieldValue = -3;
+
+    ifstream infile;
+    infile.open(file, ios::binary | ios::in);
+    infile.seekg(startIndex);
+    infile.read(reinterpret_cast<char *>(&fieldValue), sizeof(long long));
+    startIndex += sizeof(long long);
+
+    infile.close();
+
+    return fieldValue;
+}
+
+void Adaptor::edit8BytesField(int startIndex, long long num) {
+    string file = this->fileName;
+    int fieldValue = num;
+    int fieldSize = sizeof(long long);
+    int fileSize = getFileSize(file);
+    char *data1 = readFromTo(0,startIndex);
+    char *data2 = readFromTo(startIndex+fieldSize, fileSize);
+
+    ofstream outfile;
+    outfile.open(file, ios::binary | ios::out);
+    outfile.write(data1, startIndex);
+    outfile.write(reinterpret_cast<char *>(&fieldValue), fieldSize);
+    outfile.write(data2, fileSize-(startIndex+fieldSize));
 
     outfile.close();
     delete[] data1;

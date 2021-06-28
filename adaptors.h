@@ -32,6 +32,9 @@ public:
     void setIntField(int num);
     int getIntField(int &startIndex);
     void editIntField(int startIndex, int num);
+    void set8BytesField(long long num);
+    long long get8BytesField(int &startIndex);
+    void edit8BytesField(int startIndex, long long num);
     const Config &getAdpConf() const;
     void setFileName(const string &fileName);
 
