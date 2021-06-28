@@ -30,32 +30,8 @@ int main() {
         return 0;
     }
 
-    if (config.getStudentRecordMode() == "Fix") {
-        if (config.getStudentStringMode() == "Fix") {
-            studentAdaptor = new FixRecFixStrAdap(config);
-        } else {
-            studentAdaptor = new FixRecDynStrAdap(config);
-        }
-    } else {
-        if (config.getStudentStringMode() == "Fix") {
-            studentAdaptor = new DynRecFixStrAdap(config);
-        } else {
-            studentAdaptor = new DynRecDynStrAdap(config);
-        }
-    }
-    if (config.getBookRecordMode() == "Fix") {
-        if (config.getBookStringMode() == "Fix") {
-            bookAdaptor = new FixRecFixStrAdap(config);
-        } else {
-            bookAdaptor = new FixRecDynStrAdap(config);
-        }
-    } else {
-        if (config.getBookStringMode() == "Fix") {
-            bookAdaptor = new DynRecFixStrAdap(config);
-        } else {
-            bookAdaptor = new DynRecDynStrAdap(config);
-        }
-    }
+    studentAdaptor = Student::getObjectAdaptor(config);
+    bookAdaptor = Book::getObjectAdaptor(config);
 
     while (true) {
         option = showMainMenu();

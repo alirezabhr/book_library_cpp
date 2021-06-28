@@ -35,6 +35,7 @@ public:
     Student(Adaptor *adaptor, int studentID, const string &name, const string &lastName);
     Student(Adaptor *adaptor);
 
+    static Adaptor *getObjectAdaptor(Config &config);
     bool checkConfigValidation(Config &config) override;
     void printAllObjects() override;
     void add() override;
@@ -60,6 +61,7 @@ public:
     Book(Adaptor *adaptor, int isbn, const string &name, const string &author, const string &publisher);
     Book(Adaptor *adaptor);
 
+    static Adaptor *getObjectAdaptor(Config &config);
     bool checkConfigValidation(Config &config) override;
     void printAllObjects() override;
     void add() override;

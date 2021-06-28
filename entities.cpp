@@ -448,6 +448,26 @@ ostream &operator<<(ostream &os, const Student &student) {
     return os;
 }
 
+Adaptor *Student::getObjectAdaptor(Config &config) {
+    Adaptor *adaptor;
+
+    if (config.getStudentRecordMode() == "Fix") {
+        if (config.getStudentStringMode() == "Fix") {
+            adaptor = new FixRecFixStrAdap(config);
+        } else {
+            adaptor = new FixRecDynStrAdap(config);
+        }
+    } else {
+        if (config.getStudentStringMode() == "Fix") {
+            adaptor = new DynRecFixStrAdap(config);
+        } else {
+            adaptor = new DynRecDynStrAdap(config);
+        }
+    }
+
+    return adaptor;
+}
+
 Book::Book(Adaptor *adaptor, int isbn, const string &name, const string &author, const string &publisher){
     this->objAdaptor = adaptor;
     this->objectFileName = constFileName;
@@ -462,6 +482,26 @@ Book::Book(Adaptor *adaptor, int isbn, const string &name, const string &author,
 
 Book::Book(Adaptor *adaptor){
     Book(adaptor, 0, "", "", "");
+}
+
+Adaptor *Book::getObjectAdaptor(Config &config) {
+    Adaptor *adaptor;
+
+    if (config.getBookRecordMode() == "Fix") {
+        if (config.getBookStringMode() == "Fix") {
+            adaptor = new FixRecFixStrAdap(config);
+        } else {
+            adaptor = new FixRecDynStrAdap(config);
+        }
+    } else {
+        if (config.getBookStringMode() == "Fix") {
+            adaptor = new DynRecFixStrAdap(config);
+        } else {
+            adaptor = new DynRecDynStrAdap(config);
+        }
+    }
+
+    return adaptor;
 }
 
 bool Book::checkConfigValidation(Config &config) {
