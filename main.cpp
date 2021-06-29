@@ -17,7 +17,8 @@ using namespace std;
 
 int main() {
     Config config;
-    Adaptor *adaptor = nullptr;
+    Adaptor *studentAdaptor = nullptr;
+    Adaptor *bookAdaptor = nullptr;
     int option = 0;
     int findOption = 0;
     int editOption = 0;
@@ -29,19 +30,8 @@ int main() {
         return 0;
     }
 
-    if (config.getRecordMode() == "Fix") {
-        if (config.getStringMode() == "Fix") {
-            adaptor = new FixRecFixStrAdap(config);
-        } else {
-            adaptor = new FixRecDynStrAdap(config);
-        }
-    } else {
-        if (config.getStringMode() == "Fix") {
-            adaptor = new DynRecFixStrAdap(config);
-        } else {
-            adaptor = new DynRecDynStrAdap(config);
-        }
-    }
+    studentAdaptor = Student::getObjectAdaptor(config);
+    bookAdaptor = Book::getObjectAdaptor(config);
 
     while (true) {
         option = showMainMenu();
@@ -49,19 +39,20 @@ int main() {
         switch (option) {
             case ADD_STUDENT_OPTION: {
                 cout << "Add Student" << endl;
-                Student student = getStudent(adaptor, config.getStudentNameSize(), config.getStudentLastNameSize());
+                Student student = getStudent(studentAdaptor, config.getStudentNameSize(),
+                                             config.getStudentLastNameSize());
                 student.add();
             }
                 break;
             case ALL_STUDENTS_OPTION: {
                 cout << "All students" << endl;
-                Student tmpStudent(adaptor);
+                Student tmpStudent(studentAdaptor);
                 tmpStudent.printAllObjects();
             }
                 break;
             case FIND_STUDENT_OPTION: {
                 cout << "Find Student" << endl;
-                Student tmpStudent(adaptor);
+                Student tmpStudent(studentAdaptor);
                 findOption = findObjectMenu(tmpStudent);
                 vector<int> idList = tmpStudent.find(findOption);
                 for (int id: idList) {
@@ -72,7 +63,7 @@ int main() {
                 break;
             case EDIT_STUDENT_OPTION: {
                 cout << "Edit Student" << endl;
-                Student tmpStudent(adaptor);
+                Student tmpStudent(studentAdaptor);
                 findOption = findObjectMenu(tmpStudent);
                 vector<int> idList = tmpStudent.find(findOption);
                 for (int id: idList) {
@@ -92,7 +83,7 @@ int main() {
                 break;
             case DELETE_STUDENT_OPTION: {
                 cout << "Delete Student" << endl;
-                Student tmpStudent(adaptor);
+                Student tmpStudent(studentAdaptor);
                 findOption = findObjectMenu(tmpStudent);
                 vector<int> idList = tmpStudent.find(findOption);
                 for (int id: idList) {
@@ -109,20 +100,68 @@ int main() {
                 tmpStudent.deleteObj(idList.at(0));
             }
                 break;
-            case ADD_BOOK_OPTION:
-                cout << "request for adding a book" << endl;
+            case ADD_BOOK_OPTION: {
+                cout << "Add Book" << endl;
+                Book book = getBook(bookAdaptor, config.getBookNameSize(), config.getBookAuthorSize(),
+                                    config.getBookPublisherSize());
+                book.add();
+            }
                 break;
-            case ALL_BOOKS_OPTION:
-                cout << "all books" << endl;
+            case ALL_BOOKS_OPTION: {
+                cout << "All Books" << endl;
+                Book tmpBook(bookAdaptor);
+                tmpBook.printAllObjects();
+            }
                 break;
-            case FIND_BOOK_OPTION:
-                cout << "find book" << endl;
+            case FIND_BOOK_OPTION: {
+                cout << "Find Book" << endl;
+                Book tmpBook(bookAdaptor);
+                findOption = findObjectMenu(tmpBook);
+                vector<int> idList = tmpBook.find(findOption);
+                for (int id: idList) {
+                    tmpBook.read(id);
+                    cout << tmpBook;
+                }
+            }
                 break;
-            case EDIT_BOOK_OPTION:
-                cout << "edit book" << endl;
+            case EDIT_BOOK_OPTION:{
+                cout << "Edit Student" << endl;
+                Book tmpBook(bookAdaptor);
+                findOption = findObjectMenu(tmpBook);
+                vector<int> idList = tmpBook.find(findOption);
+                for (int id: idList) {
+                    tmpBook.read(id);
+                    cout << tmpBook;
+                }
+                if (idList.size() > 1) {
+                    cout << "There Is More Than One Item!" << endl;
+                    continue;
+                }
+                if (idList.empty()) {
+                    continue;
+                }
+                editOption = editObjectMenu(tmpBook);
+                tmpBook.edit(editOption, idList.at(0));
+            }
                 break;
-            case DELETE_BOOK_OPTION:
-                cout << "delete book" << endl;
+            case DELETE_BOOK_OPTION:{
+                cout << "Delete Book" << endl;
+                Book tmpBook(bookAdaptor);
+                findOption = findObjectMenu(tmpBook);
+                vector<int> idList = tmpBook.find(findOption);
+                for (int id: idList) {
+                    tmpBook.read(id);
+                    cout << tmpBook;
+                }
+                if (idList.size() > 1) {
+                    cout << "There Is More Than One Item!" << endl;
+                    continue;
+                }
+                if (idList.empty()) {
+                    continue;
+                }
+                tmpBook.deleteObj(idList.at(0));
+            }
                 break;
             case EXIT_PROGRAM_OPTION:
                 cout << "Program Closed" << endl;

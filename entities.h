@@ -35,8 +35,9 @@ public:
     Student(Adaptor *adaptor, int studentID, const string &name, const string &lastName);
     Student(Adaptor *adaptor);
 
+    static Adaptor *getObjectAdaptor(Config &config);
     bool checkConfigValidation(Config &config) override;
-    void printAllObjects();
+    void printAllObjects() override;
     void add() override;
     vector<int> find(int option) override;
     void read(int index) override;
@@ -49,14 +50,31 @@ public:
 };
 
 class Book: public Object{
-    int id;
+    long long isbn;
+    int onLoan; // 0 if nobody loan this book, or student id if someone loan it
     string name;
     string author;
+    string publisher;
+    const string constFileName = "Book";
+    const vector<string> constFieldsName = {"ISBN", "Name", "Author", "Publisher", "Loan Id"};
 public:
-    Book(int id, const string &name, const string &author);
+    Book(Adaptor *adaptor, long long isbn, const string &name, const string &author, const string &publisher);
+    Book(Adaptor *adaptor);
+
+    static Adaptor *getObjectAdaptor(Config &config);
+    bool checkConfigValidation(Config &config) override;
+    void printAllObjects() override;
+    void add() override;
+    vector<int> find(int option) override;
+    void read(int index) override;
+    void edit(int option, int index) override;
+    void deleteObj(int index) override;
+
+    friend ostream &operator<<(ostream &os, const Book &book);
 };
 
 Student getStudent(Adaptor *adaptor, int nameSize, int lastNameSize);
+Book getBook(Adaptor *adaptor, int nameSize, int authorSize, int publisherSize);
 
 bool check_number(const string &str);
 
