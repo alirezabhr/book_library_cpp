@@ -1103,3 +1103,27 @@ ostream &operator<<(ostream &os, const Book &book) {
        << book.author << " | " << book.publisher << " | " << personName << endl;
     return os;
 }
+
+Record::Record(Adaptor *adaptor, int studentId, int bookId, Date loanDate, Date returnDate) {
+    this->objAdaptor = adaptor;
+    this->objectFileName = constFileName;
+    string fileName = this->objectFileName + ".txt";
+    this->objAdaptor->setFileName(fileName);
+    this->fieldsName = constFieldsName;
+    this->studentId = studentId;
+    this->bookId = bookId;
+    this->intLoanedDate = loanDate.toInt();
+    this->intReturnDate = returnDate.toInt();
+}
+
+Record::Record(Adaptor *adaptor) {
+    this->objAdaptor = adaptor;
+    this->objectFileName = constFileName;
+    string fileName = this->objectFileName + ".txt";
+    this->objAdaptor->setFileName(fileName);
+    this->fieldsName = constFieldsName;
+    this->studentId = 0;
+    this->bookId = 0;
+    this->intLoanedDate = 0;
+    this->intReturnDate = 0;
+}

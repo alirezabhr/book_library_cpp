@@ -86,11 +86,31 @@ public:
 };
 
 class Record: public Object{
+    int studentId;
+    int bookId;
+    int intLoanedDate;
+    int intReturnDate;
+    const string constFileName = "Record";
+    const vector<string> constFieldsName = {"Student Id", "Book Id", "Loan Date", "Return Date"};
+public:
+    Record(Adaptor *adaptor, int studentId, int bookId, Date loanDate, Date returnDate);
+    Record(Adaptor *adaptor);
 
+    static Adaptor *getObjectAdaptor(Config &config);
+    bool checkConfigValidation(Config &config) override;
+    void printAllObjects() override;
+    void add() override;
+    vector<int> find(int option) override;
+    void read(int index) override;
+    void edit(int option, int index) override;
+    void deleteObj(int index) override;
+
+    friend ostream &operator<<(ostream &os, const Record &record);
 };
 
 Student getStudent(Adaptor *adaptor, int nameSize, int lastNameSize);
 Book getBook(Adaptor *adaptor, int nameSize, int authorSize, int publisherSize);
+Record getRecord(Adaptor *adaptor);
 
 bool check_number(const string &str);
 
