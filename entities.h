@@ -6,6 +6,18 @@
 
 class Student;
 
+class Date{
+    int year;
+    int month;
+    int day;
+public:
+    Date(int year, int month, int day);
+    static Date createDate();
+    static Date intToDate(int intDate);
+    int toInt();
+    friend ostream &operator<<(ostream &os, const Date &date);
+};
+
 class Object {
 protected:
     int uniqueId;
@@ -71,6 +83,10 @@ public:
     void deleteObj(int index) override;
 
     friend ostream &operator<<(ostream &os, const Book &book);
+};
+
+class Record: public Object{
+
 };
 
 Student getStudent(Adaptor *adaptor, int nameSize, int lastNameSize);

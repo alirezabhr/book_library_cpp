@@ -5,6 +5,98 @@
 
 using namespace std;
 
+Date Date::createDate() {
+    int year;
+    int month;
+    int day;
+    string input;
+    int inputNum;
+    bool isValid;
+
+    while (true) {
+        cout << "Enter Year: " << endl;
+        getline(cin, input);
+        isValid = check_number(input);
+        if (!isValid) {
+            //system("cls");
+            cout << "!! PLEASE ENTER A VALID YEAR !!" << endl;
+            continue;
+        } else {
+            inputNum = stoi(input);
+            if (inputNum > 1500 || inputNum < 1360){
+                cout << "!! PLEASE ENTER A YEAR BETWEEN 1360-1500 !!" << endl;
+                continue;
+            }
+            break;
+        }
+    }
+    year = inputNum;
+
+    while (true) {
+        cout << "Enter Month: " << endl;
+        getline(cin, input);
+        isValid = check_number(input);
+        if (!isValid) {
+            //system("cls");
+            cout << "!! PLEASE ENTER A VALID MONTH !!" << endl;
+            continue;
+        } else {
+            inputNum = stoi(input);
+            if (inputNum > 12 || inputNum < 1){
+                cout << "!! PLEASE ENTER A MONTH BETWEEN 1-12!!" << endl;
+                continue;
+            }
+            break;
+        }
+    }
+    month = inputNum;
+
+    while (true) {
+        cout << "Enter Day: " << endl;
+        getline(cin, input);
+        isValid = check_number(input);
+        if (!isValid) {
+            //system("cls");
+            cout << "!! PLEASE ENTER A VALID DAY !!" << endl;
+            continue;
+        } else {
+            inputNum = stoi(input);
+            if (inputNum > 31 || inputNum < 1){
+                cout << "!! PLEASE ENTER A DAY BETWEEN 1-31!!" << endl;
+                continue;
+            }
+            break;
+        }
+    }
+    day = inputNum;
+
+    return {year, month, day};
+}
+
+Date::Date(int year, int month, int day) : year(year), month(month), day(day) {}
+
+Date Date::intToDate(int intDate) {
+    int date = intDate;
+    int day = date % 100;
+    date /= 100;
+    int month = intDate % 100;
+    date /= 100;
+    if (date > 1500 || date < 1360) {
+        cout << "Bad Int Date!" << endl;
+    }
+    return {date, month, day};
+}
+
+int Date::toInt() {
+    int intDate = this->year*10000+this->month*100+this->day;
+    return intDate;
+}
+
+ostream &operator<<(ostream &os, const Date &date) {
+    os << date.year << "/" << date.month << "/" << date.day << endl;
+    return os;
+}
+
 Student getStudent(Adaptor *adaptor, int nameSz, int lastNameSz) {
     string name;
     string lastName;
@@ -242,8 +334,6 @@ void Student::add() {
         cout << "Add Student Finished, Unsuccessfully!" << endl;
         return;
     }
-
-//    objAdaptor->setRecSize(recordSize);
 
     objAdaptor->setRecord(recordSize);
     objAdaptor->setIntField(id);
