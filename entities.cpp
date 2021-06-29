@@ -675,7 +675,7 @@ void Book::add() {
     }
 
     objAdaptor->setRecord(recordSize);
-    objAdaptor->set8BytesField(this->isbn);
+    objAdaptor->setLongLongField(this->isbn);
     objAdaptor->setIntField(this->onLoan);
     objAdaptor->setField(nameSize, this->name);
     objAdaptor->setField(authorSize, this->author);
@@ -832,7 +832,7 @@ void Book::read(int index) {
     }
 
     id = objAdaptor->getIntField(startIndex);
-    bookIsbn = objAdaptor->get8BytesField(startIndex);
+    bookIsbn = objAdaptor->getLongLongField(startIndex);
     bookOnLoan = objAdaptor->getIntField(startIndex);
     bookName = objAdaptor->getField(startIndex);
     bookAuthor = objAdaptor->getField(startIndex);

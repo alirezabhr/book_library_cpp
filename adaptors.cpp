@@ -3,12 +3,10 @@
 
 FixRecFixStrAdap::FixRecFixStrAdap(Config& conf)  {
     this->adpConf = conf;
-//    this->recSize = conf.getRecordSize();
 }
 
 FixRecDynStrAdap::FixRecDynStrAdap(Config& conf) {
     this->adpConf = conf;
-//    this->recSize = conf.getRecordSize();
 }
 
 DynRecFixStrAdap::DynRecFixStrAdap(Config& conf) {
@@ -18,14 +16,6 @@ DynRecFixStrAdap::DynRecFixStrAdap(Config& conf) {
 DynRecDynStrAdap::DynRecDynStrAdap(Config& conf) {
     adpConf = conf;
 }
-
-//void Adaptor::setRecSize(int recordSize) {
-//    Adaptor::recSize = recordSize;
-//}
-//
-//int Adaptor::getRecSize() {
-//    return recSize;
-//}
 
 char *Adaptor::readFromTo(int start, int end) {
     char *data = new char[end-start+1];
@@ -82,7 +72,7 @@ void Adaptor::editIntField(int startIndex, int num) {
     delete[] data2;
 }
 
-void Adaptor::set8BytesField(long long num) {
+void Adaptor::setLongLongField(long long num) {
     string file = this->fileName;
     ofstream outfile;
     outfile.open(file, ios::binary | ios::out | ios::app);
@@ -90,9 +80,9 @@ void Adaptor::set8BytesField(long long num) {
     outfile.close();
 }
 
-long long Adaptor::get8BytesField(int &startIndex) {
+long long Adaptor::getLongLongField(int &startIndex) {
     string file = this->fileName;
-    int fieldValue = -3;
+    long long fieldValue = -3;
 
     ifstream infile;
     infile.open(file, ios::binary | ios::in);
@@ -103,25 +93,6 @@ long long Adaptor::get8BytesField(int &startIndex) {
     infile.close();
 
     return fieldValue;
-}
-
-void Adaptor::edit8BytesField(int startIndex, long long num) {
-    string file = this->fileName;
-    int fieldValue = num;
-    int fieldSize = sizeof(long long);
-    int fileSize = getFileSize(file);
-    char *data1 = readFromTo(0,startIndex);
-    char *data2 = readFromTo(startIndex+fieldSize, fileSize);
-
-    ofstream outfile;
-    outfile.open(file, ios::binary | ios::out);
-    outfile.write(data1, startIndex);
-    outfile.write(reinterpret_cast<char *>(&fieldValue), fieldSize);
-    outfile.write(data2, fileSize-(startIndex+fieldSize));
-
-    outfile.close();
-    delete[] data1;
-    delete[] data2;
 }
 
 const Config &Adaptor::getAdpConf() const {
@@ -218,60 +189,6 @@ int FixedRecordAdap::getRecord(int index) {
     return totalSize+4;
 }
 
-//void FixedRecordAdap::editRecord(int index, int diff) {
-////    cout << "Fixed Record Adap:: set record function" << endl;
-//    int startIndex = 0;
-//    int fileSize = getFileSize(fileName);
-//
-//    for (int i = 0; i < index; ++i) {
-//        startIndex += recSize;
-//        startIndex += sizeof(int);
-//        startIndex += sizeof(int);  //unique id
-//    }
-//    if (startIndex >= fileSize) {
-//        return;
-//    }
-//
-//    if (diff > 0) {
-//        char *zeroEx = new char[diff];
-//        for (int i = 0; i < diff; ++i) {
-//            zeroEx[i] = 0;
-//        }
-//
-//        char *data1 = readFromTo(0,startIndex-diff);
-//        char *data2 = readFromTo(startIndex-diff, fileSize);
-//
-//        ofstream outfile;
-//        outfile.open(fileName, ios::binary | ios::out);
-//        outfile.write(data1, startIndex-diff);
-//        outfile.close();
-//
-//        outfile.open(fileName, ios::binary | ios::app);
-//        outfile.write(zeroEx, diff);
-//        outfile.write(data2, fileSize-(startIndex-diff));
-//        outfile.close();
-//
-//        delete[] zeroEx;
-//        delete[] data1;
-//        delete[] data2;
-//    } else {
-//        char *data1 = readFromTo(0,startIndex);
-//        char *data2 = readFromTo(startIndex-diff, fileSize);
-//
-//        ofstream outfile;
-//        outfile.open(fileName, ios::binary | ios::out);
-//        outfile.write(data1, startIndex);
-//        outfile.close();
-//
-//        outfile.open(fileName, ios::binary | ios::app);
-//        outfile.write(data2, fileSize-(startIndex-diff));
-//        outfile.close();
-//        delete[] data1;
-//        delete[] data2;
-//    }
-//
-//}
-
 void DynamicRecordAdap::writeRec() {
     cout << "write rec in DynamicRecordAdap" << endl;
 }
@@ -343,10 +260,6 @@ int DynamicRecordAdap::getRecord(int index) {
 
     return totalSize+4;
 }
-
-//void DynamicRecordAdap::editRecord(int index, int diff) {
-//    cout << "DynRecordAdap::editRecord" << endl;
-//}
 
 void FixedStringAdap::setField(const string &fileName, int fieldSize, string fieldValue) {
 //    cout << "Fixed String Adap:: set field function" << endl;

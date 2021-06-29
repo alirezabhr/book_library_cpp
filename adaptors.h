@@ -13,18 +13,14 @@ class Adaptor;
 
 class Adaptor {
 protected:
-//    int recSize = 0;
     Config adpConf;
     string fileName;
 public:
-    void setRecSize(int recSize);
-    int getRecSize();
     char *readFromTo(int start, int end);
     virtual void writeRec() = 0;
     virtual void readRec() = 0;
     virtual void setRecord(int size) = 0;
     virtual int getRecord(int index) = 0;
-//    virtual void editRecord(int index, int diff) = 0;
     virtual void edit(char *data1, char *data2) = 0;
     virtual void setField(int size, string value) = 0;
     virtual string getField(int &startIndex) = 0;
@@ -32,9 +28,8 @@ public:
     void setIntField(int num);
     int getIntField(int &startIndex);
     void editIntField(int startIndex, int num);
-    void set8BytesField(long long num);
-    long long get8BytesField(int &startIndex);
-    void edit8BytesField(int startIndex, long long num);
+    void setLongLongField(long long num);
+    long long getLongLongField(int &startIndex);
     const Config &getAdpConf() const;
     void setFileName(const string &fileName);
 
@@ -47,7 +42,6 @@ public:
     void readRec() override;
     void setRecord(int size) override;
     int getRecord(int index) override;
-//    void editRecord(int index, int diff) override;
 };
 
 class DynamicRecordAdap : public Adaptor{
@@ -56,7 +50,6 @@ public:
     void readRec() override;
     void setRecord(int size) override;
     int getRecord(int index) override;
-//    void editRecord(int index, int diff) override;
 };
 
 class FixedStringAdap {  //similar to interface in java
