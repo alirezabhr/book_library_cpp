@@ -156,10 +156,10 @@ Student::Student(Adaptor *adaptor) {
 bool Student::checkConfigValidation(Config &config) {
     bool isValid = true;
 
-    int thisRecSize = (3* sizeof(int)) + this->name.size() + this->lastName.size();
+    int thisRecSize = (3 * sizeof(int)) + this->name.size() + this->lastName.size();
 
-    if (config.getStudentRecordMode() == "Fix"){
-        if (config.getStudentStringMode() == "Fix"){   // fix rec fix str
+    if (config.getStudentRecordMode() == "Fix") {
+        if (config.getStudentStringMode() == "Fix") {   // fix rec fix str
             if (thisRecSize > config.getStudentRecordSize()) {
                 isValid = false;
                 cout << "\aYOUR RECORD SIZE IS MORE THAN CONFIG RECORD SIZE!" << endl;
@@ -172,14 +172,14 @@ bool Student::checkConfigValidation(Config &config) {
                 isValid = false;
                 cout << "\aYOUR LAST NAME IS TOO LONG!" << endl;
             }
-        } else{ // fix rec dyn str
+        } else { // fix rec dyn str
             if (thisRecSize > config.getStudentRecordSize()) {
                 isValid = false;
                 cout << "\aYOUR RECORD SIZE IS MORE THAN CONFIG RECORD SIZE!" << endl;
             }
         }
-    } else{
-        if (config.getStudentStringMode() == "Fix"){   // dyn rec fix str
+    } else {
+        if (config.getStudentStringMode() == "Fix") {   // dyn rec fix str
             if (this->name.size() > config.getStudentNameSize()) {
                 isValid = false;
                 cout << "\aYOUR NAME IS TOO LONG!" << endl;
@@ -188,7 +188,7 @@ bool Student::checkConfigValidation(Config &config) {
                 isValid = false;
                 cout << "\aYOUR LAST NAME IS TOO LONG!" << endl;
             }
-        } else{ // dyn rec dyn str
+        } else { // dyn rec dyn str
 
         }
     }
@@ -200,6 +200,7 @@ void Student::printAllObjects() {
     try {
         int objectsCount = this->objectCount();
         cout << "Number Of " << this->objectFileName << "s: " << objectsCount << endl;
+        cout << "id: STD-NO | STD-NAME | STD-LAST NAME" << endl;
 
         for (int i = 1; i <= objectsCount; ++i) {
             this->read(i);
@@ -270,7 +271,7 @@ vector<int> Student::find(int option) {
     switch (option) {
         case 0: //find by unique id
             while (true) {
-                cout << "Enter Student Id: " << endl;
+                cout << "Enter Student Unique Id: " << endl;
                 getline(cin, input);
                 isValidNum = check_number(input);
                 if (!isValidNum) {
@@ -425,12 +426,12 @@ void Student::edit(int option, int index) {
     vector<Student> v1;
     vector<Student> v2;
 
-    for (int i = 1; i <= index-1; ++i) {
+    for (int i = 1; i <= index - 1; ++i) {
         this->read(i);
         v1.push_back(*this);
     }
 
-    for (int j = index+1; j <= objectCount; ++j) {
+    for (int j = index + 1; j <= objectCount; ++j) {
         this->read(j);
         v2.push_back(*this);
     }
@@ -460,12 +461,12 @@ void Student::deleteObj(int index) {
     vector<Student> v1;
     vector<Student> v2;
 
-    for (int i = 1; i <= index-1; ++i) {
+    for (int i = 1; i <= index - 1; ++i) {
         this->read(i);
         v1.push_back(*this);
     }
 
-    for (int j = index+1; j <= objectCount; ++j) {
+    for (int j = index + 1; j <= objectCount; ++j) {
         this->read(j);
         v2.push_back(*this);
     }
@@ -496,7 +497,8 @@ string Student::getLastName() {
 }
 
 ostream &operator<<(ostream &os, const Student &student) {
-    os << student.uniqueId << ": " << student.studentID << " | " << student.name << " | " << student.lastName << std::endl;
+    os << student.uniqueId << ": " << student.studentID << " | " << student.name << " | " << student.lastName
+       << std::endl;
     return os;
 }
 
@@ -520,7 +522,7 @@ Adaptor *Student::getObjectAdaptor(Config &config) {
     return adaptor;
 }
 
-Book::Book(Adaptor *adaptor, long long isbn, const string &name, const string &author, const string &publisher){
+Book::Book(Adaptor *adaptor, long long isbn, const string &name, const string &author, const string &publisher) {
     this->objAdaptor = adaptor;
     this->objectFileName = constFileName;
     string fileName = this->objectFileName + ".txt";
@@ -530,10 +532,20 @@ Book::Book(Adaptor *adaptor, long long isbn, const string &name, const string &a
     this->name = name;
     this->author = author;
     this->publisher = publisher;
+    this->onLoan = 0;
 }
 
-Book::Book(Adaptor *adaptor){
-    Book(adaptor, 0, "", "", "");
+Book::Book(Adaptor *adaptor) {
+    this->objAdaptor = adaptor;
+    this->objectFileName = constFileName;
+    string fileName = this->objectFileName + ".txt";
+    this->objAdaptor->setFileName(fileName);
+    this->fieldsName = constFieldsName;
+    this->isbn = 0;
+    this->name = "";
+    this->author = "";
+    this->publisher = "";
+    this->onLoan = 0;
 }
 
 Adaptor *Book::getObjectAdaptor(Config &config) {
@@ -559,11 +571,12 @@ Adaptor *Book::getObjectAdaptor(Config &config) {
 bool Book::checkConfigValidation(Config &config) {
     bool isValid = true;
 
-    int thisRecSize = sizeof(long long) + (3* sizeof(int)) + this->name.size() + this->author.size() + this->publisher.size() +
+    int thisRecSize =
+            sizeof(long long) + (3 * sizeof(int)) + this->name.size() + this->author.size() + this->publisher.size() +
             sizeof(int);
 
-    if (config.getBookRecordMode() == "Fix"){
-        if (config.getBookStringMode() == "Fix"){   // fix rec fix str
+    if (config.getBookRecordMode() == "Fix") {
+        if (config.getBookStringMode() == "Fix") {   // fix rec fix str
             if (thisRecSize > config.getBookRecordSize()) {
                 isValid = false;
                 cout << "\aYOUR RECORD SIZE IS MORE THAN CONFIG RECORD SIZE!" << endl;
@@ -580,14 +593,14 @@ bool Book::checkConfigValidation(Config &config) {
                 isValid = false;
                 cout << "\aYOUR PUBLISHER IS TOO LONG!" << endl;
             }
-        } else{ // fix rec dyn str
+        } else { // fix rec dyn str
             if (thisRecSize > config.getBookRecordSize()) {
                 isValid = false;
                 cout << "\aYOUR RECORD SIZE IS MORE THAN CONFIG RECORD SIZE!" << endl;
             }
         }
-    } else{
-        if (config.getBookStringMode() == "Fix"){   // dyn rec fix str
+    } else {
+        if (config.getBookStringMode() == "Fix") {   // dyn rec fix str
             if (this->name.size() > config.getBookNameSize()) {
                 isValid = false;
                 cout << "\aYOUR NAME IS TOO LONG!" << endl;
@@ -600,7 +613,7 @@ bool Book::checkConfigValidation(Config &config) {
                 isValid = false;
                 cout << "\aYOUR PUBLISHER IS TOO LONG!" << endl;
             }
-        } else{ // dyn rec dyn str
+        } else { // dyn rec dyn str
 
         }
     }
@@ -612,6 +625,7 @@ void Book::printAllObjects() {
     try {
         int objectsCount = this->objectCount();
         cout << "Number Of " << this->objectFileName << "s: " << objectsCount << endl;
+        cout << "id: BOOK-NAME | BOOK-AUTHOR | BOOK-PUBLISHER | ON-LOAN" << endl;
 
         for (int i = 1; i <= objectsCount; ++i) {
             this->read(i);
@@ -645,13 +659,13 @@ void Book::add() {
         authorSize = conf.getBookAuthorSize();
         publisherSize = conf.getBookPublisherSize();
         recordSize = isbnSize + sizeof(int) + nameSize + sizeof(int) + authorSize + sizeof(int) + publisherSize +
-                sizeof(int);
+                     sizeof(int);
     } else {    //Dynamic Record Dynamic String
         nameSize = this->name.size();
         authorSize = this->author.size();
         publisherSize = this->publisher.size();
         recordSize = isbnSize + sizeof(int) + nameSize + sizeof(int) + authorSize + sizeof(int) + publisherSize +
-                                                            sizeof(int);
+                     sizeof(int);
     }
 
     bool isValid = checkConfigValidation(conf);
@@ -662,28 +676,325 @@ void Book::add() {
 
     objAdaptor->setRecord(recordSize);
     objAdaptor->set8BytesField(this->isbn);
+    objAdaptor->setIntField(this->onLoan);
     objAdaptor->setField(nameSize, this->name);
     objAdaptor->setField(authorSize, this->author);
     objAdaptor->setField(publisherSize, this->publisher);
-    objAdaptor->setIntField(this->onLoan);
 
     cout << "Book Added Successfully" << endl;
 }
 
 vector<int> Book::find(int option) {
-    return vector<int>();
+    string input;
+    int inputNum;
+    long long bookIsbn;
+    bool isValidNum;
+    vector<int> idList;
+    int objectsCount;
+
+    try {
+        objectsCount = this->objectCount();
+    } catch (fstream::failure &exp) {
+        cout << "\aERROR: Can't Open This File" << endl;
+        return {};
+    }
+
+
+    switch (option) {
+        case 0: //find by unique id
+            while (true) {
+                cout << "Enter Book Unique Id: " << endl;
+                getline(cin, input);
+                isValidNum = check_number(input);
+                if (!isValidNum) {
+                    //system("cls");
+                    cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
+                    continue;
+                } else {
+                    inputNum = stoi(input);
+                    break;
+                }
+            }
+
+            if (inputNum > objectsCount || inputNum <= 0) {
+                cout << "\aBook With Unique Id \'" << inputNum << "\' Does Not Exist!" << endl;
+            } else {
+                idList.push_back(inputNum);
+            }
+            return idList;
+        case 1: //find by book isbn
+            while (true) {
+                cout << "Enter Book ISBN: " << endl;
+                getline(cin, input);
+                isValidNum = check_number(input);
+                if (!isValidNum) {
+                    //system("cls");
+                    cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
+                    continue;
+                } else {
+                    bookIsbn = stoll(input);
+                    break;
+                }
+            }
+            for (int i = 1; i <= objectsCount; ++i) {
+                this->read(i);
+                if (this->isbn == bookIsbn) {
+                    idList.push_back(i);
+                }
+            }
+            if (idList.empty()) {
+                cout << "\aBook With ISBN \'" << bookIsbn << "\' NOT FOUND" << endl;
+            }
+            return idList;
+        case 2: //find by name
+            cout << "Enter Book Name: " << endl;
+            getline(cin, input);
+            for (int i = 1; i <= objectsCount; ++i) {
+                this->read(i);
+                if (this->name == input) {
+                    idList.push_back(i);
+                }
+            }
+            if (idList.empty()) {
+                cout << "\aBook With Name \'" << input << "\' NOT FOUND" << endl;
+            }
+            return idList;
+        case 3: //find by author
+            cout << "Enter Book Author: " << endl;
+            getline(cin, input);
+            for (int i = 1; i <= objectsCount; ++i) {
+                this->read(i);
+                if (this->author == input) {
+                    idList.push_back(i);
+                }
+            }
+            if (idList.empty()) {
+                cout << "\aBook With Author \'" << input << "\' NOT FOUND" << endl;
+            }
+            return idList;
+        case 4: //find by publisher
+            cout << "Enter Book Publisher: " << endl;
+            getline(cin, input);
+            for (int i = 1; i <= objectsCount; ++i) {
+                this->read(i);
+                if (this->publisher == input) {
+                    idList.push_back(i);
+                }
+            }
+            if (idList.empty()) {
+                cout << "\aBook With Publisher \'" << input << "\' NOT FOUND" << endl;
+            }
+            return idList;
+        case 5: //find by student (on Loan)
+            while (true) {
+                cout << "Enter Student Unique Id: " << endl;
+                getline(cin, input);
+                isValidNum = check_number(input);
+                if (!isValidNum) {
+                    //system("cls");
+                    cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
+                    continue;
+                } else {
+                    inputNum = stoi(input);
+                    break;
+                }
+            }
+            for (int i = 1; i <= objectsCount; ++i) {
+                this->read(i);
+                if (this->onLoan == inputNum) {
+                    idList.push_back(i);
+                }
+            }
+            if (idList.empty()) {
+                cout << "\aStudent With Unique Id \'" << inputNum << "\' Didn't Borrowed Any Book" << endl;
+            }
+            return idList;
+        default:
+            return idList;
+    }
 }
 
 void Book::read(int index) {
+    int startIndex = 0;
+    int id;
+    long long bookIsbn;
+    string bookName;
+    string bookAuthor;
+    string bookPublisher;
+    int bookOnLoan;
 
+    try {
+        startIndex = objAdaptor->getRecord(index);
+    } catch (out_of_range &e) {
+        throw e;
+    } catch (ifstream::failure &e) {
+        throw e;
+    }
+
+    id = objAdaptor->getIntField(startIndex);
+    bookIsbn = objAdaptor->get8BytesField(startIndex);
+    bookOnLoan = objAdaptor->getIntField(startIndex);
+    bookName = objAdaptor->getField(startIndex);
+    bookAuthor = objAdaptor->getField(startIndex);
+    bookPublisher = objAdaptor->getField(startIndex);
+
+    this->uniqueId = id;
+    this->isbn = bookIsbn;
+    this->onLoan = bookOnLoan;
+    this->name = bookName;
+    this->author = bookAuthor;
+    this->publisher = bookPublisher;
 }
 
 void Book::edit(int option, int index) {
+    Config config = objAdaptor->getAdpConf();
+    string input;
+    int inputNum;
+    long long inputIsbn;
+    bool isValidNum;
+    string fileName = objAdaptor->getFileName();
 
+    switch (option) {
+        case 1: //edit book isbn
+            while (true) {
+                cout << "Edit Book ISBN: " << endl;
+                getline(cin, input);
+                isValidNum = check_number(input);
+                if (!isValidNum) {
+                    //system("cls");
+                    cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
+                    continue;
+                } else {
+                    inputIsbn = stoll(input);
+                    break;
+                }
+            }
+            this->isbn = inputIsbn;
+            break;
+        case 2: //edit book name
+        {
+            cout << "Edit Book Name: " << endl;
+            getline(cin, input);
+            this->name = input;
+
+        }
+            break;
+        case 3: //edit book author
+        {
+            cout << "Edit Book Author: " << endl;
+            getline(cin, input);
+            this->author = input;
+        }
+            break;
+        case 4: //edit book publisher
+        {
+            cout << "Edit Book Publisher: " << endl;
+            getline(cin, input);
+            this->publisher = input;
+
+        }
+            break;
+        case 5: //edit book onLoan (student id)
+            Adaptor *adp = Student::getObjectAdaptor(config);
+            Student tmpStudent(adp);
+            int studentCount = tmpStudent.objectCount();
+            while (true) {
+                cout << "Edit Student Id: " << endl;
+                getline(cin, input);
+                isValidNum = check_number(input);
+                if (!isValidNum) {
+                    //system("cls");
+                    cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
+                    continue;
+                } else {
+                    inputNum = stoi(input);
+                    if (inputNum > studentCount || inputNum <= 0) {
+                        cout << "!! STUDENT WITH THIS ID DOES NOT EXIST !!" << endl;
+                        continue;
+                    }
+                    break;
+                }
+            }
+            this->onLoan = inputNum;
+            break;
+    }
+
+
+    bool isValid = checkConfigValidation(config);
+    if (!isValid) {
+        cout << "Edit Student Finished, Unsuccessfully!" << endl;
+        return;
+    }
+
+    int tmpId = this->uniqueId;
+    int tmpBookLoan = this->onLoan;
+    string tmpBookName = this->name;
+    string tmpBookAuthor = this->author;
+    string tmpBookPublisher = this->publisher;
+    long long tmpBookIsbn = this->isbn;
+
+    int objectCount = this->objectCount();
+    vector<Book> v1;
+    vector<Book> v2;
+
+    for (int i = 1; i <= index - 1; ++i) {
+        this->read(i);
+        v1.push_back(*this);
+    }
+
+    for (int j = index + 1; j <= objectCount; ++j) {
+        this->read(j);
+        v2.push_back(*this);
+    }
+
+    ofstream outfile;
+    outfile.open(fileName, ios::binary | ios::out);
+    outfile.close();
+
+    for (Book book1: v1) {
+        book1.add();
+    }
+
+    this->uniqueId = tmpId;
+    this->isbn = tmpBookIsbn;
+    this->onLoan = tmpBookLoan;
+    this->name = tmpBookName;
+    this->author = tmpBookAuthor;
+    this->publisher = tmpBookPublisher;
+    this->add();
+
+    for (Book book2: v2) {
+        book2.add();
+    }
 }
 
 void Book::deleteObj(int index) {
+    string fileName = objAdaptor->getFileName();
+    int objectCount = this->objectCount();
+    vector<Book> v1;
+    vector<Book> v2;
 
+    for (int i = 1; i <= index - 1; ++i) {
+        this->read(i);
+        v1.push_back(*this);
+    }
+
+    for (int j = index + 1; j <= objectCount; ++j) {
+        this->read(j);
+        v2.push_back(*this);
+    }
+
+    ofstream outfile;
+    outfile.open(fileName, ios::binary | ios::out);
+    outfile.close();
+
+    for (Book book: v1) {
+        book.add();
+    }
+
+    for (Book book: v2) {
+        book.add();
+    }
 }
 
 ostream &operator<<(ostream &os, const Book &book) {
@@ -691,12 +1002,14 @@ ostream &operator<<(ostream &os, const Book &book) {
     if (book.onLoan == 0) {
         personName = "Un-Borrowed";
     } else {
-        Student tmpStudent(book.objAdaptor);
+        Config conf = book.objAdaptor->getAdpConf();
+        Adaptor *stdAdp = Student::getObjectAdaptor(conf);
+        Student tmpStudent(stdAdp);
         tmpStudent.read(book.onLoan);
         personName = tmpStudent.getName() + " " + tmpStudent.getLastName();
     }
 
     os << "id: " << book.uniqueId << " | " << book.isbn << " | " << book.name << " | "
-       << book.author << " | " << book.publisher << " | " <<  personName;
+       << book.author << " | " << book.publisher << " | " << personName << endl;
     return os;
 }

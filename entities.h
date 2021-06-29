@@ -51,12 +51,12 @@ public:
 
 class Book: public Object{
     long long isbn;
+    int onLoan; // 0 if nobody loan this book, or student id if someone loan it
     string name;
     string author;
     string publisher;
-    int onLoan = 0; // 0 if nobody loan this book, or student id if someone loan it
     const string constFileName = "Book";
-    const vector<string> constFieldsName = {"ISBN", "Name", "Author", "Publisher", "Student"};
+    const vector<string> constFieldsName = {"ISBN", "Name", "Author", "Publisher", "Loan Id"};
 public:
     Book(Adaptor *adaptor, long long isbn, const string &name, const string &author, const string &publisher);
     Book(Adaptor *adaptor);
