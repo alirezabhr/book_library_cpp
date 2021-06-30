@@ -55,9 +55,11 @@ public:
     void read(int index) override;
     void edit(int option, int index) override;
     void deleteObj(int index) override;
+
     int getStudentId();
     string getName();
     string getLastName();
+
     friend ostream &operator<<(ostream &os, const Student &student);
 };
 
@@ -81,6 +83,8 @@ public:
     void read(int index) override;
     void edit(int option, int index) override;
     void deleteObj(int index) override;
+
+    const string &getName() const;
 
     friend ostream &operator<<(ostream &os, const Book &book);
 };
@@ -110,7 +114,7 @@ public:
 
 Student getStudent(Adaptor *adaptor, int nameSize, int lastNameSize);
 Book getBook(Adaptor *adaptor, int nameSize, int authorSize, int publisherSize);
-Record getRecord(Adaptor *adaptor);
+Record getLibraryRecord(Adaptor *adaptor);
 
 bool check_number(const string &str);
 

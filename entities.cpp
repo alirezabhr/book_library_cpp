@@ -23,7 +23,7 @@ Date Date::createDate() {
             continue;
         } else {
             inputNum = stoi(input);
-            if (inputNum > 1500 || inputNum < 1360){
+            if (inputNum > 1500 || inputNum < 1360) {
                 cout << "!! PLEASE ENTER A YEAR BETWEEN 1360-1500 !!" << endl;
                 continue;
             }
@@ -42,7 +42,7 @@ Date Date::createDate() {
             continue;
         } else {
             inputNum = stoi(input);
-            if (inputNum > 12 || inputNum < 1){
+            if (inputNum > 12 || inputNum < 1) {
                 cout << "!! PLEASE ENTER A MONTH BETWEEN 1-12!!" << endl;
                 continue;
             }
@@ -61,7 +61,7 @@ Date Date::createDate() {
             continue;
         } else {
             inputNum = stoi(input);
-            if (inputNum > 31 || inputNum < 1){
+            if (inputNum > 31 || inputNum < 1) {
                 cout << "!! PLEASE ENTER A DAY BETWEEN 1-31!!" << endl;
                 continue;
             }
@@ -88,12 +88,12 @@ Date Date::intToDate(int intDate) {
 }
 
 int Date::toInt() {
-    int intDate = this->year*10000+this->month*100+this->day;
+    int intDate = this->year * 10000 + this->month * 100 + this->day;
     return intDate;
 }
 
 ostream &operator<<(ostream &os, const Date &date) {
-    os << date.year << "/" << date.month << "/" << date.day << endl;
+    os << date.year << "/" << date.month << "/" << date.day;
     return os;
 }
 
@@ -190,6 +190,49 @@ Book getBook(Adaptor *adaptor, int nameSize, int authorSize, int publisherSize) 
     Book book(adaptor, isbn, name, author, publisher);
 //    system("cls");
     return book;
+}
+
+Record getLibraryRecord(Adaptor *adaptor) {
+    int studentId;
+    int bookId;
+    string input;
+    bool isValidNum;
+
+    cout << "-----------RECORD FORM-----------" << endl;
+    while (true) {
+        cout << "enter student id: ";
+        getline(cin, input);
+        isValidNum = check_number(input);
+        if (!isValidNum) {
+            //system("cls");
+            cout << "!! PLEASE ENTER A VALID STUDENT ID !!" << endl;
+            continue;
+        } else {
+            studentId = stoi(input);
+            break;
+        }
+    }
+    while (true) {
+        cout << "enter book id: ";
+        getline(cin, input);
+        isValidNum = check_number(input);
+        if (!isValidNum) {
+            //system("cls");
+            cout << "!! PLEASE ENTER A VALID BOOK ID !!" << endl;
+            continue;
+        } else {
+            bookId = stoi(input);
+            break;
+        }
+    }
+    cout << "loan date: ";
+    Date loanDate = Date::createDate();
+    cout << "return date: ";
+    Date returnDate = Date::createDate();
+
+    Record record(adaptor, studentId, bookId, loanDate, returnDate);
+//    system("cls");
+    return record;
 }
 
 bool check_number(const string &str) {
@@ -292,7 +335,7 @@ void Student::printAllObjects() {
     try {
         int objectsCount = this->objectCount();
         cout << "Number Of " << this->objectFileName << "s: " << objectsCount << endl;
-        cout << "id: STD-NO | STD-NAME | STD-LAST NAME" << endl;
+        cout << "id: n | STD-NO | STD-NAME | STD-LAST NAME" << endl;
 
         for (int i = 1; i <= objectsCount; ++i) {
             this->read(i);
@@ -715,7 +758,7 @@ void Book::printAllObjects() {
     try {
         int objectsCount = this->objectCount();
         cout << "Number Of " << this->objectFileName << "s: " << objectsCount << endl;
-        cout << "id: BOOK-NAME | BOOK-AUTHOR | BOOK-PUBLISHER | ON-LOAN" << endl;
+        cout << "id: n | BOOK-NAME | BOOK-AUTHOR | BOOK-PUBLISHER | ON-LOAN" << endl;
 
         for (int i = 1; i <= objectsCount; ++i) {
             this->read(i);
@@ -760,7 +803,7 @@ void Book::add() {
 
     bool isValid = checkConfigValidation(conf);
     if (!isValid) {
-        cout << "Add Student Finished, Unsuccessfully!" << endl;
+        cout << "Add Book Finished, Unsuccessfully!" << endl;
         return;
     }
 
@@ -1087,6 +1130,10 @@ void Book::deleteObj(int index) {
     }
 }
 
+const string &Book::getName() const {
+    return name;
+}
+
 ostream &operator<<(ostream &os, const Book &book) {
     string personName;
     if (book.onLoan == 0) {
@@ -1126,4 +1173,375 @@ Record::Record(Adaptor *adaptor) {
     this->bookId = 0;
     this->intLoanedDate = 0;
     this->intReturnDate = 0;
+}
+
+Adaptor *Record::getObjectAdaptor(Config &config) {
+    Adaptor *adaptor;
+
+    if (config.getLibRecRecordMode() == "Fix") {
+        if (config.getLibRecStringMode() == "Fix") {
+            adaptor = new FixRecFixStrAdap(config);
+        } else {
+            adaptor = new FixRecDynStrAdap(config);
+        }
+    } else {
+        if (config.getLibRecStringMode() == "Fix") {
+            adaptor = new DynRecFixStrAdap(config);
+        } else {
+            adaptor = new DynRecDynStrAdap(config);
+        }
+    }
+
+    return adaptor;
+}
+
+bool Record::checkConfigValidation(Config &config) {
+    bool isValid = true;
+
+    int thisRecSize = 4 * sizeof(int);
+    if (thisRecSize > config.getLibRecRecordSize()) {
+        cout << "\aYOUR CONFIG RECORD SIZE IS TOO SMALL!" << endl;
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+void Record::printAllObjects() {
+    try {
+        int objectsCount = this->objectCount();
+        cout << "Number Of " << this->objectFileName << "s: " << objectsCount << endl;
+        cout << "id: n | STUDENT-NAME | BOOK-NAME | LOAN-DATE | RETURN-DATE" << endl;
+
+        for (int i = 1; i <= objectsCount; ++i) {
+            this->read(i);
+            cout << *this;
+        }
+    } catch (ifstream::failure &exc) {
+        cout << "\aERROR: Can't Open This File" << endl;
+    }
+}
+
+void Record::add() {
+    Config conf = objAdaptor->getAdpConf();
+    int recordSize;
+
+    if (conf.getLibRecRecordMode() == "Fix") {
+        recordSize = conf.getBookRecordSize();
+    } else {
+        recordSize = 4 * sizeof(int);
+    }
+
+    bool isValid = checkConfigValidation(conf);
+    if (!isValid) {
+        cout << "Add Record Finished, Unsuccessfully!" << endl;
+        return;
+    }
+
+    objAdaptor->setRecord(recordSize);
+    objAdaptor->setIntField(this->studentId);
+    objAdaptor->setIntField(this->bookId);
+    objAdaptor->setIntField(this->intLoanedDate);
+    objAdaptor->setIntField(this->intReturnDate);
+
+    cout << "Record Added Successfully" << endl;
+}
+
+vector<int> Record::find(int option) {
+    string input;
+    int inputNum;
+    bool isValidNum;
+    vector<int> idList;
+    int objectsCount;
+
+    try {
+        objectsCount = this->objectCount();
+    } catch (fstream::failure &exp) {
+        cout << "\aERROR: Can't Open This File" << endl;
+        return {};
+    }
+
+
+    switch (option) {
+        case 0: //find by unique id
+            while (true) {
+                cout << "Enter Record Unique Id: " << endl;
+                getline(cin, input);
+                isValidNum = check_number(input);
+                if (!isValidNum) {
+                    //system("cls");
+                    cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
+                    continue;
+                } else {
+                    inputNum = stoi(input);
+                    break;
+                }
+            }
+
+            if (inputNum > objectsCount || inputNum <= 0) {
+                cout << "\aRecord With Unique Id \'" << inputNum << "\' Does Not Exist!" << endl;
+            } else {
+                idList.push_back(inputNum);
+            }
+            return idList;
+        case 1: //find by student id
+            while (true) {
+                cout << "Enter Student Id: " << endl;
+                getline(cin, input);
+                isValidNum = check_number(input);
+                if (!isValidNum) {
+                    //system("cls");
+                    cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
+                    continue;
+                } else {
+                    inputNum = stoi(input);
+                    break;
+                }
+            }
+            for (int i = 1; i <= objectsCount; ++i) {
+                this->read(i);
+                if (this->studentId == inputNum) {
+                    idList.push_back(i);
+                }
+            }
+            if (idList.empty()) {
+                cout << "\aRecord With Student Id \'" << inputNum << "\' NOT FOUND" << endl;
+            }
+            return idList;
+        case 2: //find by book id
+            while (true) {
+                cout << "Enter Book Id: " << endl;
+                getline(cin, input);
+                isValidNum = check_number(input);
+                if (!isValidNum) {
+                    //system("cls");
+                    cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
+                    continue;
+                } else {
+                    inputNum = stoi(input);
+                    break;
+                }
+            }
+            for (int i = 1; i <= objectsCount; ++i) {
+                this->read(i);
+                if (this->bookId == inputNum) {
+                    idList.push_back(i);
+                }
+            }
+            if (idList.empty()) {
+                cout << "\aRecord With Book Id \'" << inputNum << "\' NOT FOUND" << endl;
+            }
+            return idList;
+        case 3: //find by loaned date
+        {
+            cout << "Enter Loan Date: " << endl;
+            Date date1 = Date::createDate();
+            for (int i = 1; i <= objectsCount; ++i) {
+                this->read(i);
+                if (this->intLoanedDate == date1.toInt()) {
+                    idList.push_back(i);
+                }
+            }
+            if (idList.empty()) {
+                cout << "\aRecord With Loan Date \'" << date1 << "\' NOT FOUND" << endl;
+            }
+        }
+            return idList;
+        case 4: //find by return date
+        {
+            cout << "Enter Return Date: " << endl;
+            Date date2 = Date::createDate();
+            for (int i = 1; i <= objectsCount; ++i) {
+                this->read(i);
+                if (this->intReturnDate == date2.toInt()) {
+                    idList.push_back(i);
+                }
+            }
+            if (idList.empty()) {
+                cout << "\aRecord With Return Date \'" << date2 << "\' NOT FOUND" << endl;
+            }
+        }
+            return idList;
+        default:
+            return idList;
+    }
+}
+
+void Record::read(int index) {
+    int startIndex = 0;
+    int id;
+    int stdId;
+    int bkId;
+    int loanDate;
+    int returnDate;
+
+    try {
+        startIndex = objAdaptor->getRecord(index);
+    } catch (out_of_range &e) {
+        throw e;
+    } catch (ifstream::failure &e) {
+        throw e;
+    }
+
+    id = objAdaptor->getIntField(startIndex);
+    stdId = objAdaptor->getIntField(startIndex);
+    bkId = objAdaptor->getIntField(startIndex);
+    loanDate = objAdaptor->getIntField(startIndex);
+    returnDate = objAdaptor->getIntField(startIndex);
+
+    this->uniqueId = id;
+    this->studentId = stdId;
+    this->bookId = bkId;
+    this->intLoanedDate = loanDate;
+    this->intReturnDate = returnDate;
+}
+
+void Record::edit(int option, int index) {
+    Config config = objAdaptor->getAdpConf();
+    string input;
+    int inputNum;
+    bool isValidNum;
+    string fileName = objAdaptor->getFileName();
+
+    switch (option) {
+        case 1: //edit record student id
+            while (true) {
+                cout << "Edit Record Student Id: " << endl;
+                getline(cin, input);
+                isValidNum = check_number(input);
+                if (!isValidNum) {
+                    //system("cls");
+                    cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
+                    continue;
+                } else {
+                    inputNum = stoi(input);
+                    break;
+                }
+            }
+            this->studentId = inputNum;
+            break;
+        case 2: //edit record book id
+            while (true) {
+                cout << "Edit Record Book Id: " << endl;
+                getline(cin, input);
+                isValidNum = check_number(input);
+                if (!isValidNum) {
+                    //system("cls");
+                    cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
+                    continue;
+                } else {
+                    inputNum = stoi(input);
+                    break;
+                }
+            }
+            this->bookId = inputNum;
+            break;
+        case 3: //edit record loan date
+        {
+            cout << "Edit Record Loan Date: " << endl;
+            Date date1 = Date::createDate();
+            this->intLoanedDate = date1.toInt();
+        }
+            break;
+        case 4: //edit record return date
+        {
+            cout << "Edit Record Return Date: " << endl;
+            Date date2 = Date::createDate();
+            this->intReturnDate = date2.toInt();
+        }
+    }
+
+
+    bool isValid = checkConfigValidation(config);
+    if (!isValid) {
+        cout << "Edit Student Finished, Unsuccessfully!" << endl;
+        return;
+    }
+
+    int tmpId = this->uniqueId;
+    int tmpRecStdId = this->studentId;
+    int tmpRecBookId = this->bookId;
+    int tmpRecLoanDate = this->intLoanedDate;
+    int tmpRecReturnDate = this->intReturnDate;
+
+    int objectCount = this->objectCount();
+    vector<Record> v1;
+    vector<Record> v2;
+
+    for (int i = 1; i <= index - 1; ++i) {
+        this->read(i);
+        v1.push_back(*this);
+    }
+
+    for (int j = index + 1; j <= objectCount; ++j) {
+        this->read(j);
+        v2.push_back(*this);
+    }
+
+    ofstream outfile;
+    outfile.open(fileName, ios::binary | ios::out);
+    outfile.close();
+
+    for (Record record1: v1) {
+        record1.add();
+    }
+
+    this->uniqueId = tmpId;
+    this->studentId = tmpRecStdId;
+    this->bookId = tmpRecBookId;
+    this->intLoanedDate = tmpRecLoanDate;
+    this->intReturnDate = tmpRecReturnDate;
+    this->add();
+
+    for (Record record2: v2) {
+        record2.add();
+    }
+}
+
+void Record::deleteObj(int index) {
+    Config config = objAdaptor->getAdpConf();
+    string fileName = objAdaptor->getFileName();
+    int objectCount = this->objectCount();
+    vector<Record> v1;
+    vector<Record> v2;
+
+    for (int i = 1; i <= index - 1; ++i) {
+        this->read(i);
+        v1.push_back(*this);
+    }
+
+    for (int j = index + 1; j <= objectCount; ++j) {
+        this->read(j);
+        v2.push_back(*this);
+    }
+
+    ofstream outfile;
+    outfile.open(fileName, ios::binary | ios::out);
+    outfile.close();
+
+    for (Record record1: v1) {
+        record1.add();
+    }
+
+    for (Record record2: v2) {
+        record2.add();
+    }
+}
+
+ostream &operator<<(ostream &os, const Record &record) {
+    Config conf = record.objAdaptor->getAdpConf();
+
+    Adaptor *stdAdp = Student::getObjectAdaptor(conf);
+    Student student(stdAdp);
+    student.read(record.studentId);
+    Adaptor *bookAdp = Book::getObjectAdaptor(conf);
+    Book book(bookAdp);
+    book.read(record.bookId);
+
+    Date loanDate = Date::intToDate(record.intLoanedDate);
+    Date returnDate = Date::intToDate(record.intReturnDate);
+
+    os << "id: " << record.uniqueId << " | " << student.getName() << " | " << book.getName() << " | " << loanDate
+       << " | " << returnDate << endl;
+    return os;
 }
