@@ -53,3 +53,7 @@ cmake-build-debug
 CMakeLists.txt
 .idea
 config.txt
+
+Book.txt
+Record.txt
+Student.txt

@@ -126,7 +126,6 @@ Student getStudent(Adaptor *adaptor, int nameSz, int lastNameSz) {
         getline(cin, stdNoStr);
         isValidNum = check_number(stdNoStr);
         if (!isValidNum) {
-            //system("cls");
             cout << "!! PLEASE ENTER A VALID STUDENT ID !!" << endl;
             continue;
         } else {
@@ -136,7 +135,7 @@ Student getStudent(Adaptor *adaptor, int nameSz, int lastNameSz) {
     }
 
     Student s(adaptor, stdNo, name, lastName);
-//    system("cls");
+    system("cls");
     return s;
 }
 
@@ -178,7 +177,6 @@ Book getBook(Adaptor *adaptor, int nameSize, int authorSize, int publisherSize) 
         getline(cin, isbnStr);
         isValidNum = check_number(isbnStr);
         if (!isValidNum) {
-            //system("cls");
             cout << "!! PLEASE ENTER A VALID BOOK ISBN !!" << endl;
             continue;
         } else {
@@ -188,7 +186,7 @@ Book getBook(Adaptor *adaptor, int nameSize, int authorSize, int publisherSize) 
     }
 
     Book book(adaptor, isbn, name, author, publisher);
-//    system("cls");
+    system("cls");
     return book;
 }
 
@@ -212,7 +210,6 @@ Record getLibraryRecord(Adaptor *adaptor) {
         getline(cin, input);
         isValidNum = check_number(input);
         if (!isValidNum) {
-            //system("cls");
             cout << "!! PLEASE ENTER A VALID STUDENT ID !!" << endl;
             continue;
         } else {
@@ -229,7 +226,6 @@ Record getLibraryRecord(Adaptor *adaptor) {
         getline(cin, input);
         isValidNum = check_number(input);
         if (!isValidNum) {
-            //system("cls");
             cout << "!! PLEASE ENTER A VALID BOOK ID !!" << endl;
             continue;
         } else {
@@ -252,7 +248,7 @@ Record getLibraryRecord(Adaptor *adaptor) {
             continue;
         }
         Record record = Record(adaptor, studentId, bookId, loanDate, returnDate);
-        //    system("cls");
+        system("cls");
         return record;
     }
 }
@@ -354,6 +350,7 @@ bool Student::checkConfigValidation(Config &config) {
 }
 
 void Student::printAllObjects() {
+    system("cls");
     try {
         int objectsCount = this->objectCount();
         cout << "Number Of " << this->objectFileName << "s: " << objectsCount << endl;
@@ -376,6 +373,7 @@ void Student::add() {
     int nameSize;
     int lastNameSize;
 
+    system("cls");
     if (conf.getStudentRecordMode() == "Fix" && conf.getStudentStringMode() == "Fix") {
         nameSize = conf.getStudentNameSize();
         lastNameSize = conf.getStudentLastNameSize();
@@ -404,8 +402,6 @@ void Student::add() {
     objAdaptor->setIntField(id);
     objAdaptor->setField(nameSize, this->name);
     objAdaptor->setField(lastNameSize, this->lastName);
-
-    cout << "Student Added Successfully" << endl;
 }
 
 vector<int> Student::find(int option) {
@@ -415,6 +411,7 @@ vector<int> Student::find(int option) {
     vector<int> idList;
     int objectsCount;
 
+    system("cls");
     try {
         objectsCount = this->objectCount();
     } catch (fstream::failure &exp) {
@@ -533,6 +530,7 @@ void Student::edit(int option, int index) {
     bool isValidNum;
     string fileName = objAdaptor->getFileName();
 
+    system("cls");
     switch (option) {
         case 1: //edit student id
             while (true) {
@@ -777,6 +775,7 @@ bool Book::checkConfigValidation(Config &config) {
 }
 
 void Book::printAllObjects() {
+    system("cls");
     try {
         int objectsCount = this->objectCount();
         cout << "Number Of " << this->objectFileName << "s: " << objectsCount << endl;
@@ -799,6 +798,7 @@ void Book::add() {
     int authorSize;
     int publisherSize;
 
+    system("cls");
     if (conf.getBookRecordMode() == "Fix" && conf.getBookStringMode() == "Fix") {
         nameSize = conf.getBookNameSize();
         authorSize = conf.getBookAuthorSize();
@@ -835,8 +835,6 @@ void Book::add() {
     objAdaptor->setField(nameSize, this->name);
     objAdaptor->setField(authorSize, this->author);
     objAdaptor->setField(publisherSize, this->publisher);
-
-    cout << "Book Added Successfully" << endl;
 }
 
 vector<int> Book::find(int option) {
@@ -847,6 +845,7 @@ vector<int> Book::find(int option) {
     vector<int> idList;
     int objectsCount;
 
+    system("cls");
     try {
         objectsCount = this->objectCount();
     } catch (fstream::failure &exp) {
@@ -1009,6 +1008,7 @@ void Book::edit(int option, int index) {
     bool isValidNum;
     string fileName = objAdaptor->getFileName();
 
+    system("cls");
     switch (option) {
         case 1: //edit book isbn
             while (true) {
@@ -1197,6 +1197,51 @@ void Book::addLoan(int index, int studentId) {
     }
 }
 
+void Book::removeLoan(int index) {
+    this->read(index);
+    string fileName = objAdaptor->getFileName();
+    int objectCount = this->objectCount();
+    vector<Book> v1;
+    vector<Book> v2;
+
+    int tmpId = this->uniqueId;
+    string tmpBookName = this->name;
+    string tmpBookAuthor = this->author;
+    string tmpBookPublisher = this->publisher;
+    long long tmpBookIsbn = this->isbn;
+
+
+    for (int i = 1; i <= index - 1; ++i) {
+        this->read(i);
+        v1.push_back(*this);
+    }
+
+    for (int j = index + 1; j <= objectCount; ++j) {
+        this->read(j);
+        v2.push_back(*this);
+    }
+
+    ofstream outfile;
+    outfile.open(fileName, ios::binary | ios::out);
+    outfile.close();
+
+    for (Book book1: v1) {
+        book1.add();
+    }
+
+    this->uniqueId = tmpId;
+    this->isbn = tmpBookIsbn;
+    this->onLoan = 0;
+    this->name = tmpBookName;
+    this->author = tmpBookAuthor;
+    this->publisher = tmpBookPublisher;
+    this->add();
+
+    for (Book book2: v2) {
+        book2.add();
+    }
+}
+
 const string &Book::getName() const {
     return name;
 }
@@ -1279,6 +1324,7 @@ bool Record::checkConfigValidation(Config &config) {
 }
 
 void Record::printAllObjects() {
+    system("cls");
     try {
         int objectsCount = this->objectCount();
         cout << "Number Of " << this->objectFileName << "s: " << objectsCount << endl;
@@ -1300,6 +1346,7 @@ void Record::add() {
     int recordSize;
 
     tmpBook.read(this->bookId);
+    system("cls");
     if (tmpBook.getOnLoan() != 0) {
         cout << "Book Is On Loan!" << endl;
         cout << "\aAdd Record Failed!" << endl;
@@ -1324,8 +1371,6 @@ void Record::add() {
     objAdaptor->setIntField(this->bookId);
     objAdaptor->setIntField(this->intLoanedDate);
     objAdaptor->setIntField(this->intReturnDate);
-
-    cout << "Record Added Successfully" << endl;
 }
 
 vector<int> Record::find(int option) {
@@ -1335,6 +1380,7 @@ vector<int> Record::find(int option) {
     vector<int> idList;
     int objectsCount;
 
+    system("cls");
     try {
         objectsCount = this->objectCount();
     } catch (fstream::failure &exp) {
@@ -1484,6 +1530,7 @@ void Record::edit(int option, int index) {
     bool isValidNum;
     string fileName = objAdaptor->getFileName();
 
+    system("cls");
     switch (option) {
         case 1: //edit record student id
         {
@@ -1495,7 +1542,6 @@ void Record::edit(int option, int index) {
                 getline(cin, input);
                 isValidNum = check_number(input);
                 if (!isValidNum) {
-                    //system("cls");
                     cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
                     continue;
                 } else {
@@ -1520,7 +1566,6 @@ void Record::edit(int option, int index) {
                 getline(cin, input);
                 isValidNum = check_number(input);
                 if (!isValidNum) {
-                    //system("cls");
                     cout << "!! PLEASE ENTER A VALID NUMBER !!" << endl;
                     continue;
                 } else {
@@ -1529,6 +1574,10 @@ void Record::edit(int option, int index) {
                         cout << "Book With Unique Id '" << inputNum << "' Not Found" << endl;
                         continue;
                     }
+                    tmpBook.read(bookId);   //should remove onLoan in this book
+                    tmpBook.removeLoan(bookId);
+                    tmpBook.read(inputNum); //should add onLoan in this book
+                    tmpBook.addLoan(inputNum, this->studentId);
                     break;
                 }
             }

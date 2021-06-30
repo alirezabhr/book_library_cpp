@@ -28,6 +28,7 @@ int main() {
     int option = 0;
     int findOption = 0;
     int editOption = 0;
+    bool firstTime = true;
 
     try {
         config = getAdaptorOptions();
@@ -41,7 +42,11 @@ int main() {
     recordAdaptor = Record::getObjectAdaptor(config);
 
     while (true) {
+        if (!firstTime) {
+            showEnterKey();
+        }
         option = showMainMenu();
+        firstTime = false;
 
         switch (option) {
             case ADD_STUDENT_OPTION: {
@@ -49,6 +54,7 @@ int main() {
                 Student student = getStudent(studentAdaptor, config.getStudentNameSize(),
                                              config.getStudentLastNameSize());
                 student.add();
+                cout << "Student Added Successfully" << endl;
             }
                 break;
             case ALL_STUDENTS_OPTION: {
@@ -86,6 +92,7 @@ int main() {
                 }
                 editOption = editObjectMenu(tmpStudent);
                 tmpStudent.edit(editOption, idList.at(0));
+                cout << "Student Edited Successfully" << endl;
             }
                 break;
             case DELETE_STUDENT_OPTION: {
@@ -105,6 +112,7 @@ int main() {
                     continue;
                 }
                 tmpStudent.deleteObj(idList.at(0));
+                cout << "Student Deleted Successfully" << endl;
             }
                 break;
             case ADD_BOOK_OPTION: {
@@ -112,6 +120,7 @@ int main() {
                 Book book = getBook(bookAdaptor, config.getBookNameSize(), config.getBookAuthorSize(),
                                     config.getBookPublisherSize());
                 book.add();
+                cout << "Book Added Successfully" << endl;
             }
                 break;
             case ALL_BOOKS_OPTION: {
@@ -149,6 +158,7 @@ int main() {
                 }
                 editOption = editObjectMenu(tmpBook);
                 tmpBook.edit(editOption, idList.at(0));
+                cout << "Book Edited Successfully" << endl;
             }
                 break;
             case DELETE_BOOK_OPTION:{
@@ -168,12 +178,14 @@ int main() {
                     continue;
                 }
                 tmpBook.deleteObj(idList.at(0));
+                cout << "Book Deleted Successfully" << endl;
             }
                 break;
             case ADD_RECORD_OPTION: {
                 cout << "Add Record" << endl;
                 Record record = getLibraryRecord(recordAdaptor);
                 record.add();
+                cout << "Record Added Successfully" << endl;
             }
                 break;
             case ALL_RECORDS_OPTION: {
@@ -211,6 +223,7 @@ int main() {
                 }
                 editOption = editObjectMenu(tmpRecord);
                 tmpRecord.edit(editOption, idList.at(0));
+                cout << "Record Edited Successfully" << endl;
             }
                 break;
             case DELETE_RECORD_OPTION:{

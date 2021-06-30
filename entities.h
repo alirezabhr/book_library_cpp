@@ -84,6 +84,7 @@ public:
     void edit(int option, int index) override;
     void deleteObj(int index) override;
     void addLoan(int index, int studentId);
+    void removeLoan(int index);
 
     const string &getName() const;
     int getOnLoan() const;
