@@ -30,13 +30,14 @@ int main() {
     int editOption = 0;
     bool firstTime = true;
 
-    try {
+    try {       // check validations for config.txt file
         config = getAdaptorOptions();
     } catch (CONFIG_EXCEPTION &ce) {
         cout << "\aError (in config file): " << ce.getMsg() << endl;
         return 0;
     }
 
+    // get adaptor for each object
     studentAdaptor = Student::getObjectAdaptor(config);
     bookAdaptor = Book::getObjectAdaptor(config);
     recordAdaptor = Record::getObjectAdaptor(config);

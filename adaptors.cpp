@@ -17,6 +17,13 @@ DynRecDynStrAdap::DynRecDynStrAdap(Config& conf) {
     adpConf = conf;
 }
 
+/**
+ * This function uses to read a file from start to end.
+ *
+ * @param start The start index of file
+ * @param end The end index of file
+ * @return char* as a data of selected part of that file
+ */
 char *Adaptor::readFromTo(int start, int end) {
     char *data = new char[end-start+1];
 
@@ -115,6 +122,14 @@ void FixedRecordAdap::readRec() {
     cout << "read rec in FixedRecordAdap" << endl;
 }
 
+/**
+ * This function sets a Record in file.
+ * gets the record size and writes it in file, in 4Bytes.
+ * after that writes the unique id of that Object, in next 4Bytes.
+ *
+ * @param size The size of record
+ * @return void
+ */
 void FixedRecordAdap::setRecord(int size) {
 //    cout << "Fixed Record Adap:: set record function" << endl;
     string file = this->fileName;
@@ -261,6 +276,16 @@ int DynamicRecordAdap::getRecord(int index) {
     return totalSize+4;
 }
 
+/**
+ * A function to set a string field in specific file.
+ * Gets a fieldSize, and add it in 4Bytes in that file. it has size of that string field
+ * Gets a fieldValue, and append it to file in {fieldSize}Bytes.
+ *
+ * @param fileName The name of file
+ * @param fieldSize The size of that string field
+ * @param fieldValue The value of that string field
+ * @return void
+ */
 void FixedStringAdap::setField(const string &fileName, int fieldSize, string fieldValue) {
 //    cout << "Fixed String Adap:: set field function" << endl;
     const string& file = fileName;

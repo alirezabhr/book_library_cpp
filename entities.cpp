@@ -5,6 +5,10 @@
 
 using namespace std;
 
+/**
+ * This function create an object of Date class.
+ * @return Date object
+ */
 Date Date::createDate() {
     int year;
     int month;
@@ -87,6 +91,10 @@ Date Date::intToDate(int intDate) {
     return {date, month, day};
 }
 
+/**
+ * A function to convert Date object to Integer.
+ * @return integer which indicates dates
+ */
 int Date::toInt() {
     int intDate = this->year * 10000 + this->month * 100 + this->day;
     return intDate;
@@ -306,6 +314,12 @@ Student::Student(Adaptor *adaptor) {
     this->fieldsName = constFieldsName;
 }
 
+/**
+ * A function to check the validation of config file.
+ *
+ * @param config an object of Config Class
+ * @return boolean which shows the state of configuration
+ */
 bool Student::checkConfigValidation(Config &config) {
     bool isValid = true;
 
@@ -404,6 +418,12 @@ void Student::add() {
     objAdaptor->setField(lastNameSize, this->lastName);
 }
 
+/**
+ * This function finds all objects with your desirable properties.
+ *
+ * @param option
+ * @return vector of integers that includes all objects unique id
+ */
 vector<int> Student::find(int option) {
     string input;
     int inputNum;
@@ -1000,6 +1020,13 @@ void Book::read(int index) {
     this->publisher = bookPublisher;
 }
 
+/**
+ * A function to edit an Object record.
+ *
+ * @param option
+ * @param index The index of record that you want to change it
+ * @return void
+ */
 void Book::edit(int option, int index) {
     Config config = objAdaptor->getAdpConf();
     string input;
@@ -1152,6 +1179,13 @@ void Book::deleteObj(int index) {
     }
 }
 
+/**
+ * This function uses to change onLoan property of Book Class.
+ *
+ * @param index The index of Book which you want to change its onLoan property
+ * @param studentId The id of person that Loan this book
+ * @return void
+ */
 void Book::addLoan(int index, int studentId) {
     string fileName = objAdaptor->getFileName();
     int objectCount = this->objectCount();
@@ -1634,6 +1668,12 @@ void Record::edit(int option, int index) {
     }
 }
 
+/**
+ * This function delete a record of an Object.
+ *
+ * @param index The index of Object which you want to remove it
+ * @return void
+ */
 void Record::deleteObj(int index) {
     Config config = objAdaptor->getAdpConf();
     string fileName = objAdaptor->getFileName();

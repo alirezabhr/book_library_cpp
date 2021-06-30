@@ -103,6 +103,14 @@ int Config::getLibRecRecordSize() const {
     return libRecRecordSize;
 }
 
+/**
+ * This function uses to set attributes and assign a value to them.
+ * It will check the name of field, and if it is correct is will assign the value to the attribute
+ *
+ * @param field The name of field (this is what you wrote in config.txt file)
+ * @param value The value of field
+ * @return void
+ */
 void Config::setFields(const std::string& field, const std::string& value) {
     if (field == "STD_RECORD_MODE") {
         if (value == "Fix") {

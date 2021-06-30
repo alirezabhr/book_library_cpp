@@ -4,8 +4,11 @@ using namespace std;
 
 #define MAX_MENU_OPTIONS 15
 
-
-int showMainMenu() {    //return int number from [1(add student), 2(all students), ...]
+/**
+ * This function shows the main menu.
+ * @return integer as a selected number
+ */
+int showMainMenu() {
     string inputNum;
     int inputNumInt;
     bool isValidNum;
