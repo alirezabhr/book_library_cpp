@@ -198,6 +198,14 @@ Record getLibraryRecord(Adaptor *adaptor) {
     string input;
     bool isValidNum;
 
+    Config config = adaptor->getAdpConf();
+    Adaptor *stdAdp = Student::getObjectAdaptor(config);
+    Adaptor *bookAdp = Book::getObjectAdaptor(config);
+    Student tmpStudent(stdAdp);
+    Book tmpBook(bookAdp);
+    int studentCount = tmpStudent.objectCount();
+    int bookCount = tmpBook.objectCount();
+
     cout << "-----------RECORD FORM-----------" << endl;
     while (true) {
         cout << "enter student id: ";
@@ -209,6 +217,10 @@ Record getLibraryRecord(Adaptor *adaptor) {
             continue;
         } else {
             studentId = stoi(input);
+            if (studentId > studentCount || studentId <= 0) {
+                cout << "Student With Unique Id '" << studentId << "' Not Found" << endl;
+                continue;
+            }
             break;
         }
     }
@@ -222,17 +234,27 @@ Record getLibraryRecord(Adaptor *adaptor) {
             continue;
         } else {
             bookId = stoi(input);
+            if (bookId > bookCount || bookId <= 0) {
+                cout << "Book With Unique Id '" << bookId << "' Not Found" << endl;
+                continue;
+            }
             break;
         }
     }
-    cout << "loan date: ";
-    Date loanDate = Date::createDate();
-    cout << "return date: ";
-    Date returnDate = Date::createDate();
-
-    Record record(adaptor, studentId, bookId, loanDate, returnDate);
-//    system("cls");
-    return record;
+    while (true) {
+        cout << "*loan date*" << endl;
+        Date loanDate = Date::createDate();
+        cout << "*return date*" << endl;
+        Date returnDate = Date::createDate();
+        if (returnDate.toInt() < loanDate.toInt()) {
+            cout << "Dates Are Not Correct!" << endl;
+            cout << "Try Another Dates" << endl;
+            continue;
+        }
+        Record record = Record(adaptor, studentId, bookId, loanDate, returnDate);
+        //    system("cls");
+        return record;
+    }
 }
 
 bool check_number(const string &str) {
@@ -1211,7 +1233,7 @@ void Record::printAllObjects() {
     try {
         int objectsCount = this->objectCount();
         cout << "Number Of " << this->objectFileName << "s: " << objectsCount << endl;
-        cout << "id: n | STUDENT-NAME | BOOK-NAME | LOAN-DATE | RETURN-DATE" << endl;
+        cout << "id: n | STUDENT-NAME | STUDENT-LAST-NAME | BOOK-NAME | LOAN-DATE | RETURN-DATE" << endl;
 
         for (int i = 1; i <= objectsCount; ++i) {
             this->read(i);
@@ -1405,6 +1427,10 @@ void Record::edit(int option, int index) {
 
     switch (option) {
         case 1: //edit record student id
+        {
+            Adaptor *stdAdp = Student::getObjectAdaptor(config);
+            Student tmpStudent(stdAdp);
+            int studentCount = tmpStudent.objectCount();
             while (true) {
                 cout << "Edit Record Student Id: " << endl;
                 getline(cin, input);
@@ -1415,12 +1441,21 @@ void Record::edit(int option, int index) {
                     continue;
                 } else {
                     inputNum = stoi(input);
+                    if (inputNum > studentCount || inputNum <= 0) {
+                        cout << "Student With Unique Id '" << inputNum << "' Not Found" << endl;
+                        continue;
+                    }
                     break;
                 }
             }
             this->studentId = inputNum;
+        }
             break;
         case 2: //edit record book id
+        {
+            Adaptor *bookAdp = Book::getObjectAdaptor(config);
+            Book tmpBook(bookAdp);
+            int bookCount = tmpBook.objectCount();
             while (true) {
                 cout << "Edit Record Book Id: " << endl;
                 getline(cin, input);
@@ -1431,10 +1466,15 @@ void Record::edit(int option, int index) {
                     continue;
                 } else {
                     inputNum = stoi(input);
+                    if (inputNum > bookCount || inputNum <= 0) {
+                        cout << "Book With Unique Id '" << inputNum << "' Not Found" << endl;
+                        continue;
+                    }
                     break;
                 }
             }
             this->bookId = inputNum;
+        }
             break;
         case 3: //edit record loan date
         {
@@ -1541,7 +1581,7 @@ ostream &operator<<(ostream &os, const Record &record) {
     Date loanDate = Date::intToDate(record.intLoanedDate);
     Date returnDate = Date::intToDate(record.intReturnDate);
 
-    os << "id: " << record.uniqueId << " | " << student.getName() << " | " << book.getName() << " | " << loanDate
+    os << "id: " << record.uniqueId << " | " << student.getName() << " | " << student.getLastName() << " | " << book.getName() << " | " << loanDate
        << " | " << returnDate << endl;
     return os;
 }
