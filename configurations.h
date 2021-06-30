@@ -31,9 +31,13 @@ class Config {
     int bookNameSize = 0;
     int bookAuthorSize = 0;
     int bookPublisherSize = 0;
+    string libRecRecordMode;
+    string libRecStringMode;
+    int libRecRecordSize = 0;
 public:
     Config();
     void checkConfigValidation();
+
     const string &getStudentRecordMode() const;
     const string &getStudentStringMode() const;
     int getStudentRecordSize() const;
@@ -41,16 +45,15 @@ public:
     int getStudentLastNameSize() const;
 
     const string &getBookRecordMode() const;
-
     const string &getBookStringMode() const;
-
     int getBookRecordSize() const;
-
     int getBookNameSize() const;
-
     int getBookAuthorSize() const;
-
     int getBookPublisherSize() const;
+
+    const string &getLibRecRecordMode() const;
+    const string &getLibRecStringMode() const;
+    int getLibRecRecordSize() const;
 
     void setFields(const string& field, const string& value);
     static vector<string> tokenize(string line);

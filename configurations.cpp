@@ -91,6 +91,18 @@ int Config::getBookPublisherSize() const {
     return bookPublisherSize;
 }
 
+const string &Config::getLibRecRecordMode() const {
+    return libRecRecordMode;
+}
+
+const string &Config::getLibRecStringMode() const {
+    return libRecStringMode;
+}
+
+int Config::getLibRecRecordSize() const {
+    return libRecRecordSize;
+}
+
 void Config::setFields(const std::string& field, const std::string& value) {
     if (field == "STD_RECORD_MODE") {
         if (value == "Fix") {
@@ -213,6 +225,35 @@ void Config::setFields(const std::string& field, const std::string& value) {
                 }
             } catch (exception &err) {
                 throw CONFIG_EXCEPTION("Book Publisher Size Is Not Valid!");
+            }
+        }
+    } else if (field == "LIB_REC_RECORD_MODE") {
+        if (value == "Fix") {
+            this->libRecRecordMode = value;
+        } else if (value == "Dyn") {
+            this->libRecRecordMode = value;
+        } else {
+            throw CONFIG_EXCEPTION("Wrong Record Mode!");
+        }
+    } else if (field == "LIB_REC_STRING_MODE") {
+        if (value == "Fix") {
+            this->libRecStringMode = value;
+        } else if (value == "Dyn") {
+            this->libRecStringMode = value;
+        } else {
+            throw CONFIG_EXCEPTION("Wrong String Mode!");
+        }
+    } else if (field == "LIB_REC_RECORD_SIZE") {
+        if (this->libRecRecordMode == "Dyn") {
+            this->libRecRecordSize = -1;
+        } else {
+            try {
+                this->libRecRecordSize = stoi(value);
+                if (this->libRecRecordSize < 0) {
+                    throw CONFIG_EXCEPTION("Record Size Is Not Valid!\nTry A Positive Number");
+                }
+            } catch (exception &err) {
+                throw CONFIG_EXCEPTION("Record Size Is Not Valid!");
             }
         }
     } else {
