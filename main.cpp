@@ -13,12 +13,18 @@ using namespace std;
 #define FIND_BOOK_OPTION 8
 #define EDIT_BOOK_OPTION 9
 #define DELETE_BOOK_OPTION 10
+#define ADD_RECORD_OPTION 11
+#define ALL_RECORDS_OPTION 12
+#define FIND_RECORD_OPTION 13
+#define EDIT_RECORD_OPTION 14
+#define DELETE_RECORD_OPTION 15
 #define EXIT_PROGRAM_OPTION 0
 
 int main() {
     Config config;
     Adaptor *studentAdaptor = nullptr;
     Adaptor *bookAdaptor = nullptr;
+    Adaptor *recordAdaptor = nullptr;
     int option = 0;
     int findOption = 0;
     int editOption = 0;
@@ -32,6 +38,7 @@ int main() {
 
     studentAdaptor = Student::getObjectAdaptor(config);
     bookAdaptor = Book::getObjectAdaptor(config);
+    recordAdaptor = Record::getObjectAdaptor(config);
 
     while (true) {
         option = showMainMenu();
@@ -125,7 +132,7 @@ int main() {
             }
                 break;
             case EDIT_BOOK_OPTION:{
-                cout << "Edit Student" << endl;
+                cout << "Edit Book" << endl;
                 Book tmpBook(bookAdaptor);
                 findOption = findObjectMenu(tmpBook);
                 vector<int> idList = tmpBook.find(findOption);
@@ -161,6 +168,68 @@ int main() {
                     continue;
                 }
                 tmpBook.deleteObj(idList.at(0));
+            }
+                break;
+            case ADD_RECORD_OPTION: {
+                cout << "Add Record" << endl;
+                Record record = getLibraryRecord(recordAdaptor);
+                record.add();
+            }
+                break;
+            case ALL_RECORDS_OPTION: {
+                cout << "All Records" << endl;
+                Record tmpRecord(recordAdaptor);
+                tmpRecord.printAllObjects();
+            }
+                break;
+            case FIND_RECORD_OPTION: {
+                cout << "Find Record" << endl;
+                Record tmpRecord(recordAdaptor);
+                findOption = findObjectMenu(tmpRecord);
+                vector<int> idList = tmpRecord.find(findOption);
+                for (int id: idList) {
+                    tmpRecord.read(id);
+                    cout << tmpRecord;
+                }
+            }
+                break;
+            case EDIT_RECORD_OPTION:{
+                cout << "Edit Record" << endl;
+                Record tmpRecord(recordAdaptor);
+                findOption = findObjectMenu(tmpRecord);
+                vector<int> idList = tmpRecord.find(findOption);
+                for (int id: idList) {
+                    tmpRecord.read(id);
+                    cout << tmpRecord;
+                }
+                if (idList.size() > 1) {
+                    cout << "There Is More Than One Item!" << endl;
+                    continue;
+                }
+                if (idList.empty()) {
+                    continue;
+                }
+                editOption = editObjectMenu(tmpRecord);
+                tmpRecord.edit(editOption, idList.at(0));
+            }
+                break;
+            case DELETE_RECORD_OPTION:{
+                cout << "Delete Record" << endl;
+                Record tmpRecord(recordAdaptor);
+                findOption = findObjectMenu(tmpRecord);
+                vector<int> idList = tmpRecord.find(findOption);
+                for (int id: idList) {
+                    tmpRecord.read(id);
+                    cout << tmpRecord;
+                }
+                if (idList.size() > 1) {
+                    cout << "There Is More Than One Item!" << endl;
+                    continue;
+                }
+                if (idList.empty()) {
+                    continue;
+                }
+                tmpRecord.deleteObj(idList.at(0));
             }
                 break;
             case EXIT_PROGRAM_OPTION:
