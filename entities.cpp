@@ -1152,8 +1152,57 @@ void Book::deleteObj(int index) {
     }
 }
 
+void Book::addLoan(int index, int studentId) {
+    this->read(index);
+    string fileName = objAdaptor->getFileName();
+    int objectCount = this->objectCount();
+    vector<Book> v1;
+    vector<Book> v2;
+
+    int tmpId = this->uniqueId;
+    string tmpBookName = this->name;
+    string tmpBookAuthor = this->author;
+    string tmpBookPublisher = this->publisher;
+    long long tmpBookIsbn = this->isbn;
+
+
+    for (int i = 1; i <= index - 1; ++i) {
+        this->read(i);
+        v1.push_back(*this);
+    }
+
+    for (int j = index + 1; j <= objectCount; ++j) {
+        this->read(j);
+        v2.push_back(*this);
+    }
+
+    ofstream outfile;
+    outfile.open(fileName, ios::binary | ios::out);
+    outfile.close();
+
+    for (Book book1: v1) {
+        book1.add();
+    }
+
+    this->uniqueId = tmpId;
+    this->isbn = tmpBookIsbn;
+    this->onLoan = studentId;
+    this->name = tmpBookName;
+    this->author = tmpBookAuthor;
+    this->publisher = tmpBookPublisher;
+    this->add();
+
+    for (Book book2: v2) {
+        book2.add();
+    }
+}
+
 const string &Book::getName() const {
     return name;
+}
+
+int Book::getOnLoan() const {
+    return onLoan;
 }
 
 ostream &operator<<(ostream &os, const Book &book) {
@@ -1246,10 +1295,20 @@ void Record::printAllObjects() {
 
 void Record::add() {
     Config conf = objAdaptor->getAdpConf();
+    Adaptor *bookAdap = Book::getObjectAdaptor(conf);
+    Book tmpBook(bookAdap);
     int recordSize;
 
+    tmpBook.read(this->bookId);
+    if (tmpBook.getOnLoan() != 0) {
+        cout << "Book Is On Loan!" << endl;
+        cout << "\aAdd Record Failed!" << endl;
+        return;
+    }
+    tmpBook.addLoan(this->bookId, this->studentId);
+
     if (conf.getLibRecRecordMode() == "Fix") {
-        recordSize = conf.getBookRecordSize();
+        recordSize = conf.getLibRecRecordSize();
     } else {
         recordSize = 4 * sizeof(int);
     }

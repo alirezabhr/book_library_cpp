@@ -83,8 +83,10 @@ public:
     void read(int index) override;
     void edit(int option, int index) override;
     void deleteObj(int index) override;
+    void addLoan(int index, int studentId);
 
     const string &getName() const;
+    int getOnLoan() const;
 
     friend ostream &operator<<(ostream &os, const Book &book);
 };

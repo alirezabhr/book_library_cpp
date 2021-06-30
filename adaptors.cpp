@@ -116,7 +116,7 @@ void FixedRecordAdap::readRec() {
 }
 
 void FixedRecordAdap::setRecord(int size) {
-    cout << "Fixed Record Adap:: set record function" << endl;
+//    cout << "Fixed Record Adap:: set record function" << endl;
     string file = this->fileName;
     int recordSize = size;
     int startIndex = 0;
