@@ -1153,11 +1153,11 @@ void Book::deleteObj(int index) {
 }
 
 void Book::addLoan(int index, int studentId) {
-    this->read(index);
     string fileName = objAdaptor->getFileName();
     int objectCount = this->objectCount();
     vector<Book> v1;
     vector<Book> v2;
+    this->read(index);
 
     int tmpId = this->uniqueId;
     string tmpBookName = this->name;
@@ -1198,17 +1198,10 @@ void Book::addLoan(int index, int studentId) {
 }
 
 void Book::removeLoan(int index) {
-    this->read(index);
     string fileName = objAdaptor->getFileName();
     int objectCount = this->objectCount();
     vector<Book> v1;
     vector<Book> v2;
-
-    int tmpId = this->uniqueId;
-    string tmpBookName = this->name;
-    string tmpBookAuthor = this->author;
-    string tmpBookPublisher = this->publisher;
-    long long tmpBookIsbn = this->isbn;
 
 
     for (int i = 1; i <= index - 1; ++i) {
@@ -1228,14 +1221,6 @@ void Book::removeLoan(int index) {
     for (Book book1: v1) {
         book1.add();
     }
-
-    this->uniqueId = tmpId;
-    this->isbn = tmpBookIsbn;
-    this->onLoan = 0;
-    this->name = tmpBookName;
-    this->author = tmpBookAuthor;
-    this->publisher = tmpBookPublisher;
-    this->add();
 
     for (Book book2: v2) {
         book2.add();
@@ -1315,9 +1300,11 @@ bool Record::checkConfigValidation(Config &config) {
     bool isValid = true;
 
     int thisRecSize = 4 * sizeof(int);
-    if (thisRecSize > config.getLibRecRecordSize()) {
-        cout << "\aYOUR CONFIG RECORD SIZE IS TOO SMALL!" << endl;
-        isValid = false;
+    if (config.getLibRecRecordMode() == "Fix") {
+        if (thisRecSize > config.getLibRecRecordSize()) {
+            cout << "\aYOUR CONFIG RECORD SIZE IS TOO SMALL!" << endl;
+            isValid = false;
+        }
     }
 
     return isValid;
@@ -1352,7 +1339,6 @@ void Record::add() {
         cout << "\aAdd Record Failed!" << endl;
         return;
     }
-    tmpBook.addLoan(this->bookId, this->studentId);
 
     if (conf.getLibRecRecordMode() == "Fix") {
         recordSize = conf.getLibRecRecordSize();
@@ -1365,6 +1351,8 @@ void Record::add() {
         cout << "Add Record Finished, Unsuccessfully!" << endl;
         return;
     }
+
+    tmpBook.addLoan(this->bookId, this->studentId);
 
     objAdaptor->setRecord(recordSize);
     objAdaptor->setIntField(this->studentId);
